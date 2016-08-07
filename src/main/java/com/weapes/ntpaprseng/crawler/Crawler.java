@@ -5,5 +5,5 @@ package com.weapes.ntpaprseng.crawler;
  */
 
 public interface Crawler {
-    void crawl();
+    public void crawl();
 }
