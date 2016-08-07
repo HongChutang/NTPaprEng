@@ -12,12 +12,13 @@ import static junit.framework.TestCase.assertNotNull;
 /**
  * Created by lawrence on 16/8/7.
  */
+
 public class OkHttpTest {
 
     @Test
     public void testOkHttp() throws IOException {
 
-        final String htmlMsg = run("http://www.nature.com/index.html");
+        final String htmlMsg = run("http://www.nature.com/search/advanced");
         assertNotNull(htmlMsg);
 
     }
