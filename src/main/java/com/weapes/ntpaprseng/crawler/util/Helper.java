@@ -7,6 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * Created by lawrence on 16/8/7.
@@ -16,6 +17,10 @@ public final class Helper {
     private Helper() { }
 
     private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
+<<<<<<< HEAD
+=======
+    private static final Pattern URL_CHECKER = Pattern.compile("\\w+://[\\w.]+/\\S*");
+>>>>>>> develop
 
     public static WebPage fetchWebPage(final String url)
             throws IOException {
@@ -36,8 +41,19 @@ public final class Helper {
                 .url(url)
                 .build();
 
+<<<<<<< HEAD
         OK_HTTP_CLIENT.newCall(request).enqueue(callback);
+=======
+        OK_HTTP_CLIENT
+                .newCall(request)
+                .enqueue(callback);
+>>>>>>> develop
 
     }
 
+    public static boolean isURL(String url) {
+        return URL_CHECKER
+                .matcher(url)
+                .matches();
+    }
 }
