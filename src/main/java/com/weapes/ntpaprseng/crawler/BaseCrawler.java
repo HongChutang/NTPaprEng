@@ -6,8 +6,8 @@ package com.weapes.ntpaprseng.crawler;
 
 public interface BaseCrawler extends Crawler {
 
-    public ExtractedObject extract(WebPage webPage);
+    ExtractedObject extract(final WebPage webPage);
 
-    public boolean store(ExtractedObject extractedObject);
+    boolean store(final ExtractedObject extractedObject);
 
 }
