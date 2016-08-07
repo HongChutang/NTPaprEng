@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertNotNull;
 public class OkHttpTest {
 
     @Test
-    public void testOkHttp() throws IOException {
+    public void testNatureAdvance() throws IOException {
 
         final String htmlMsg = Helper.fetchWebPage("http://www.nature.com/search/advanced").getText();
         assertNotNull(htmlMsg);
