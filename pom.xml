@@ -8,6 +8,7 @@
     <name>NTPaprSEng</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -26,6 +27,14 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.15</version>
+            <scope>extract</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.2</version>
+            <scope>extract</scope>
         </dependency>
 
     </dependencies>
