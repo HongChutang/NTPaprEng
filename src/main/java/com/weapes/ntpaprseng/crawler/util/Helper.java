@@ -11,11 +11,11 @@ import java.io.IOException;
 /**
  * Created by lawrence on 16/8/7.
  */
-public class Helper {
+public final class Helper {
 
-    private Helper() {}
+    private Helper() { }
 
-    private static final OkHttpClient okHttpClient = new OkHttpClient();
+    private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
 
     public static WebPage fetchWebPage(final String url)
             throws IOException {
@@ -24,7 +24,7 @@ public class Helper {
                 .url(url)
                 .build();
 
-        final Response executed = okHttpClient.newCall(request)
+        final Response executed = OK_HTTP_CLIENT.newCall(request)
                 .execute();
 
         return new WebPage(executed.body().string());
@@ -36,7 +36,7 @@ public class Helper {
                 .url(url)
                 .build();
 
-        okHttpClient.newCall(request).enqueue(callback);
+        OK_HTTP_CLIENT.newCall(request).enqueue(callback);
 
     }
 

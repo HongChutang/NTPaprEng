@@ -19,13 +19,13 @@ import java.util.regex.Pattern;
  */
 public class JsoupTest {
 
-    public static Pattern pattern = Pattern.compile("\\w+://[\\w.]+/\\S*");
+    public static final Pattern urlChecker = Pattern.compile("\\w+://[\\w.]+/\\S*");
 
     @Test
     @Ignore
     public void JsoupOnlineExtract() throws IOException {
 
-        final int time2Delay = 100000;
+        final int TIME_2_DELAY = 100000;
 
         final List<String> urls = new ArrayList<>();
 
@@ -33,12 +33,12 @@ public class JsoupTest {
 
         for (String url : urls) {
 
-            final Document dom = Jsoup.parse(new URL(url), time2Delay);
+            final Document dom = Jsoup.parse(new URL(url), TIME_2_DELAY);
             final Elements links = dom.select("section > ol > li > div > h2 > a");
 
             for (Element link : links) {
 
-                final boolean isURL = pattern
+                final boolean isURL = urlChecker
                         .matcher(link.attr("href"))
                         .matches();
 
