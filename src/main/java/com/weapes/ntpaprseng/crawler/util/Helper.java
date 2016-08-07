@@ -17,7 +17,8 @@ public class Helper {
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
 
-    public static WebPage fetchWebPage(final String url) throws IOException {
+    public static WebPage fetchWebPage(final String url)
+            throws IOException {
 
         final Request request = new Request.Builder()
                 .url(url)
