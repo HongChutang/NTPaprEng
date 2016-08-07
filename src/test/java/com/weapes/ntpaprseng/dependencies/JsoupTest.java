@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class JsoupTest {
 
-    public static Pattern pattern = Pattern.compile("\\w+://[\\w.]+/\\S*");
+    public static Pattern urlChecker = Pattern.compile("\\w+://[\\w.]+/\\S*");
 
     @Test
     @Ignore
@@ -38,7 +38,7 @@ public class JsoupTest {
 
             for (Element link : links) {
 
-                final boolean isURL = pattern
+                final boolean isURL = urlChecker
                         .matcher(link.attr("href"))
                         .matches();
 
