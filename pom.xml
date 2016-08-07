@@ -47,24 +47,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
             <scope>compile</scope>
-<<<<<<< HEAD
         </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations-java5</artifactId>
             <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations-java5</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations-java5</artifactId>
-            <version>RELEASE</version>
-=======
->>>>>>> develop
         </dependency>
 
     </dependencies>

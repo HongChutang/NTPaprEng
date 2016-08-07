@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.weapes.ntpaprseng.dependencies.JsoupTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.085 sec
-=======
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.069 sec
->>>>>>> develop
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.066 sec

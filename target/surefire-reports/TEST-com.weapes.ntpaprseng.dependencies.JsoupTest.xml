@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<<<<<<< HEAD
-<testsuite tests="1" failures="0" name="com.weapes.ntpaprseng.dependencies.JsoupTest" time="0.085" errors="0" skipped="1">
-=======
-<testsuite tests="1" failures="0" name="com.weapes.ntpaprseng.dependencies.JsoupTest" time="0.068" errors="0" skipped="1">
->>>>>>> develop
+<testsuite tests="1" failures="0" name="com.weapes.ntpaprseng.dependencies.JsoupTest" time="0.066" errors="0" skipped="1">
   <properties>
     <property name="idea.version" value="2016.2.1"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -16,11 +12,7 @@
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
-<<<<<<< HEAD
-    <property name="idea.launcher.port" value="7549"/>
-=======
-    <property name="idea.launcher.port" value="7535"/>
->>>>>>> develop
+    <property name="idea.launcher.port" value="7539"/>
     <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
@@ -34,11 +26,7 @@
     <property name="line.separator" value="
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-<<<<<<< HEAD
     <property name="https.proxyHost" value="localhost"/>
-=======
-    <property name="https.proxyHost" value="127.0.0.1"/>
->>>>>>> develop
     <property name="os.name" value="Mac OS X"/>
     <property name="classworlds.conf" value="/Applications/IntelliJ IDEA.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -59,11 +47,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre"/>
-<<<<<<< HEAD
-    <property name="sun.java.command" value="com.intellij.rt.execution.application.AppMain org.codehaus.classworlds.Launcher -Didea.version=2016.2.1 verify"/>
-=======
-    <property name="sun.java.command" value="com.intellij.rt.execution.application.AppMain org.codehaus.classworlds.Launcher -Didea.version=2016.2.1 test"/>
->>>>>>> develop
+    <property name="sun.java.command" value="com.intellij.rt.execution.application.AppMain org.codehaus.classworlds.Launcher -Didea.version=2016.2.1 install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="zh"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
