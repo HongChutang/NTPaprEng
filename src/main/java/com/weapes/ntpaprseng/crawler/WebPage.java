@@ -7,7 +7,7 @@ public class WebPage {
 
     private String text;
 
-    public WebPage(String text) {
+    public WebPage(final String text) {
         this.text = text;
     }
 
@@ -15,7 +15,7 @@ public class WebPage {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
