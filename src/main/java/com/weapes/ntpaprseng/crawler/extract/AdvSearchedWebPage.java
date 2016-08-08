@@ -18,7 +18,7 @@ import java.util.List;
 public class AdvSearchedWebPage extends WebPage {
 
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
-    private static final String LINK_CSS_SELECTOR =
+    private static final String PAPER_LINK_CSS_SELECTOR =
             "section > ol > li > div > h2 > a";
     private static final String PAPERS_TOTAL_NUM_SELECTOR =
             "div.filter-menu > div.pin-left > p > span:last-child";
@@ -35,40 +35,67 @@ public class AdvSearchedWebPage extends WebPage {
     @Override
     public List<? extends Link> extractAll() {
         final Document dom = Jsoup.parse(getText());
-        final Elements links = dom.select(LINK_CSS_SELECTOR);
+        final List<Link> paperLinks =
+                getPaperLinks(parsePaperLinks(dom));
 
-        final List<Link> extractedObjects = new ArrayList<>();
+        final List<Link> allLinks = new ArrayList<>();
 
-        for (Element link : links) {
+        allLinks.addAll(paperLinks);
+
+        if (isFirstPage()) {
+            allLinks.addAll(getSiblingLinks(dom));
+        }
+
+        return allLinks;
+
+    }
+
+    private List<Link> getSiblingLinks(Document dom) {
+        List<Link> siblingLinks = new ArrayList<>();
+        for (int i = 2; i <= parsePageNum(dom); i++) {
+            siblingLinks.add(new AdvSearchedLink(buildURLWithPageOrder(i)));
+        }
+        return siblingLinks;
+    }
+
+    private List<Link> getPaperLinks(Elements paperLinks) {
+
+        List<Link> filteredPapers = new ArrayList<>();
+
+        for (Element link : paperLinks) {
             final String href = link.attr("href");
 
             if (Helper.isURL(href)) {
-                extractedObjects.add(new PaperLink(href));
+                filteredPapers.add(new PaperLink(href));
             }
         }
 
-        if (getUrl().contains("page")) {
+        return filteredPapers;
+    }
 
-            final Elements allNumSpan = dom
-                    .select(PAPERS_TOTAL_NUM_SELECTOR);
-            final String allPaperNum = allNumSpan.text();
-            final int totalNum = Integer.parseInt(allPaperNum);
+    private boolean isFirstPage() {
+        return !getUrl().contains("page");
+    }
 
-            final int pageNum;
-            if ((totalNum % NUM_OF_PAPERS_PER_PAGE) == 0) {
-                pageNum = totalNum / NUM_OF_PAPERS_PER_PAGE;
-            } else {
-                pageNum = (totalNum / NUM_OF_PAPERS_PER_PAGE) + 1;
-            }
+    private int parsePageNum(Document dom) {
+        final int totalNum =
+                Integer.parseInt(parseTotalNumSpan(dom).text());
 
-            for (int i = 2; i <= pageNum; i++) {
-                final String anotherAdvPageURL = getUrl() + "&page=" + i;
-                extractedObjects.add(new AdvSearchedLink(anotherAdvPageURL));
-            }
+        return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
+                ? totalNum / NUM_OF_PAPERS_PER_PAGE
+                : (totalNum / NUM_OF_PAPERS_PER_PAGE) + 1;
 
-        }
+    }
 
-        return extractedObjects;
+    private String buildURLWithPageOrder(int i) {
+        return getUrl() + "&page=" + i;
+    }
 
+    private Elements parsePaperLinks(Document dom) {
+        return dom.select(PAPER_LINK_CSS_SELECTOR);
+    }
+
+    private Elements parseTotalNumSpan(Document dom) {
+        return dom.select(PAPERS_TOTAL_NUM_SELECTOR);
     }
 }

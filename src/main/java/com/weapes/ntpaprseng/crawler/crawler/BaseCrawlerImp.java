@@ -1,6 +1,7 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
 import com.weapes.ntpaprseng.crawler.follow.Followable;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +24,8 @@ public class BaseCrawlerImp implements Crawler {
     @Override
     public void crawl() throws IOException {
 
-        List<? extends Followable> seeds = SeedLoader.load("");
+        List<? extends Followable> seeds = Helper
+                .load("/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json");
 
         for (final Followable seed : seeds) {
             CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed));
