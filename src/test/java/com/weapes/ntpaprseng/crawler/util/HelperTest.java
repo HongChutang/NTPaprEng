@@ -2,6 +2,7 @@ package com.weapes.ntpaprseng.crawler.util;
 
 import com.weapes.ntpaprseng.crawler.follow.Followable;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 public class HelperTest {
     @Test
+    @Ignore
     public void load() throws Exception {
         final List<? extends Followable> load = Helper.load("/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json");
         Assert.assertTrue(load.size() == 1);
