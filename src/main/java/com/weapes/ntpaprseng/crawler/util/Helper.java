@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchLink;
-import com.weapes.ntpaprseng.crawler.follow.Followable;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,9 +11,9 @@ import okhttp3.Response;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.nio.charset.Charset.forName;
 
@@ -34,22 +33,22 @@ public final class Helper {
     private static final String BASE_URL =
             "http://nature.com/search";
 
-    public static List<? extends Followable> load(final String filePath)
+    public static List<AdvSearchLink> load(final String filePath)
             throws IOException {
-        final JSONObject jsonObject = fileMapToJSONObject(filePath);
 
-        List<Followable> followableList = new ArrayList<>();
+        final JSONObject jsonObject =
+                fileMapToJSONObject(filePath);
 
-        final List<String> urls = parseURLSWithJSONObject(jsonObject);
+        final List<String> urls =
+                parseURLSWithJSONObject(jsonObject);
 
-        for (String url : urls) {
-            followableList.add(new AdvSearchLink(url));
-        }
-
-        return followableList;
+        return urls.stream()
+                .map(AdvSearchLink::new)
+                .collect(Collectors.toList());
     }
 
-    private static JSONObject fileMapToJSONObject(String file) throws IOException {
+    private static JSONObject fileMapToJSONObject(String file)
+            throws IOException {
         final byte[] bytes =
                 Files.readAllBytes(new File(file).toPath());
 
@@ -80,16 +79,11 @@ public final class Helper {
     private static List<String> parseURLSWithJSONObject(JSONObject object) {
 
         final JSONObject range = object.getJSONObject("range");
-
         final JSONArray categories = object.getJSONArray("categories");
 
-        List<String> urls = new ArrayList<>();
-
-        for (Object category : categories) {
-            urls.add(concatUrl(range, category));
-        }
-
-        return urls;
+        return categories.stream()
+                    .map(category -> concatUrl(range, category))
+                    .collect(Collectors.toList());
     }
 
     private static String concatUrl(JSONObject range, Object journal) {
@@ -99,6 +93,5 @@ public final class Helper {
         return BASE_URL
                 + "?data_range=" + begin + "-" + end
                 + "&journal=" + journal;
-
     }
 }

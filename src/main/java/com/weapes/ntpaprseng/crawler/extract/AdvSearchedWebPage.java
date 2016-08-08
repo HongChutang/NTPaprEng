@@ -6,11 +6,11 @@ import com.weapes.ntpaprseng.crawler.follow.PaperLink;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by lawrence on 16/8/8.
@@ -47,7 +47,6 @@ public class AdvSearchedWebPage extends WebPage {
         }
 
         return allLinks;
-
     }
 
     private List<Link> getSiblingLinks(Document dom) {
@@ -60,17 +59,11 @@ public class AdvSearchedWebPage extends WebPage {
 
     private List<Link> getPaperLinks(Elements paperLinks) {
 
-        List<Link> filteredPapers = new ArrayList<>();
+        return paperLinks.stream()
+                .map(link -> new PaperLink(link.attr("href")))
+                .filter(paper -> Helper.isURL(paper.getUrl()))
+                .collect(Collectors.toList());
 
-        for (Element link : paperLinks) {
-            final String href = link.attr("href");
-
-            if (Helper.isURL(href)) {
-                filteredPapers.add(new PaperLink(href));
-            }
-        }
-
-        return filteredPapers;
     }
 
     private boolean isFirstPage() {

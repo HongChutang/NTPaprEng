@@ -27,10 +27,7 @@ public class BaseCrawlerImp implements Crawler {
         List<? extends Followable> seeds = Helper
                 .load("/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json");
 
-        for (final Followable seed : seeds) {
-            CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed));
-        }
-
+        seeds.forEach(seed -> CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed)));
     }
 
 }

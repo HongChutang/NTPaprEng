@@ -11,7 +11,7 @@ public abstract class Link implements Followable {
         this.url = url;
     }
 
-    String getUrl() {
+    public String getUrl() {
         return url;
     }
 

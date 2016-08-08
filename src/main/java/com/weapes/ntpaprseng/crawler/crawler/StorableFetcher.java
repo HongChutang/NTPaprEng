@@ -32,9 +32,7 @@ class StorableFetcher implements Runnable {
             if (!extractable.isMulti()) {
                 dispatch((ExtractedObject) extractable);
             } else {
-                for (final ExtractedObject eObj : extractable.extractAll()) {
-                    dispatch(eObj);
-                }
+                extractable.extractAll().forEach(this::dispatch);
             }
         } catch (IOException e) {
             e.printStackTrace();
