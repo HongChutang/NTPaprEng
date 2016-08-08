@@ -18,7 +18,7 @@
         </plugins>
     </build>
     <name>NTPaprSEng</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/WeApes/NTPaprSEng</url>
     <dependencies>
 
         <dependency>
@@ -66,7 +66,7 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.21</version>
         </dependency>
-
+        
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations-java5</artifactId>
