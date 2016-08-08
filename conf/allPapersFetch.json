@@ -7,6 +7,10 @@
 
   "categories": [
     "Nature"
-  ]
+  ],
+
+  "interval": {
+    "month": 1
+  }
 
 }
