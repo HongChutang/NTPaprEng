@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.weapes.ntpaprseng.dependencies.JsoupTest
+Test set: com.weapes.ntpaprseng.crawler.util.HelperTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.001 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.076 sec
