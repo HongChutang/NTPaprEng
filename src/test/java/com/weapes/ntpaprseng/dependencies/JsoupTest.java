@@ -19,13 +19,14 @@ import java.util.regex.Pattern;
  */
 public class JsoupTest {
 
-    public static final Pattern urlChecker = Pattern.compile("\\w+://[\\w.]+/\\S*");
+    private static final Pattern urlChecker = Pattern.compile("\\w+://[\\w.]+/\\S*");
+    static final int TIME_2_DELAY = 100000;
 
     @Test
     @Ignore
-    public void JsoupOnlineExtract() throws IOException {
+    public void jsoupOnlineExtract() throws IOException {
 
-        final int TIME_2_DELAY = 100000;
+
 
         final List<String> urls = new ArrayList<>();
 
