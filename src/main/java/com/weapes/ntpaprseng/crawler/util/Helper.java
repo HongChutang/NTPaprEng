@@ -23,19 +23,25 @@ import static java.nio.charset.Charset.forName;
  */
 public final class Helper {
 
-    private Helper() { }
-
     private static final OkHttpClient OK_HTTP_CLIENT =
             new OkHttpClient.Builder()
-                .readTimeout(1, TimeUnit.MINUTES)
-                .build();
-
+                    .readTimeout(1, TimeUnit.MINUTES)
+                    .build();
     private static final Pattern URL_CHECKER =
             Pattern.compile("\\w+://[\\w.]+/\\S*");
-
     private static final String BASE_URL =
-            "http://nature.com/search";
+            "http://www.nature.com/search";
 
+    private Helper() {
+    }
+
+    /**
+     * 解析配置文件,获得原始种子
+     *
+     * @param filePath 配置文件路径
+     * @return
+     * @throws IOException
+     */
     public static List<AdvSearchLink> loadSeeds(final String filePath)
             throws IOException {
 
@@ -50,16 +56,24 @@ public final class Helper {
                 .collect(Collectors.toList());
     }
 
-    private static JSONObject fileMapToJSONObject(final String file)
+    // 将配置文件映射为JSON对象
+    private static JSONObject fileMapToJSONObject(final String filePath)
             throws IOException {
         final byte[] bytes =
-                Files.readAllBytes(new File(file).toPath());
+                Files.readAllBytes(new File(filePath).toPath());
 
         return JSON.parseObject(new String(bytes,
                 forName("UTF-8")));
     }
 
 
+    /**
+     * 根据url下载网页。
+     *
+     * @param url 要下载的链接
+     * @return
+     * @throws IOException
+     */
     public static String fetchWebPage(final String url)
             throws IOException {
 
@@ -78,12 +92,15 @@ public final class Helper {
         return executed.body().string();
     }
 
+    // 是否为URL
     public static boolean isURL(final String url) {
         return URL_CHECKER
                 .matcher(url)
                 .matches();
     }
 
+
+    // 将JSON对象映射为种子
     private static List<String> parseURLSWithJSONObject(final JSONObject object) {
 
         final JSONObject range = object.getJSONObject("range");
@@ -92,8 +109,8 @@ public final class Helper {
         final String order = object.getString("order");
 
         return journals.stream()
-                    .map(journal -> concatUrl(range ,journal, article_type, order))
-                    .collect(Collectors.toList());
+                .map(journal -> concatUrl(range, journal, article_type, order))
+                .collect(Collectors.toList());
     }
 
     private static String concatUrl(final JSONObject range, final Object journal) {
@@ -104,12 +121,20 @@ public final class Helper {
         return concatUrl(range, journal, article_type, "date_desc");
     }
 
+    // 生成种子链接URL
     private static String concatUrl(final JSONObject range, final Object journal, final String article_type, final String order) {
         final int begin = range.getInteger("begin");
         final int end = range.getInteger("end");
 
+        // 如果只搜索特点年份,则URL的data_range参数应只有一个年份。
+        if (begin == end) {
+            return BASE_URL
+                    + "?date_range=" + begin
+                    + "&journal=" + journal.toString().toLowerCase()
+                    + "&article_type=" + article_type.toLowerCase();
+        }
         return BASE_URL
-                + "?data_range=" + begin + "-" + end
+                + "?date_range=" + begin + "-" + end
                 + "&journal=" + journal.toString().toLowerCase()
                 + "&article_type=" + article_type.toLowerCase()
                 + "&order=" + order.toLowerCase();

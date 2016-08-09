@@ -25,6 +25,10 @@ class StorableFetcher implements Runnable {
         this.seed = seed;
     }
 
+    /**
+     * 爬虫运行框架,如果链接follow后得到Extractable。
+     * 根据其能抽取成一个或多个followable/storable来做再分发。
+     */
     @Override
     public void run() {
         try {
@@ -39,6 +43,13 @@ class StorableFetcher implements Runnable {
         }
     }
 
+    /**
+     * 分别根据参数的类型做分发。
+     * 如果是Followable则继续交给生产者,
+     * 如果是Storable交给消费者分发。
+     *
+     * @param extractedObject 被抽取后的Obj,可以为链接或可存储的对象
+     */
     private void dispatch(final ExtractedObject extractedObject) {
         if (extractedObject instanceof Followable) {
             creator.submit(new StorableFetcher(creator, consumer,

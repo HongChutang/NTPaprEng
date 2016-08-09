@@ -7,6 +7,7 @@ import com.weapes.ntpaprseng.crawler.util.Helper;
 import java.io.IOException;
 
 /**
+ * 论文链接
  * Created by lawrence on 16/8/8.
  */
 public class PaperLink extends Link {

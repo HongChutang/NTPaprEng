@@ -6,6 +6,7 @@ import com.weapes.ntpaprseng.crawler.util.Helper;
 import java.io.IOException;
 
 /**
+ * 搜索结果连接
  * Created by lawrence on 16/8/8.
  */
 public class AdvSearchedLink extends Link {
