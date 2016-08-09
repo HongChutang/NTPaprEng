@@ -19,9 +19,9 @@ public class AdvSearchedWebPage extends WebPage {
 
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
     private static final String PAPER_LINK_CSS_SELECTOR =
-            "section > ol > li > div > h2 > a";
+            "h2.h3.extra-tight-line-height a";
     private static final String PAPERS_TOTAL_NUM_SELECTOR =
-            "div.filter-menu > div.pin-left > p > span:last-child";
+            "p.text13.tiny-space-below.mb0.pt4 > span:last-child";
 
     public AdvSearchedWebPage(final String text, final String url) {
         super(text, url, true);
@@ -34,22 +34,27 @@ public class AdvSearchedWebPage extends WebPage {
 
     @Override
     public List<? extends Link> extractAll() {
+        System.out.println("Links parsing: url=" + getUrl() + " type=AdvSearched");
         final Document dom = Jsoup.parse(getText());
-        final List<Link> paperLinks =
-                getPaperLinks(parsePaperLinks(dom));
 
         final List<Link> allLinks = new ArrayList<>();
+
+        final List<Link> paperLinks =
+                getPaperLinks(parsePaperLinks(dom));
 
         allLinks.addAll(paperLinks);
 
         if (isFirstPage()) {
             allLinks.addAll(getSiblingLinks(dom));
         }
+        System.out.println("Links parsed: url=" + getUrl()
+                + " linksSize=" + allLinks.size()
+                + " type=" + "AdvSearched");
 
         return allLinks;
     }
 
-    private List<Link> getSiblingLinks(Document dom) {
+    private List<Link> getSiblingLinks(final Document dom) {
         List<Link> siblingLinks = new ArrayList<>();
         for (int i = 2; i <= parsePageNum(dom); i++) {
             siblingLinks.add(new AdvSearchedLink(buildURLWithPageOrder(i)));
@@ -57,8 +62,7 @@ public class AdvSearchedWebPage extends WebPage {
         return siblingLinks;
     }
 
-    private List<Link> getPaperLinks(Elements paperLinks) {
-
+    private List<Link> getPaperLinks(final Elements paperLinks) {
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
                 .filter(paper -> Helper.isURL(paper.getUrl()))
@@ -70,9 +74,9 @@ public class AdvSearchedWebPage extends WebPage {
         return !getUrl().contains("page");
     }
 
-    private int parsePageNum(Document dom) {
+    private int parsePageNum(final Document dom) {
         final int totalNum =
-                Integer.parseInt(parseTotalNumSpan(dom).text());
+                Integer.parseInt(parseTotalNumSpan(dom).text().trim());
 
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE
@@ -80,11 +84,11 @@ public class AdvSearchedWebPage extends WebPage {
 
     }
 
-    private String buildURLWithPageOrder(int i) {
-        return getUrl() + "&page=" + i;
+    private String buildURLWithPageOrder(final int index) {
+        return getUrl() + "&page=" + index;
     }
 
-    private Elements parsePaperLinks(Document dom) {
+    private Elements parsePaperLinks(final Document dom) {
         return dom.select(PAPER_LINK_CSS_SELECTOR);
     }
 
