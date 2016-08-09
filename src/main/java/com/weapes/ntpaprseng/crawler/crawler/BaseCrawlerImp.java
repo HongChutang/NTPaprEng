@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.weapes.ntpaprseng.crawler.util.Helper.load;
 
@@ -25,12 +26,19 @@ public class BaseCrawlerImp implements Crawler {
             Executors.newScheduledThreadPool(CONSUMER_THREAD_NUM);
 
     @Override
-    public void crawl() throws IOException {
+    public void crawl() throws IOException, InterruptedException {
 
         List<? extends Followable> seeds = load(CONF_FILE_PATH);
 
         seeds.forEach(seed ->
                 CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed)));
+
+        boolean b = false;
+        try {
+            b = CREATOR.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

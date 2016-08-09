@@ -19,7 +19,7 @@ public class AdvSearchedWebPage extends WebPage {
 
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
     private static final String PAPER_LINK_CSS_SELECTOR =
-            "section > ol > li > div > h2 > a";
+            "section > ol";
     private static final String PAPERS_TOTAL_NUM_SELECTOR =
             "div.filter-menu > div.pin-left > p > span:last-child";
 
@@ -45,6 +45,8 @@ public class AdvSearchedWebPage extends WebPage {
         if (isFirstPage()) {
             allLinks.addAll(getSiblingLinks(dom));
         }
+
+        allLinks.forEach(link -> System.out.println(link.getUrl()));
 
         return allLinks;
     }

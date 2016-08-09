@@ -1,5 +1,10 @@
 package com.weapes.ntpaprseng.crawler.store;
 
+import com.zaxxer.hikari.HikariDataSource;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -124,6 +129,31 @@ public class Paper implements Storable {
 
     @Override
     public boolean store() {
+        final HikariDataSource mysqlDataSource =
+                DataSource.getMysqlDataSource();
+
+        try (final Connection connection = mysqlDataSource.getConnection()) {
+
+            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(authors, sourceTitle, ISSN, EISSN, DOI, volum, issue, pageBegin, pageEnd) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            preparedStatement.setString(1, String.join(",",getAuthors()));
+            preparedStatement.setString(2, getSourceTitle());
+            preparedStatement.setString(3, getISSN());
+            preparedStatement.setString(4, geteISSN());
+            preparedStatement.setString(5, getDOI());
+            preparedStatement.setInt(6, getVolum());
+            preparedStatement.setInt(7, getIssue());
+            preparedStatement.setInt(8, getPageBegin());
+            preparedStatement.setInt(9, getPageEnd());
+
+            return preparedStatement.executeUpdate() != 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
+
+
     }
 }

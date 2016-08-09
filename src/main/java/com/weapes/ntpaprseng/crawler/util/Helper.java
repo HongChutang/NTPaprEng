@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,9 @@ public final class Helper {
     private Helper() { }
 
     private static final OkHttpClient OK_HTTP_CLIENT =
-            new OkHttpClient();
+            new OkHttpClient.Builder()
+                .readTimeout(1, TimeUnit.MINUTES)
+                .build();
 
     private static final Pattern URL_CHECKER =
             Pattern.compile("\\w+://[\\w.]+/\\S*");
@@ -80,18 +83,30 @@ public final class Helper {
 
         final JSONObject range = object.getJSONObject("range");
         final JSONArray journals = object.getJSONArray("journals");
+        final String article_type = object.getString("article_type");
+        final String order = object.getString("order");
 
         return journals.stream()
-                    .map(journal -> concatUrl(range, journal))
+                    .map(journal -> concatUrl(range ,journal, article_type, order))
                     .collect(Collectors.toList());
     }
 
     private static String concatUrl(final JSONObject range, final Object journal) {
+        return concatUrl(range, journal, "research", "date_desc");
+    }
+
+    private static String concatUrl(final JSONObject range, final Object journal, final String article_type) {
+        return concatUrl(range, journal, article_type, "date_desc");
+    }
+
+    private static String concatUrl(final JSONObject range, final Object journal, final String article_type, final String order) {
         final int begin = range.getInteger("begin");
         final int end = range.getInteger("end");
 
         return BASE_URL
                 + "?data_range=" + begin + "-" + end
-                + "&journal=" + journal;
+                + "&journal=" + journal
+                + "&article_type=" + article_type
+                + "&order=" + order;
     }
 }

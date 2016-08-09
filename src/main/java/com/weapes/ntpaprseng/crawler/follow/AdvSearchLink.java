@@ -16,6 +16,7 @@ public class AdvSearchLink extends Link {
     @Override
     public AdvSearchedWebPage follow() throws IOException {
         final String webPage = Helper.fetchWebPage(getUrl());
+        System.out.println("i download the advsearched");
         return new AdvSearchedWebPage(webPage, getUrl());
     }
 }
