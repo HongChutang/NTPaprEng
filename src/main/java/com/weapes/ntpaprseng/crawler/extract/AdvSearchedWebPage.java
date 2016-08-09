@@ -19,9 +19,9 @@ public class AdvSearchedWebPage extends WebPage {
 
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
     private static final String PAPER_LINK_CSS_SELECTOR =
-            "section > ol";
+            "h2.h3.extra-tight-line-height a";
     private static final String PAPERS_TOTAL_NUM_SELECTOR =
-            "div.filter-menu > div.pin-left > p > span:last-child";
+            "p.text13.tiny-space-below.mb0.pt4 > span:last-child";
 
     public AdvSearchedWebPage(final String text, final String url) {
         super(text, url, true);
@@ -34,19 +34,22 @@ public class AdvSearchedWebPage extends WebPage {
 
     @Override
     public List<? extends Link> extractAll() {
+        System.out.println("Links parsing: url=" + getUrl() + " type=AdvSearched");
         final Document dom = Jsoup.parse(getText());
-        final List<Link> paperLinks =
-                getPaperLinks(parsePaperLinks(dom));
 
         final List<Link> allLinks = new ArrayList<>();
+
+        final List<Link> paperLinks =
+                getPaperLinks(parsePaperLinks(dom));
 
         allLinks.addAll(paperLinks);
 
         if (isFirstPage()) {
             allLinks.addAll(getSiblingLinks(dom));
         }
-
-        allLinks.forEach(link -> System.out.println(link.getUrl()));
+        System.out.println("Links parsed: url=" + getUrl()
+                + " linksSize=" + allLinks.size()
+                + " type=" + "AdvSearched");
 
         return allLinks;
     }
@@ -60,7 +63,6 @@ public class AdvSearchedWebPage extends WebPage {
     }
 
     private List<Link> getPaperLinks(final Elements paperLinks) {
-
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
                 .filter(paper -> Helper.isURL(paper.getUrl()))
@@ -74,7 +76,7 @@ public class AdvSearchedWebPage extends WebPage {
 
     private int parsePageNum(final Document dom) {
         final int totalNum =
-                Integer.parseInt(parseTotalNumSpan(dom).text());
+                Integer.parseInt(parseTotalNumSpan(dom).text().trim());
 
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE

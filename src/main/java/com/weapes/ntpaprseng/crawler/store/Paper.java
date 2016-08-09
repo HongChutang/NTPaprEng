@@ -129,22 +129,27 @@ public class Paper implements Storable {
 
     @Override
     public boolean store() {
+
+        System.out.println("Store begin: type=Paper");
         final HikariDataSource mysqlDataSource =
                 DataSource.getMysqlDataSource();
 
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(authors, sourceTitle, ISSN, EISSN, DOI, volum, issue, pageBegin, pageEnd) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            preparedStatement.setString(1, String.join(",",getAuthors()));
-            preparedStatement.setString(2, getSourceTitle());
-            preparedStatement.setString(3, getISSN());
-            preparedStatement.setString(4, geteISSN());
-            preparedStatement.setString(5, getDOI());
-            preparedStatement.setInt(6, getVolum());
-            preparedStatement.setInt(7, getIssue());
-            preparedStatement.setInt(8, getPageBegin());
-            preparedStatement.setInt(9, getPageEnd());
+            preparedStatement.setString(1, getTitle());
+            preparedStatement.setString(2, String.join(",",getAuthors()));
+            preparedStatement.setString(3, getSourceTitle());
+            preparedStatement.setString(4, getISSN());
+            preparedStatement.setString(5, geteISSN());
+            preparedStatement.setString(6, getDOI());
+            preparedStatement.setInt(7, getVolum());
+            preparedStatement.setInt(8, getIssue());
+            preparedStatement.setInt(9, getPageBegin());
+            preparedStatement.setInt(10, getPageEnd());
+
+            System.out.println("sql exe");
 
             return preparedStatement.executeUpdate() != 0;
 

@@ -36,7 +36,7 @@ public final class Helper {
     private static final String BASE_URL =
             "http://nature.com/search";
 
-    public static List<AdvSearchLink> load(final String filePath)
+    public static List<AdvSearchLink> loadSeeds(final String filePath)
             throws IOException {
 
         final JSONObject jsonObject =
@@ -65,10 +65,15 @@ public final class Helper {
 
         final Request request = new Request.Builder()
                 .url(url)
+                .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36")
                 .build();
+
+        System.out.println("Downloading: " + url);
 
         final Response executed = OK_HTTP_CLIENT.newCall(request)
                 .execute();
+
+        System.out.println("Downloaded:" + url);
 
         return executed.body().string();
     }
@@ -105,8 +110,8 @@ public final class Helper {
 
         return BASE_URL
                 + "?data_range=" + begin + "-" + end
-                + "&journal=" + journal
-                + "&article_type=" + article_type
-                + "&order=" + order;
+                + "&journal=" + journal.toString().toLowerCase()
+                + "&article_type=" + article_type.toLowerCase()
+                + "&order=" + order.toLowerCase();
     }
 }

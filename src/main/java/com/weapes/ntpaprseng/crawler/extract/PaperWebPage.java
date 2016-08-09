@@ -47,8 +47,13 @@ public class PaperWebPage extends WebPage {
 
     @Override
     public Storable extract() {
+
+        System.out.println("StoreObj parsing: type=PaperWebPage");
+
         final Document dom = Jsoup.parse(getText());
-        return new Paper(parseAuthors(dom),
+
+        return new Paper(
+                parseAuthors(dom),
                 parseTitle(dom),
                 parseSourceLink(dom),
                 parseISSN(dom),
@@ -57,7 +62,8 @@ public class PaperWebPage extends WebPage {
                 parseVolum(dom),
                 parseIssue(dom),
                 parsePageBegin(dom),
-                parsePageEnd(dom));
+                parsePageEnd(dom)
+        );
     }
 
     @Override
@@ -111,24 +117,42 @@ public class PaperWebPage extends WebPage {
     }
 
     private int parseVolum(final Document dom) {
-        return Integer.parseInt(dom.select(VOLUM_CSS_SELECTOR)
-                                    .text()
-                                    .substring(VOLUM_TEXT_OFFSET));
+
+        final Elements volum = dom.select(VOLUM_CSS_SELECTOR);
+
+        try {
+           return Integer.parseInt(volum.text().substring(VOLUM_TEXT_OFFSET));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private int parseIssue(final Document dom) {
-        return Integer.parseInt(dom.select(ISSUE_CSS_SELECTOR)
-                .text()
-                .substring(ISSUE_TEXT_OFFSET));
+        final Elements issue = dom.select(ISSUE_CSS_SELECTOR);
+
+        try {
+            return Integer.parseInt(issue.text().substring(ISSUE_TEXT_OFFSET));
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     private int parsePageBegin(final Document dom) {
         final String pageRange = dom.select(PAGE_CSS_SELECTOR).text();
-        return Integer.parseInt(pageRange.substring(0, pageRange.indexOf("–")));
+        try {
+            return Integer.parseInt(pageRange.substring(0, pageRange.indexOf("–")));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private int parsePageEnd(final Document dom) {
         final String pageRange = dom.select(PAGE_CSS_SELECTOR).text();
-        return Integer.parseInt(pageRange.substring(pageRange.indexOf("–") + 1));
+        try {
+            return Integer.parseInt(pageRange.substring(pageRange.indexOf("–") + 1));
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

@@ -13,7 +13,7 @@ public class PaperTest {
     @Test
     @Ignore
     public void store() throws Exception {
-        final String url = "http://www.nature.com/nature/journal/v517/n7532/full/nature14010.html";
+        final String url = "http://www.nature.com/nature/journal/vaap/ncurrent/full/nature19339.html";
         final String html = Helper.fetchWebPage(url);
         final PaperWebPage paperWebPage =
                 new PaperWebPage(html, url);
