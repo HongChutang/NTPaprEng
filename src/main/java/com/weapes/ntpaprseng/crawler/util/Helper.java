@@ -79,9 +79,9 @@ public final class Helper {
     private static List<String> parseURLSWithJSONObject(JSONObject object) {
 
         final JSONObject range = object.getJSONObject("range");
-        final JSONArray categories = object.getJSONArray("categories");
+        final JSONArray journals = object.getJSONArray("journals");
 
-        return categories.stream()
+        return journals.stream()
                     .map(category -> concatUrl(range, category))
                     .collect(Collectors.toList());
     }
