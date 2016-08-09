@@ -47,7 +47,7 @@ public final class Helper {
                 .collect(Collectors.toList());
     }
 
-    private static JSONObject fileMapToJSONObject(String file)
+    private static JSONObject fileMapToJSONObject(final String file)
             throws IOException {
         final byte[] bytes =
                 Files.readAllBytes(new File(file).toPath());
@@ -76,17 +76,17 @@ public final class Helper {
                 .matches();
     }
 
-    private static List<String> parseURLSWithJSONObject(JSONObject object) {
+    private static List<String> parseURLSWithJSONObject(final JSONObject object) {
 
         final JSONObject range = object.getJSONObject("range");
         final JSONArray journals = object.getJSONArray("journals");
 
         return journals.stream()
-                    .map(category -> concatUrl(range, category))
+                    .map(journal -> concatUrl(range, journal))
                     .collect(Collectors.toList());
     }
 
-    private static String concatUrl(JSONObject range, Object journal) {
+    private static String concatUrl(final JSONObject range, final Object journal) {
         final int begin = range.getInteger("begin");
         final int end = range.getInteger("end");
 

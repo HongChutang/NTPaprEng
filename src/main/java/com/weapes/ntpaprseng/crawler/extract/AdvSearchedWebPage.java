@@ -49,7 +49,7 @@ public class AdvSearchedWebPage extends WebPage {
         return allLinks;
     }
 
-    private List<Link> getSiblingLinks(Document dom) {
+    private List<Link> getSiblingLinks(final Document dom) {
         List<Link> siblingLinks = new ArrayList<>();
         for (int i = 2; i <= parsePageNum(dom); i++) {
             siblingLinks.add(new AdvSearchedLink(buildURLWithPageOrder(i)));
@@ -57,7 +57,7 @@ public class AdvSearchedWebPage extends WebPage {
         return siblingLinks;
     }
 
-    private List<Link> getPaperLinks(Elements paperLinks) {
+    private List<Link> getPaperLinks(final Elements paperLinks) {
 
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
@@ -70,7 +70,7 @@ public class AdvSearchedWebPage extends WebPage {
         return !getUrl().contains("page");
     }
 
-    private int parsePageNum(Document dom) {
+    private int parsePageNum(final Document dom) {
         final int totalNum =
                 Integer.parseInt(parseTotalNumSpan(dom).text());
 
@@ -80,11 +80,11 @@ public class AdvSearchedWebPage extends WebPage {
 
     }
 
-    private String buildURLWithPageOrder(int i) {
-        return getUrl() + "&page=" + i;
+    private String buildURLWithPageOrder(final int index) {
+        return getUrl() + "&page=" + index;
     }
 
-    private Elements parsePaperLinks(Document dom) {
+    private Elements parsePaperLinks(final Document dom) {
         return dom.select(PAPER_LINK_CSS_SELECTOR);
     }
 

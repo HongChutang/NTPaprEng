@@ -20,16 +20,16 @@ public class Paper implements Storable {
     private int pageBegin;
     private int pageEnd;
 
-    public Paper(List<String> authors,
-                 String title,
-                 String sourceTitle,
-                 String ISSN,
-                 String eISSN,
-                 String DOI,
-                 int volum,
-                 int issue,
-                 int pageBegin,
-                 int pageEnd) {
+    public Paper(final List<String> authors,
+                 final String title,
+                 final String sourceTitle,
+                 final String ISSN,
+                 final String eISSN,
+                 final String DOI,
+                 final int volum,
+                 final int issue,
+                 final int pageBegin,
+                 final int pageEnd) {
         this.authors = authors;
         this.title = title;
         this.sourceTitle = sourceTitle;
@@ -46,7 +46,7 @@ public class Paper implements Storable {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(final List<String> authors) {
         this.authors = authors;
     }
 
@@ -54,7 +54,7 @@ public class Paper implements Storable {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -62,7 +62,7 @@ public class Paper implements Storable {
         return sourceTitle;
     }
 
-    public void setSourceTitle(String sourceTitle) {
+    public void setSourceTitle(final String sourceTitle) {
         this.sourceTitle = sourceTitle;
     }
 
@@ -70,7 +70,7 @@ public class Paper implements Storable {
         return ISSN;
     }
 
-    public void setISSN(String ISSN) {
+    public void setISSN(final String ISSN) {
         this.ISSN = ISSN;
     }
 
@@ -78,7 +78,7 @@ public class Paper implements Storable {
         return eISSN;
     }
 
-    public void seteISSN(String eISSN) {
+    public void seteISSN(final String eISSN) {
         this.eISSN = eISSN;
     }
 
@@ -86,7 +86,7 @@ public class Paper implements Storable {
         return DOI;
     }
 
-    public void setDOI(String DOI) {
+    public void setDOI(final String DOI) {
         this.DOI = DOI;
     }
 
@@ -94,7 +94,7 @@ public class Paper implements Storable {
         return volum;
     }
 
-    public void setVolum(int volum) {
+    public void setVolum(final int volum) {
         this.volum = volum;
     }
 
@@ -102,7 +102,7 @@ public class Paper implements Storable {
         return issue;
     }
 
-    public void setIssue(int issue) {
+    public void setIssue(final int issue) {
         this.issue = issue;
     }
 
@@ -110,7 +110,7 @@ public class Paper implements Storable {
         return pageBegin;
     }
 
-    public void setPageBegin(int pageBegin) {
+    public void setPageBegin(final int pageBegin) {
         this.pageBegin = pageBegin;
     }
 
@@ -118,7 +118,7 @@ public class Paper implements Storable {
         return pageEnd;
     }
 
-    public void setPageEnd(int pageEnd) {
+    public void setPageEnd(final int pageEnd) {
         this.pageEnd = pageEnd;
     }
 
