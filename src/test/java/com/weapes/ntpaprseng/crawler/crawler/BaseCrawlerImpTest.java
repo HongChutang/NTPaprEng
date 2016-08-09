@@ -1,5 +1,6 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -7,6 +8,7 @@ import org.junit.Test;
  */
 public class BaseCrawlerImpTest {
     @Test
+    @Ignore
     public void crawl() throws Exception {
         new BaseCrawlerImp().crawl();
     }
