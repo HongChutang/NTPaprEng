@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  */
 public class PaperWebPage extends WebPage {
 
+    // 论文信息抽取CSS选择器
     private static final String AUTHOR_CSS_SELECTOR =
             "ul.authors > li > a > span";
     private static final String TITLE_CSS_SELECTOR =
@@ -35,6 +36,8 @@ public class PaperWebPage extends WebPage {
     private static final String PAGE_CSS_SELECTOR =
             "article > header > dl > dd.page";
 
+
+    // 有些抽取后的信息可能需要经过subString方法剪切,这些是所需偏移值。
     private static final int ISSN_TEXT_OFFSET = 6;
     private static final int EISSN_TEXT_OFFSET = 7;
     private static final int DOI_TEXT_OFFSET = 4;
@@ -121,7 +124,7 @@ public class PaperWebPage extends WebPage {
         final Elements volum = dom.select(VOLUM_CSS_SELECTOR);
 
         try {
-           return Integer.parseInt(volum.text().substring(VOLUM_TEXT_OFFSET));
+            return Integer.parseInt(volum.text().substring(VOLUM_TEXT_OFFSET));
         } catch (Exception e) {
             return 0;
         }
@@ -138,6 +141,7 @@ public class PaperWebPage extends WebPage {
 
     }
 
+    // PageRange抽取后格式="begin-end",需要根据-位置进行再处理
     private int parsePageBegin(final Document dom) {
         final String pageRange = dom.select(PAGE_CSS_SELECTOR).text();
         try {

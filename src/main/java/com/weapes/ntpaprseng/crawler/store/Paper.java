@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 论文Model
  * Created by lawrence on 16/8/9.
  */
 public class Paper implements Storable {
@@ -134,12 +135,14 @@ public class Paper implements Storable {
         final HikariDataSource mysqlDataSource =
                 DataSource.getMysqlDataSource();
 
+        // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
             final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+            // 填坑
             preparedStatement.setString(1, getTitle());
-            preparedStatement.setString(2, String.join(",",getAuthors()));
+            preparedStatement.setString(2, String.join(",", getAuthors()));
             preparedStatement.setString(3, getSourceTitle());
             preparedStatement.setString(4, getISSN());
             preparedStatement.setString(5, geteISSN());
@@ -151,6 +154,7 @@ public class Paper implements Storable {
 
             System.out.println("sql exe");
 
+            // 判断执行是否成功
             return preparedStatement.executeUpdate() != 0;
 
         } catch (SQLException e) {

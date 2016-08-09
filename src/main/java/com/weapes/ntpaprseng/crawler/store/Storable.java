@@ -5,6 +5,7 @@ import com.weapes.ntpaprseng.crawler.extract.ExtractedObject;
 import java.sql.SQLException;
 
 /**
+ * 可存储的对象,如果后期使用Ebean做ORM后,这些应该是Models
  * Created by lawrence on 16/8/7.
  */
 public interface Storable extends ExtractedObject {

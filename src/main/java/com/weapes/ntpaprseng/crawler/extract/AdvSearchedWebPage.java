@@ -17,9 +17,15 @@ import java.util.stream.Collectors;
  */
 public class AdvSearchedWebPage extends WebPage {
 
+    // 每页论文数量
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
+
+
+    // 抽取多个论文链接的CSS选择器
     private static final String PAPER_LINK_CSS_SELECTOR =
             "h2.h3.extra-tight-line-height a";
+
+    // 抽取网页论文总数的CSS选择器
     private static final String PAPERS_TOTAL_NUM_SELECTOR =
             "p.text13.tiny-space-below.mb0.pt4 > span:last-child";
 
@@ -35,18 +41,24 @@ public class AdvSearchedWebPage extends WebPage {
     @Override
     public List<? extends Link> extractAll() {
         System.out.println("Links parsing: url=" + getUrl() + " type=AdvSearched");
+
         final Document dom = Jsoup.parse(getText());
 
+        // 所有链接集合
         final List<Link> allLinks = new ArrayList<>();
 
+
+        // 得到目前页面论文链接
         final List<Link> paperLinks =
                 getPaperLinks(parsePaperLinks(dom));
 
+        // 加入所有链接集合,如果与下面的if语句互换位置则为广度优先遍历。
         allLinks.addAll(paperLinks);
 
         if (isFirstPage()) {
             allLinks.addAll(getSiblingLinks(dom));
         }
+
         System.out.println("Links parsed: url=" + getUrl()
                 + " linksSize=" + allLinks.size()
                 + " type=" + "AdvSearched");
@@ -54,6 +66,7 @@ public class AdvSearchedWebPage extends WebPage {
         return allLinks;
     }
 
+    // 得到其他AdvSearched链接
     private List<Link> getSiblingLinks(final Document dom) {
         List<Link> siblingLinks = new ArrayList<>();
         for (int i = 2; i <= parsePageNum(dom); i++) {
@@ -62,6 +75,7 @@ public class AdvSearchedWebPage extends WebPage {
         return siblingLinks;
     }
 
+    // 得到论文链接
     private List<Link> getPaperLinks(final Elements paperLinks) {
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
@@ -70,10 +84,12 @@ public class AdvSearchedWebPage extends WebPage {
 
     }
 
+    // 通过URL判断是否是第一个AdvSearched
     private boolean isFirstPage() {
         return !getUrl().contains("page");
     }
 
+    // 得到AdvSearched链接总页数
     private int parsePageNum(final Document dom) {
         final int totalNum =
                 Integer.parseInt(parseTotalNumSpan(dom).text().trim());
@@ -84,6 +100,7 @@ public class AdvSearchedWebPage extends WebPage {
 
     }
 
+    // 构建其他AdvSearched链接。
     private String buildURLWithPageOrder(final int index) {
         return getUrl() + "&page=" + index;
     }
