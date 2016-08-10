@@ -11,7 +11,7 @@ import org.junit.Test;
 public class PaperWebPageTest {
     @Test
     public void extract() throws Exception {
-        final String url = "http://www.nature.com/nature/journal/vaap/ncurrent/full/nature19339.html";
+        final String url = "http://www.nature.com/nature/journal/v535/n7610/full/nature18590.html";
         final String html = Helper.fetchWebPage(url);
         final PaperWebPage paperWebPage =
                 new PaperWebPage(html, url);

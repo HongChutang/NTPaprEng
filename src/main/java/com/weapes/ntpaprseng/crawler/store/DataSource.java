@@ -13,9 +13,10 @@ public final class DataSource {
     private static final HikariDataSource mysqlDataSource =
             new HikariDataSource(mysql);
 
-    private DataSource() {}
+    private DataSource() {
+    }
 
-    public static HikariDataSource getMysqlDataSource() {
+    static HikariDataSource getMysqlDataSource() {
         return mysqlDataSource;
     }
 }
