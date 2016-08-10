@@ -18,7 +18,7 @@ public class BaseCrawlerImp implements Crawler {
     private static final int CREATOR_THREAD_NUM = 1;
     private static final int CONSUMER_THREAD_NUM = 1;
     private static final String CONF_FILE_PATH =
-            "/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json";
+            "E:\\javaproject\\git_project\\NTPaprSEng\\conf\\allPapersFetch.json";
 
     private static final ExecutorService CREATOR =
             Executors.newScheduledThreadPool(CREATOR_THREAD_NUM);
