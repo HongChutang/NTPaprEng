@@ -30,7 +30,7 @@ class StorableFetcher implements Runnable {
         try {
             final Extractable extractable = seed.follow();
             if (!extractable.isMulti()) {
-                dispatch((ExtractedObject) extractable);
+                dispatch(extractable.extract());
             } else {
                 extractable.extractAll().forEach(this::dispatch);
             }

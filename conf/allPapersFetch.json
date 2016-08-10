@@ -5,12 +5,16 @@
     "end": 2016
   },
 
-  "categories": [
+  "article_type": "research",
+
+  "journals": [
     "Nature"
   ],
 
   "interval": {
     "month": 1
-  }
+  },
+
+  "order": "date_desc"
 
 }
