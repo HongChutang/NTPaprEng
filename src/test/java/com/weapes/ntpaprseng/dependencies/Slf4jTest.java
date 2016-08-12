@@ -3,6 +3,9 @@ package com.weapes.ntpaprseng.dependencies;
 import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.logging.Logger;
+
+import org.junit.Ignore;
+import org.junit.Test;
 import org.slf4j.*;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -10,8 +13,9 @@ import org.apache.log4j.PropertyConfigurator;
  * Created by Programmer on 2016/8/12.
  */
 public class Slf4jTest {
-
-    public static void main(String[] args){
+    @Test
+    @Ignore
+    public void slf4jTest(){
 
         final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Slf4jTest.class);
 
