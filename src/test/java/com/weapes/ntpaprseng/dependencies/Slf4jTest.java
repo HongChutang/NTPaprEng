@@ -1,6 +1,5 @@
 package com.weapes.ntpaprseng.dependencies;
 
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.logging.Logger;
 
@@ -17,7 +16,7 @@ public class Slf4jTest {
     @Ignore
     public void slf4jTest(){
 
-        final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Slf4jTest.class);
+        final org.slf4j.Logger logger = LoggerFactory.getLogger(Slf4jTest.class);
 
         PropertyConfigurator.configure("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\log4j.properties");
 
