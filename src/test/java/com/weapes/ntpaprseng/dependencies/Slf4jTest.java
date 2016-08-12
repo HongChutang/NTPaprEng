@@ -21,7 +21,7 @@ public class Slf4jTest {
 
         PropertyConfigurator.configure("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\log4j.properties");
 
-        logger.info("nice ------- Hello");
+        logger.info("nice ------ Hello");
         logger.warn("warn ++++++ warn");
 
     }
