@@ -14,7 +14,7 @@ public class HelperTest {
     @Test
     @Ignore
     public void load() throws Exception {
-        final List<? extends Followable> load = Helper.loadSeeds("/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json");
+        final List<? extends Followable> load = Helper.loadSeeds("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\allPapersFetch.json");
         Assert.assertTrue(load.size() == 1);
     }
 

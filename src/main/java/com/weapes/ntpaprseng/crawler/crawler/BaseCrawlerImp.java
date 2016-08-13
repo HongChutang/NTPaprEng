@@ -21,7 +21,7 @@ public class BaseCrawlerImp implements Crawler {
 
     //配置文件路径,根据环境配置
     private static final String CONF_FILE_PATH =
-            "/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json";
+            "E:\\javaproject\\git_project\\NTPaprSEng\\conf\\allPapersFetch.json";
 
     /*
      * 生产者负责把Followable解析为Storable,

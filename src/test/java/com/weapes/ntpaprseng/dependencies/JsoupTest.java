@@ -30,7 +30,6 @@ public class JsoupTest {
         final List<String> urls = new ArrayList<>();
 
         urls.add("http://www.nature.com/search?date_range=2012-2016&journal=nature");
-
         for (String url : urls) {
 
             final Document dom = Jsoup.parse(new URL(url), TIME_2_DELAY);
@@ -42,6 +41,7 @@ public class JsoupTest {
                         .matcher(link.attr("href"))
                         .matches();
 
+                System.out.println(isURL);
                 Assert.assertTrue(isURL);
 
             }

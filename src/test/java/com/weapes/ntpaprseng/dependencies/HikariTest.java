@@ -20,7 +20,7 @@ public class HikariTest {
     @Ignore
     public void testAccessibility() throws SQLException {
         final HikariConfig mysql =
-                new HikariConfig("/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/hikari.properties");
+                new HikariConfig("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\hikari.properties");
         final HikariDataSource hikariDataSource =
                 new HikariDataSource(mysql);
         final Connection connection =
