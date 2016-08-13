@@ -16,7 +16,7 @@ public class Slf4jTest {
     @Ignore
     public void slf4jTest(){
 
-        final org.slf4j.Logger logger = LoggerFactory.getLogger(Slf4jTest.class);
+        org.slf4j.Logger logger = LoggerFactory.getLogger(Slf4jTest.class);
 
         PropertyConfigurator.configure("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\log4j.properties");
 
