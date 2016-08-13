@@ -1,6 +1,6 @@
 package com.weapes.ntpaprseng.dependencies;
 
-import com.zaxxer.hikari.HikariConfig;
+import com.weapes.ntpaprseng.crawler.store.DataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -19,16 +19,19 @@ public class HikariTest {
     @Test
     @Ignore
     public void testAccessibility() throws SQLException {
-        final HikariConfig mysql =
-                new HikariConfig("E:\\javaproject\\git_project\\NTPaprSEng\\conf\\hikari.properties");
-        final HikariDataSource hikariDataSource =
-                new HikariDataSource(mysql);
+
+        final HikariDataSource mysqlDataSource =
+                DataSource.getMysqlDataSource();
+
         final Connection connection =
-                hikariDataSource.getConnection();
+                mysqlDataSource.getConnection();
+
         final PreparedStatement preparedStatement =
                 connection.prepareStatement("SHOW TABLES;");
+
         final ResultSet resultSet =
                 preparedStatement.executeQuery();
+
         Assert.assertNotNull(resultSet);
     }
 }

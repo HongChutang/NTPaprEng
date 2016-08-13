@@ -1,12 +1,9 @@
 package com.weapes.ntpaprseng.dependencies;
 
 
-import java.beans.PropertyEditor;
-import java.util.logging.Logger;
-
 import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.*;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Programmer on 2016/8/12.
@@ -14,7 +11,7 @@ import org.slf4j.*;
 public class Slf4jTest {
     @Test
     @Ignore
-    public void slf4jTest(){
+    public void slf4jTest() {
 
         org.slf4j.Logger logger =   LoggerFactory.getLogger(Slf4jTest.class);
 

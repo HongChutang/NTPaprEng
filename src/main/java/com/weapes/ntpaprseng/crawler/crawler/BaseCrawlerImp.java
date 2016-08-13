@@ -13,15 +13,11 @@ import static com.weapes.ntpaprseng.crawler.util.Helper.loadSeeds;
 /**
  * Created by lawrence on 16/8/7.
  */
-public class BaseCrawlerImp implements Crawler {
+class BaseCrawlerImp implements Crawler {
 
     //生产者消费者线程数,可以根据环境进行调整
     private static final int CREATOR_THREAD_NUM = 1;
     private static final int CONSUMER_THREAD_NUM = 1;
-
-    //配置文件路径,根据环境配置
-    private static final String CONF_FILE_PATH =
-            "E:\\javaproject\\git_project\\NTPaprSEng\\conf\\allPapersFetch.json";
 
     /*
      * 生产者负责把Followable解析为Storable,
@@ -36,7 +32,7 @@ public class BaseCrawlerImp implements Crawler {
     public void crawl() throws IOException, InterruptedException {
 
         // 种子解析为followable
-        List<? extends Followable> seeds = loadSeeds(CONF_FILE_PATH);
+        List<? extends Followable> seeds = loadSeeds();
 
         // 对每个种子,交给生产者处理为Storable。
         seeds.forEach(seed ->

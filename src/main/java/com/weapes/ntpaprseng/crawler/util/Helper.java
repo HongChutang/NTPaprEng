@@ -32,21 +32,29 @@ public final class Helper {
     private static final String BASE_URL =
             "http://www.nature.com/search";
 
+    private static final String JSON_CFG_FILE_PATH =
+            "conf" + File.separator + "filecfg.json";
+
     private Helper() {
+
     }
 
     /**
      * 解析配置文件,获得原始种子
      *
-     * @param filePath 配置文件路径
-     * @return
+     * @return seeds
      * @throws IOException
      */
-    public static List<AdvSearchLink> loadSeeds(final String filePath)
+
+    public static List<AdvSearchLink> loadSeeds()
             throws IOException {
 
+        final JSONObject cfg =
+                getCfg();
+
+        assert cfg != null;
         final JSONObject jsonObject =
-                fileMapToJSONObject(filePath);
+                fileMapToJSONObject(cfg.getString("allPapersFetch"));
 
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
@@ -54,6 +62,15 @@ public final class Helper {
         return urls.stream()
                 .map(AdvSearchLink::new)
                 .collect(Collectors.toList());
+    }
+
+    public static JSONObject getCfg() {
+        try {
+            return fileMapToJSONObject(JSON_CFG_FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // 将配置文件映射为JSON对象
@@ -71,7 +88,7 @@ public final class Helper {
      * 根据url下载网页。
      *
      * @param url 要下载的链接
-     * @return
+     * @return 网页HTML
      * @throws IOException
      */
     public static String fetchWebPage(final String url)

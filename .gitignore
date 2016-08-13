@@ -19,3 +19,4 @@ target/
 
 conf/hikari.properties
 conf/ebean.properties
+conf/filecfg.json
