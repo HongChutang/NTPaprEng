@@ -1,7 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
-*.class
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -19,3 +17,4 @@ target/
 
 conf/hikari.properties
 conf/ebean.properties
+conf/filecfg.json

@@ -1,0 +1,5 @@
+{
+  "allPapersFetch": "/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/allPapersFetch.json",
+  "hikari": "/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/hikari.properties",
+  "log4j": "/Users/lawrence/Documents/practice/Java/NTPaprSEng/conf/log4j.properties"
+}
