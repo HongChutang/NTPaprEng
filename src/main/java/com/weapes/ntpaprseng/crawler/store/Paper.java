@@ -56,88 +56,44 @@ public class Paper implements Storable {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public List<String> getAuthors() {
         return authors;
-    }
-
-    public void setAuthors(final List<String> authors) {
-        this.authors = authors;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
     public String getSourceTitle() {
         return sourceTitle;
-    }
-
-    public void setSourceTitle(final String sourceTitle) {
-        this.sourceTitle = sourceTitle;
     }
 
     public String getISSN() {
         return ISSN;
     }
 
-    public void setISSN(final String ISSN) {
-        this.ISSN = ISSN;
-    }
-
     public String geteISSN() {
         return eISSN;
-    }
-
-    public void seteISSN(final String eISSN) {
-        this.eISSN = eISSN;
     }
 
     public String getDOI() {
         return DOI;
     }
 
-    public void setDOI(final String DOI) {
-        this.DOI = DOI;
-    }
-
     public int getVolum() {
         return volum;
-    }
-
-    public void setVolum(final int volum) {
-        this.volum = volum;
     }
 
     public int getIssue() {
         return issue;
     }
 
-    public void setIssue(final int issue) {
-        this.issue = issue;
-    }
-
     public int getPageBegin() {
         return pageBegin;
     }
 
-    public void setPageBegin(final int pageBegin) {
-        this.pageBegin = pageBegin;
-    }
-
     public int getPageEnd() {
         return pageEnd;
-    }
-
-    public void setPageEnd(final int pageEnd) {
-        this.pageEnd = pageEnd;
     }
 
     @Override

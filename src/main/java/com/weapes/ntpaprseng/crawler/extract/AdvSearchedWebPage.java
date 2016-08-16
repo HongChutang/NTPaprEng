@@ -59,9 +59,6 @@ public class AdvSearchedWebPage extends WebPage {
             allLinks.addAll(getSiblingLinks(dom));
         }
 
-        final String url =
-                getUrl();
-
         System.out.println("Links parsed: url=" + getUrl()
                 + " linksSize=" + allLinks.size()
                 + " type=" + "AdvSearched");
