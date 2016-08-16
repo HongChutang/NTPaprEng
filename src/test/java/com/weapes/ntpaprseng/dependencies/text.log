@@ -1,0 +1,2 @@
+2016-08-16 13:06:18,959 INFO [com.weapes.ntpaprseng.dependencies.Slf4jTest] - nice ------ Hello
+2016-08-16 13:06:18,961 WARN [com.weapes.ntpaprseng.dependencies.Slf4jTest] - warn ++++++ warn

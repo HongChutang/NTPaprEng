@@ -56,6 +56,7 @@ public class PaperWebPage extends WebPage {
         final Document dom = Jsoup.parse(getText());
 
         return new Paper(
+                getUrl(),
                 parseAuthors(dom),
                 parseTitle(dom),
                 parseSourceLink(dom),
