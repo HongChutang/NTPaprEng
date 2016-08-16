@@ -39,8 +39,8 @@ public class Paper implements Storable {
                  final int issue,
                  final int pageBegin,
                  final int pageEnd) {
+        this.url = url;
         this.authors = authors;
-        this.url=url;
         this.title = title;
         this.sourceTitle = sourceTitle;
         this.ISSN = ISSN;
@@ -50,6 +50,14 @@ public class Paper implements Storable {
         this.issue = issue;
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<String> getAuthors() {
@@ -104,14 +112,6 @@ public class Paper implements Storable {
         return volum;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public void setVolum(final int volum) {
         this.volum = volum;
     }
@@ -150,7 +150,7 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd,URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             // 填坑
             preparedStatement.setString(1, getTitle());
@@ -164,7 +164,8 @@ public class Paper implements Storable {
             preparedStatement.setInt(9, getPageBegin());
             preparedStatement.setInt(10, getPageEnd());
             preparedStatement.setString(11,getUrl());
-            System.out.println("sql exe");
+
+            System.out.println("sql exeing");
 
             // 判断执行是否成功
             return preparedStatement.executeUpdate() != 0;
