@@ -5,11 +5,11 @@ import com.weapes.ntpaprseng.crawler.store.Storable;
 /**
  * Created by lawrence on 16/8/8.
  */
-class StorableHandler<T extends Storable> implements Runnable {
+class StorableHandler implements Runnable {
 
-    private final T storable;
+    private final Storable storable;
 
-    StorableHandler(final T storable) {
+    StorableHandler(final Storable storable) {
         this.storable = storable;
     }
 

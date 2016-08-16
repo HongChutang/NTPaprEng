@@ -14,6 +14,7 @@ hs_err_pid*
 .gitignore
 .idea/
 target/
+text.log
 
 conf/hikari.properties
 conf/ebean.properties
