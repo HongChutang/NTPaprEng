@@ -3,7 +3,8 @@ package com.weapes.ntpaprseng.crawler.extract;
 /**
  * Created by lawrence on 16/8/7.
  */
-public abstract class WebPage implements Extractable {
+public abstract class WebPage
+        implements Extractable {
 
     private final String text;
     private final String url;

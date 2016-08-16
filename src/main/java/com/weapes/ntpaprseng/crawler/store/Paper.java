@@ -13,22 +13,22 @@ import java.util.List;
  */
 public class Paper implements Storable {
 
-    private List<String> authors;
+    private final List<String> authors;
 
-    private String url;
+    private final String url;
 
-    private String title;
-    private String sourceTitle;
-    private String ISSN;
-    private String eISSN;
-    private String DOI;
+    private final String title;
+    private final String sourceTitle;
+    private final String ISSN;
+    private final String eISSN;
+    private final String DOI;
 
-    private int volum;
-    private int issue;
-    private int pageBegin;
-    private int pageEnd;
+    private final int volum;
+    private final int issue;
+    private final int pageBegin;
+    private final int pageEnd;
 
-    public Paper(final  String url,
+    public Paper(final String url,
                  final List<String> authors,
                  final String title,
                  final String sourceTitle,
@@ -56,43 +56,43 @@ public class Paper implements Storable {
         return url;
     }
 
-    public List<String> getAuthors() {
+    private List<String> getAuthors() {
         return authors;
     }
 
-    public String getTitle() {
+    private String getTitle() {
         return title;
     }
 
-    public String getSourceTitle() {
+    private String getSourceTitle() {
         return sourceTitle;
     }
 
-    public String getISSN() {
+    private String getISSN() {
         return ISSN;
     }
 
-    public String geteISSN() {
+    private String geteISSN() {
         return eISSN;
     }
 
-    public String getDOI() {
+    private String getDOI() {
         return DOI;
     }
 
-    public int getVolum() {
+    private int getVolum() {
         return volum;
     }
 
-    public int getIssue() {
+    private int getIssue() {
         return issue;
     }
 
-    public int getPageBegin() {
+    private int getPageBegin() {
         return pageBegin;
     }
 
-    public int getPageEnd() {
+    private int getPageEnd() {
         return pageEnd;
     }
 
@@ -106,25 +106,26 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
-            // 填坑
-            preparedStatement.setString(1, getTitle());
-            preparedStatement.setString(2, String.join(",", getAuthors()));
-            preparedStatement.setString(3, getSourceTitle());
-            preparedStatement.setString(4, getISSN());
-            preparedStatement.setString(5, geteISSN());
-            preparedStatement.setString(6, getDOI());
-            preparedStatement.setInt(7, getVolum());
-            preparedStatement.setInt(8, getIssue());
-            preparedStatement.setInt(9, getPageBegin());
-            preparedStatement.setInt(10, getPageEnd());
-            preparedStatement.setString(11,getUrl());
+                // 填坑
+                preparedStatement.setString(1, getTitle());
+                preparedStatement.setString(2, String.join(",", getAuthors()));
+                preparedStatement.setString(3, getSourceTitle());
+                preparedStatement.setString(4, getISSN());
+                preparedStatement.setString(5, geteISSN());
+                preparedStatement.setString(6, getDOI());
+                preparedStatement.setInt(7, getVolum());
+                preparedStatement.setInt(8, getIssue());
+                preparedStatement.setInt(9, getPageBegin());
+                preparedStatement.setInt(10, getPageEnd());
+                preparedStatement.setString(11, getUrl());
 
-            System.out.println("sql exeing");
+                System.out.println("sql exeing");
 
-            // 判断执行是否成功
-            return preparedStatement.executeUpdate() != 0;
+                // 判断执行是否成功
+                return preparedStatement.executeUpdate() != 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

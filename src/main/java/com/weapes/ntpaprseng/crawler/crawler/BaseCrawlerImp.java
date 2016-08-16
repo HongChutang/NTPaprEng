@@ -1,12 +1,9 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
-import com.weapes.ntpaprseng.crawler.follow.Followable;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static com.weapes.ntpaprseng.crawler.util.Helper.loadSeeds;
 
@@ -23,25 +20,19 @@ class BaseCrawlerImp implements Crawler {
      * 生产者负责把Followable解析为Storable,
      * 消费者负责把Storable存储。
      */
-    private static final ExecutorService CREATOR =
+    private static final ScheduledExecutorService CREATOR =
             Executors.newScheduledThreadPool(CREATOR_THREAD_NUM);
     private static final ExecutorService CONSUMER =
             Executors.newScheduledThreadPool(CONSUMER_THREAD_NUM);
 
     @Override
-    public void crawl() throws IOException, InterruptedException {
-
-        // 种子解析为followable
-        List<? extends Followable> seeds = loadSeeds();
-
-        // 对每个种子,交给生产者处理为Storable。
-        seeds.forEach(seed ->
-                CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
-
-        // 1天内爬取失败者自动终止,可调整
+    public void crawl() {
         try {
-            CREATOR.awaitTermination(1, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
+            // 种子解析为followable
+            // 对每个种子,交给生产者处理为Storable.
+            loadSeeds().forEach(seed ->
+                    CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
