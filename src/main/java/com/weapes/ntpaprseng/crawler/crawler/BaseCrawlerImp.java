@@ -1,9 +1,12 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
+import com.weapes.ntpaprseng.crawler.log.Log;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.weapes.ntpaprseng.crawler.util.Helper.loadSeeds;
 
@@ -28,11 +31,22 @@ class BaseCrawlerImp implements Crawler {
     @Override
     public void crawl() {
         try {
+            //日志变量
+            Log log = new Log();
+
             // 种子解析为followable
             // 对每个种子,交给生产者处理为Storable.
             loadSeeds().forEach(seed ->
-                    CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
+                    CREATOR.submit(new StorableFetcher(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
+
+            Log.LOGGER.info("种子分发完成...");
+
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            CREATOR.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

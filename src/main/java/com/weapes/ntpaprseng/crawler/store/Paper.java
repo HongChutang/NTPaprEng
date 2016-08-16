@@ -1,5 +1,6 @@
 package com.weapes.ntpaprseng.crawler.store;
 
+import com.weapes.ntpaprseng.crawler.log.Log;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
@@ -124,7 +125,20 @@ public class Paper implements Storable {
                 System.out.println("sql exeing");
 
                 // 判断执行是否成功
-                return preparedStatement.executeUpdate() != 0;
+                boolean succeed = preparedStatement.executeUpdate() != 0;
+
+                if (succeed) {
+                    Log.LOGGER.info("第"+Log.CRAWING_SUCCEED_NUMBERS.incrementAndGet()+"篇爬取成功...\n"
+                                    +"链接为；"+getUrl());
+                }
+
+                if (Log.LAST_LINK.equals(getUrl())) {
+                    Log.LOGGER.info("爬取完成，本次爬取论文总量："+Log.URL_NUMBERS.get()
+                            +" 成功数："+Log.CRAWING_SUCCEED_NUMBERS.get()
+                            +" 失败数："+(Log.URL_NUMBERS.get() - Log.CRAWING_SUCCEED_NUMBERS.get()));
+                }
+
+                return succeed;
             }
 
         } catch (SQLException e) {

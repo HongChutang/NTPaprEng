@@ -3,6 +3,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchedLink;
 import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.follow.PaperLink;
+import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -93,6 +94,9 @@ public class AdvSearchedWebPage extends WebPage {
     private int parsePageNum(final Document dom) {
         final int totalNum =
                 Integer.parseInt(parseTotalNumSpan(dom).text().trim());
+
+        //单次爬取论文总数量
+        Log.URL_NUMBERS.set(totalNum);
 
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE

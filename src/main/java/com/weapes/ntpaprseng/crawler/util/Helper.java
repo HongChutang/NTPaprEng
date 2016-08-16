@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchLink;
+import com.weapes.ntpaprseng.crawler.log.Log;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -49,6 +51,8 @@ public final class Helper {
     public static List<AdvSearchLink> loadSeeds()
             throws IOException {
 
+        Log.LOGGER.info("开始加载种子...");
+
         final JSONObject cfg =
                 getCfg();
 
@@ -58,6 +62,8 @@ public final class Helper {
 
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
+
+        Log.LOGGER.info("种子加载完成...");
 
         return urls.stream()
                 .map(AdvSearchLink::new)
@@ -99,13 +105,8 @@ public final class Helper {
                 .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36")
                 .build();
 
-        System.out.println("Downloading: " + url);
-
         final Response executed = OK_HTTP_CLIENT.newCall(request)
                 .execute();
-
-        System.out.println("Downloaded:" + url);
-
 
         return executed.body().string();
     }

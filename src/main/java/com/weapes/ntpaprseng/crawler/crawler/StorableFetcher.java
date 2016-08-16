@@ -12,15 +12,15 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by lawrence on 16/8/8.
  */
-class StorableFetcher<T extends Followable> implements Runnable {
+class StorableFetcher implements Runnable {
 
     private final ExecutorService creator;
     private final ExecutorService consumer;
-    private final T seed;
+    private final Followable seed;
 
     StorableFetcher(final ExecutorService creator,
                     final ExecutorService consumer,
-                    final T seed) {
+                    final Followable seed) {
         this.creator = creator;
         this.consumer = consumer;
         this.seed = seed;
@@ -56,10 +56,9 @@ class StorableFetcher<T extends Followable> implements Runnable {
      */
     private void dispatch(final ExtractedObject extractedObject) {
         if (extractedObject instanceof Followable) {
-            creator.submit(new StorableFetcher<>(creator, consumer,
-                    (Link) extractedObject));
+            creator.submit(new StorableFetcher(creator, consumer, (Followable) extractedObject));
         } else {
-            consumer.submit(new StorableHandler<>((Storable) extractedObject));
+            consumer.submit(new StorableHandler((Storable) extractedObject));
         }
     }
 

@@ -1,0 +1,23 @@
+2016-08-16 21:17:16,016 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 开始加载种子...
+2016-08-16 21:17:16,301 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 种子加载完成...
+2016-08-16 21:17:16,326 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 种子分发完成...
+2016-08-16 21:17:19,447 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 本次爬取论文578篇，正在爬取第1篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature19107.html
+2016-08-16 21:17:21,388 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 本次爬取论文578篇，正在爬取第2篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature19331.html
+2016-08-16 21:17:21,426 [com.zaxxer.hikari.HikariDataSource]:
+INFO HikariPool-1 - Started.
+2016-08-16 21:17:22,458 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 第1篇爬取成功...
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature19107.html
+2016-08-16 21:17:23,385 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 本次爬取论文578篇，正在爬取第3篇
+链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature19346.html
+2016-08-16 21:17:23,411 [com.weapes.ntpaprseng.crawler.log.Log]:
+INFO 第2篇爬取成功...
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature19331.html
