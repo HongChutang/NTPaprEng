@@ -37,12 +37,15 @@ class StorableFetcher<T extends Followable> implements Runnable {
             if (!extractable.isMulti()) {
                 dispatch(extractable.extract());
             } else {
-                extractable.extractAll().forEach(this::dispatch);
+                extractable
+                        .extractAll()
+                        .forEach(this::dispatch);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 分别根据参数的类型做分发。

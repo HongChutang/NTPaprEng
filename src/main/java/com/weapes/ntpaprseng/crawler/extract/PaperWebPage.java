@@ -2,7 +2,6 @@ package com.weapes.ntpaprseng.crawler.extract;
 
 import com.weapes.ntpaprseng.crawler.store.Paper;
 import com.weapes.ntpaprseng.crawler.store.Storable;
-import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -95,7 +94,6 @@ public class PaperWebPage extends WebPage {
                 .text();
     }
 
-    @NotNull
     private String parseISSN(final Document dom) {
         return dom
                 .select(ISSN_CSS_SELECTOR)
@@ -104,7 +102,6 @@ public class PaperWebPage extends WebPage {
                 .substring(ISSN_TEXT_OFFSET);
     }
 
-    @NotNull
     private String parseEISSN(final Document dom) {
         return dom
                 .select(EISSN_CSS_SELECTOR)
@@ -113,7 +110,6 @@ public class PaperWebPage extends WebPage {
                 .substring(EISSN_TEXT_OFFSET);
     }
 
-    @NotNull
     private String parseDOI(final Document dom) {
         return dom.select(DOI_CSS_SELECTOR)
                 .text()

@@ -1,9 +1,6 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
-import com.weapes.ntpaprseng.crawler.follow.Followable;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -31,14 +28,10 @@ class BaseCrawlerImp implements Crawler {
     @Override
     public void crawl() {
         try {
-
             // 种子解析为followable
-            List<? extends Followable> seeds = loadSeeds();
-
-            // 对每个种子,交给生产者处理为Storable。
-            seeds.forEach(seed ->
+            // 对每个种子,交给生产者处理为Storable.
+            loadSeeds().forEach(seed ->
                     CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
-
         } catch (IOException e) {
             e.printStackTrace();
         }

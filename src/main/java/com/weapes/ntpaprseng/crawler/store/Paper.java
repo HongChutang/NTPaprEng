@@ -106,25 +106,26 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 
-            // 填坑
-            preparedStatement.setString(1, getTitle());
-            preparedStatement.setString(2, String.join(",", getAuthors()));
-            preparedStatement.setString(3, getSourceTitle());
-            preparedStatement.setString(4, getISSN());
-            preparedStatement.setString(5, geteISSN());
-            preparedStatement.setString(6, getDOI());
-            preparedStatement.setInt(7, getVolum());
-            preparedStatement.setInt(8, getIssue());
-            preparedStatement.setInt(9, getPageBegin());
-            preparedStatement.setInt(10, getPageEnd());
-            preparedStatement.setString(11, getUrl());
+                // 填坑
+                preparedStatement.setString(1, getTitle());
+                preparedStatement.setString(2, String.join(",", getAuthors()));
+                preparedStatement.setString(3, getSourceTitle());
+                preparedStatement.setString(4, getISSN());
+                preparedStatement.setString(5, geteISSN());
+                preparedStatement.setString(6, getDOI());
+                preparedStatement.setInt(7, getVolum());
+                preparedStatement.setInt(8, getIssue());
+                preparedStatement.setInt(9, getPageBegin());
+                preparedStatement.setInt(10, getPageEnd());
+                preparedStatement.setString(11, getUrl());
 
-            System.out.println("sql exeing");
+                System.out.println("sql exeing");
 
-            // 判断执行是否成功
-            return preparedStatement.executeUpdate() != 0;
+                // 判断执行是否成功
+                return preparedStatement.executeUpdate() != 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
