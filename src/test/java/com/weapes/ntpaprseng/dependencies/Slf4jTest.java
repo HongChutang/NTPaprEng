@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory;
 public class Slf4jTest {
     @Test
     @Ignore
-    public void slf4jTest(){
+    public void slf4jTest() {
 
         //日志变量
-        org.slf4j.Logger logger =   LoggerFactory.getLogger(Slf4jTest.class);
+        org.slf4j.Logger logger = LoggerFactory.getLogger(Slf4jTest.class);
 
         //加载log4j配置文件
         PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));

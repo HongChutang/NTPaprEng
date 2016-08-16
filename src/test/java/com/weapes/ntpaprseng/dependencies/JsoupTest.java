@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class JsoupTest {
 
-    static final int TIME_2_DELAY = 100000;
+    private static final int TIME_2_DELAY = 100000;
     private static final Pattern urlChecker = Pattern.compile("\\w+://[\\w.]+/\\S*");
 
     @Test

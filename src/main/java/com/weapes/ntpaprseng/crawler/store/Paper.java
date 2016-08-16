@@ -13,22 +13,22 @@ import java.util.List;
  */
 public class Paper implements Storable {
 
-    private List<String> authors;
+    private final List<String> authors;
 
-    private String url;
+    private final String url;
 
-    private String title;
-    private String sourceTitle;
-    private String ISSN;
-    private String eISSN;
-    private String DOI;
+    private final String title;
+    private final String sourceTitle;
+    private final String ISSN;
+    private final String eISSN;
+    private final String DOI;
 
-    private int volum;
-    private int issue;
-    private int pageBegin;
-    private int pageEnd;
+    private final int volum;
+    private final int issue;
+    private final int pageBegin;
+    private final int pageEnd;
 
-    public Paper(final  String url,
+    public Paper(final String url,
                  final List<String> authors,
                  final String title,
                  final String sourceTitle,
@@ -56,43 +56,43 @@ public class Paper implements Storable {
         return url;
     }
 
-    public List<String> getAuthors() {
+    private List<String> getAuthors() {
         return authors;
     }
 
-    public String getTitle() {
+    private String getTitle() {
         return title;
     }
 
-    public String getSourceTitle() {
+    private String getSourceTitle() {
         return sourceTitle;
     }
 
-    public String getISSN() {
+    private String getISSN() {
         return ISSN;
     }
 
-    public String geteISSN() {
+    private String geteISSN() {
         return eISSN;
     }
 
-    public String getDOI() {
+    private String getDOI() {
         return DOI;
     }
 
-    public int getVolum() {
+    private int getVolum() {
         return volum;
     }
 
-    public int getIssue() {
+    private int getIssue() {
         return issue;
     }
 
-    public int getPageBegin() {
+    private int getPageBegin() {
         return pageBegin;
     }
 
-    public int getPageEnd() {
+    private int getPageEnd() {
         return pageEnd;
     }
 
@@ -119,7 +119,7 @@ public class Paper implements Storable {
             preparedStatement.setInt(8, getIssue());
             preparedStatement.setInt(9, getPageBegin());
             preparedStatement.setInt(10, getPageEnd());
-            preparedStatement.setString(11,getUrl());
+            preparedStatement.setString(11, getUrl());
 
             System.out.println("sql exeing");
 

@@ -29,7 +29,7 @@ class BaseCrawlerImp implements Crawler {
             Executors.newScheduledThreadPool(CONSUMER_THREAD_NUM);
 
     @Override
-    public void crawl() throws IOException, InterruptedException {
+    public void crawl() throws IOException {
 
         // 种子解析为followable
         List<? extends Followable> seeds = loadSeeds();

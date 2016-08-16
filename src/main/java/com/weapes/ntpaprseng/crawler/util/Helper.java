@@ -43,7 +43,7 @@ public final class Helper {
      * 解析配置文件,获得原始种子
      *
      * @return seeds
-     * @throws IOException
+     * @throws IOException dummyInfo
      */
 
     public static List<AdvSearchLink> loadSeeds()
@@ -89,7 +89,7 @@ public final class Helper {
      *
      * @param url 要下载的链接
      * @return 网页HTML
-     * @throws IOException
+     * @throws IOException dummyInfo
      */
     public static String fetchWebPage(final String url)
             throws IOException {
