@@ -150,7 +150,7 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd,URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+            final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             // 填坑
             preparedStatement.setString(1, getTitle());
@@ -164,7 +164,8 @@ public class Paper implements Storable {
             preparedStatement.setInt(9, getPageBegin());
             preparedStatement.setInt(10, getPageEnd());
             preparedStatement.setString(11,getUrl());
-            System.out.println("sql exe");
+
+            System.out.println("sql exeing");
 
             // 判断执行是否成功
             return preparedStatement.executeUpdate() != 0;
