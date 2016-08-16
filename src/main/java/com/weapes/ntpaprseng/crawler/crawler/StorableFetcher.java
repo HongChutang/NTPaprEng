@@ -3,6 +3,7 @@ package com.weapes.ntpaprseng.crawler.crawler;
 import com.weapes.ntpaprseng.crawler.extract.Extractable;
 import com.weapes.ntpaprseng.crawler.extract.ExtractedObject;
 import com.weapes.ntpaprseng.crawler.follow.Followable;
+import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.store.Storable;
 
 import java.io.IOException;
@@ -11,15 +12,15 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by lawrence on 16/8/8.
  */
-class StorableFetcher implements Runnable {
+class StorableFetcher<T extends Followable> implements Runnable {
 
     private final ExecutorService creator;
     private final ExecutorService consumer;
-    private final Followable seed;
+    private final T seed;
 
     StorableFetcher(final ExecutorService creator,
                     final ExecutorService consumer,
-                    final Followable seed) {
+                    final T seed) {
         this.creator = creator;
         this.consumer = consumer;
         this.seed = seed;
@@ -52,10 +53,10 @@ class StorableFetcher implements Runnable {
      */
     private void dispatch(final ExtractedObject extractedObject) {
         if (extractedObject instanceof Followable) {
-            creator.submit(new StorableFetcher(creator, consumer,
-                    (Followable) extractedObject));
+            creator.submit(new StorableFetcher<>(creator, consumer,
+                    (Link) extractedObject));
         } else {
-            consumer.submit(new StorableHandler((Storable) extractedObject));
+            consumer.submit(new StorableHandler<>((Storable) extractedObject));
         }
     }
 
