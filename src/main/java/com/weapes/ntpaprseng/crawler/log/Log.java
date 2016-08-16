@@ -12,16 +12,40 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Log {
     //日志变量
-    public static final Logger LOGGER = LoggerFactory.getLogger(Log.class);
-    //单次爬取论文总量
-    public static AtomicInteger URL_NUMBERS = new AtomicInteger();
-    //目前正在爬取的第几篇论文
-    public static AtomicInteger CRAWING_NUMBERS = new AtomicInteger();
-    //单次爬取成功数量
-    public static AtomicInteger CRAWING_SUCCEED_NUMBERS = new AtomicInteger();
-    public static String LAST_LINK;
+    public static final Logger LOGGER =
+            LoggerFactory.getLogger(Log.class);
 
-    public Log(){
+    //单次爬取论文总量
+    private static AtomicInteger URL_NUMBERS = new AtomicInteger();
+    //目前正在爬取的第几篇论文
+    private static AtomicInteger CRAWLING_NUMBERS = new AtomicInteger();
+    //单次爬取成功数量
+    private static AtomicInteger CRAWLING_SUCCEED_NUMBERS = new AtomicInteger();
+
+    private static String LAST_LINK;
+
+    static {
         PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
     }
+
+    public static AtomicInteger getUrlNumbers() {
+        return URL_NUMBERS;
+    }
+
+    public static AtomicInteger getCrawlingNumbers() {
+        return CRAWLING_NUMBERS;
+    }
+
+    public static String getLastLink() {
+        return LAST_LINK;
+    }
+
+    public static void setLastLink(String lastLink) {
+        LAST_LINK = lastLink;
+    }
+
+    public static AtomicInteger getCrawlingSucceedNumbers() {
+        return CRAWLING_SUCCEED_NUMBERS;
+    }
+
 }

@@ -96,7 +96,7 @@ public class AdvSearchedWebPage extends WebPage {
                 Integer.parseInt(parseTotalNumSpan(dom).text().trim());
 
         //单次爬取论文总数量
-        Log.URL_NUMBERS.set(totalNum);
+        Log.getUrlNumbers().set(totalNum);
 
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE
