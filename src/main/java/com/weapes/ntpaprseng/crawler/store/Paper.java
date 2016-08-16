@@ -39,8 +39,8 @@ public class Paper implements Storable {
                  final int issue,
                  final int pageBegin,
                  final int pageEnd) {
+        this.url = url;
         this.authors = authors;
-        this.url=url;
         this.title = title;
         this.sourceTitle = sourceTitle;
         this.ISSN = ISSN;
@@ -50,6 +50,14 @@ public class Paper implements Storable {
         this.issue = issue;
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<String> getAuthors() {
@@ -102,14 +110,6 @@ public class Paper implements Storable {
 
     public int getVolum() {
         return volum;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public void setVolum(final int volum) {

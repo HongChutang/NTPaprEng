@@ -49,7 +49,7 @@ public class AdvSearchedWebPage extends WebPage {
 
 
         // 得到目前页面论文链接
-        final List<Link> paperLinks =
+        final List<? extends Link> paperLinks =
                 getPaperLinks(parsePaperLinks(dom));
 
         // 加入所有链接集合,如果与下面的if语句互换位置则为广度优先遍历。
@@ -58,6 +58,9 @@ public class AdvSearchedWebPage extends WebPage {
         if (isFirstPage()) {
             allLinks.addAll(getSiblingLinks(dom));
         }
+
+        final String url =
+                getUrl();
 
         System.out.println("Links parsed: url=" + getUrl()
                 + " linksSize=" + allLinks.size()
@@ -76,7 +79,7 @@ public class AdvSearchedWebPage extends WebPage {
     }
 
     // 得到论文链接
-    private List<Link> getPaperLinks(final Elements paperLinks) {
+    private List<? extends Link> getPaperLinks(final Elements paperLinks) {
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
                 .filter(paper -> Helper.isURL(paper.getUrl()))
