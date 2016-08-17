@@ -4,14 +4,24 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchLink;
-import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.follow.PaperMetricsLink;
+import com.weapes.ntpaprseng.crawler.store.DataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -23,6 +33,9 @@ import static java.nio.charset.Charset.forName;
  * Created by lawrence on 16/8/7.
  */
 public final class Helper {
+    static {
+        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
+    }
 
     private static final OkHttpClient OK_HTTP_CLIENT =
             new OkHttpClient.Builder()
@@ -35,6 +48,11 @@ public final class Helper {
 
     private static final String JSON_CFG_FILE_PATH =
             "conf" + File.separator + "filecfg.json";
+
+    private static final Logger LOGGER =
+            getLogger(Helper.class);
+
+
 
     private Helper() {
 
@@ -50,7 +68,7 @@ public final class Helper {
     public static List<AdvSearchLink> loadSeeds()
             throws IOException {
 
-        Log.LOGGER.info("开始加载种子...");
+        LOGGER.info("开始加载种子...");
 
         final JSONObject cfg =
                 getCfg();
@@ -62,7 +80,7 @@ public final class Helper {
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
 
-        Log.LOGGER.info("种子加载完成...");
+        LOGGER.info("种子加载完成...");
 
         return urls.stream()
                 .map(AdvSearchLink::new)
@@ -117,6 +135,10 @@ public final class Helper {
                 .matches();
     }
 
+    public static Logger getLogger(Class cls) {
+        return LoggerFactory.getLogger(cls);
+    }
+
 
     // 将JSON对象映射为种子
     private static List<String> parseURLSWithJSONObject(final JSONObject object) {
@@ -156,5 +178,26 @@ public final class Helper {
                 + "&journal=" + journal.toString().toLowerCase()
                 + "&article_type=" + article_type.toLowerCase()
                 + "&order=" + order.toLowerCase();
+    }
+
+    public static List<PaperMetricsLink> loadPaperLinks() {
+        List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
+
+        try (final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource()) {
+            try (final Connection connection = mysqlDataSource.getConnection()) {
+                try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS")) {
+                    try (ResultSet results = preparedStatement.executeQuery()) {
+                        while (results.next()) {
+                            final String url = results.getString("URL");
+                            paperMetricsLinks.add(new PaperMetricsLink(url));
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Connection Failed");
+            }
+        }
+
+        return paperMetricsLinks;
     }
 }

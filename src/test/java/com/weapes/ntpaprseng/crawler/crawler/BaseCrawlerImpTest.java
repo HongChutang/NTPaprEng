@@ -10,7 +10,7 @@ public class BaseCrawlerImpTest {
     @Test
     @Ignore
     public void crawl() throws Exception {
-        new BaseCrawlerImp().crawl();
+        new PaperCrawler().crawl();
     }
 
 }

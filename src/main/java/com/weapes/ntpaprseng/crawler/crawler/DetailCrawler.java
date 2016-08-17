@@ -1,19 +1,16 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
-import com.weapes.ntpaprseng.crawler.log.Log;
-
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import static com.weapes.ntpaprseng.crawler.util.Helper.loadSeeds;
+import static com.weapes.ntpaprseng.crawler.util.Helper.loadPaperLinks;
+import static java.util.concurrent.TimeUnit.DAYS;
 
 /**
- * Created by lawrence on 16/8/7.
+ * Created by lawrence on 16/8/16.
  */
-class BaseCrawlerImp implements Crawler {
+public class DetailCrawler implements Crawler {
 
     //生产者消费者线程数,可以根据环境进行调整
     private static final int CREATOR_THREAD_NUM = 1;
@@ -28,24 +25,16 @@ class BaseCrawlerImp implements Crawler {
     private static final ExecutorService CONSUMER =
             Executors.newScheduledThreadPool(CONSUMER_THREAD_NUM);
 
+
     @Override
     public void crawl() {
-        try {
-            // 种子解析为followable
-            // 对每个种子,交给生产者处理为Storable.
-            loadSeeds().forEach(seed ->
-                    CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
+        loadPaperLinks().forEach(paper ->
+            CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
 
-            Log.LOGGER.info("种子分发完成...");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         try {
-            CREATOR.awaitTermination(1, TimeUnit.DAYS);
+            CREATOR.awaitTermination(1, DAYS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }

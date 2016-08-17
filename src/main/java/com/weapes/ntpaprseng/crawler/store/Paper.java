@@ -1,6 +1,7 @@
 package com.weapes.ntpaprseng.crawler.store;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.slf4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,12 +9,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.*;
+import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
 
 /**
  * 论文Model
  * Created by lawrence on 16/8/9.
  */
 public class Paper implements Storable {
+
+    private static final Logger LOGGER =
+        getLogger(Paper.class);
+
 
     private final List<String> authors;
 
