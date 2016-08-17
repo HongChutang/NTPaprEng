@@ -3,7 +3,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchedLink;
 import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.follow.PaperLink;
-import com.weapes.ntpaprseng.crawler.util.Helper;
+import com.weapes.ntpaprseng.crawler.log.Log;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.weapes.ntpaprseng.crawler.util.Helper.isURL;
+
 /**
  * Created by lawrence on 16/8/8.
  */
@@ -19,7 +21,6 @@ public class AdvSearchedWebPage extends WebPage {
 
     // 每页论文数量
     private static final int NUM_OF_PAPERS_PER_PAGE = 25;
-
 
     // 抽取多个论文链接的CSS选择器
     private static final String PAPER_LINK_CSS_SELECTOR =
@@ -49,7 +50,7 @@ public class AdvSearchedWebPage extends WebPage {
 
 
         // 得到目前页面论文链接
-        final List<Link> paperLinks =
+        final List<? extends Link> paperLinks =
                 getPaperLinks(parsePaperLinks(dom));
 
         // 加入所有链接集合,如果与下面的if语句互换位置则为广度优先遍历。
@@ -76,10 +77,10 @@ public class AdvSearchedWebPage extends WebPage {
     }
 
     // 得到论文链接
-    private List<Link> getPaperLinks(final Elements paperLinks) {
+    private List<? extends Link> getPaperLinks(final Elements paperLinks) {
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
-                .filter(paper -> Helper.isURL(paper.getUrl()))
+                .filter(paper -> isURL(paper.getUrl()))
                 .collect(Collectors.toList());
 
     }
@@ -93,6 +94,9 @@ public class AdvSearchedWebPage extends WebPage {
     private int parsePageNum(final Document dom) {
         final int totalNum =
                 Integer.parseInt(parseTotalNumSpan(dom).text().trim());
+
+        //单次爬取论文总数量
+        Log.getUrlNumbers().set(totalNum);
 
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE

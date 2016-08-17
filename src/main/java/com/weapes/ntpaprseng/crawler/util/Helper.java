@@ -4,13 +4,24 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchLink;
+import com.weapes.ntpaprseng.crawler.follow.PaperMetricsLink;
+import com.weapes.ntpaprseng.crawler.store.DataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -35,6 +46,15 @@ public final class Helper {
     private static final String JSON_CFG_FILE_PATH =
             "conf" + File.separator + "filecfg.json";
 
+    static {
+        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
+    }
+
+    private static final Logger LOGGER =
+            getLogger(Helper.class);
+
+
+
     private Helper() {
 
     }
@@ -43,11 +63,13 @@ public final class Helper {
      * 解析配置文件,获得原始种子
      *
      * @return seeds
-     * @throws IOException
+     * @throws IOException dummyInfo
      */
 
     public static List<AdvSearchLink> loadSeeds()
             throws IOException {
+
+        LOGGER.info("开始加载种子...");
 
         final JSONObject cfg =
                 getCfg();
@@ -58,6 +80,8 @@ public final class Helper {
 
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
+
+        LOGGER.info("种子加载完成...");
 
         return urls.stream()
                 .map(AdvSearchLink::new)
@@ -89,7 +113,7 @@ public final class Helper {
      *
      * @param url 要下载的链接
      * @return 网页HTML
-     * @throws IOException
+     * @throws IOException dummyInfo
      */
     public static String fetchWebPage(final String url)
             throws IOException {
@@ -99,13 +123,8 @@ public final class Helper {
                 .addHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36")
                 .build();
 
-        System.out.println("Downloading: " + url);
-
         final Response executed = OK_HTTP_CLIENT.newCall(request)
                 .execute();
-
-        System.out.println("Downloaded:" + url);
-
 
         return executed.body().string();
     }
@@ -115,6 +134,10 @@ public final class Helper {
         return URL_CHECKER
                 .matcher(url)
                 .matches();
+    }
+
+    public static Logger getLogger(Class cls) {
+        return LoggerFactory.getLogger(cls);
     }
 
 
@@ -156,5 +179,26 @@ public final class Helper {
                 + "&journal=" + journal.toString().toLowerCase()
                 + "&article_type=" + article_type.toLowerCase()
                 + "&order=" + order.toLowerCase();
+    }
+
+    public static List<PaperMetricsLink> loadMetricsLinks() {
+        List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
+
+        try (final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource()) {
+            try (final Connection connection = mysqlDataSource.getConnection()) {
+                try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS")) {
+                    try (ResultSet results = preparedStatement.executeQuery()) {
+                        while (results.next()) {
+                            final String url = results.getString("URL");
+                            paperMetricsLinks.add(new PaperMetricsLink(url));
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Connection Failed");
+            }
+        }
+
+        return paperMetricsLinks;
     }
 }
