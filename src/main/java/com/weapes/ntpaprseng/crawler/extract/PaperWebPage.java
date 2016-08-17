@@ -36,7 +36,7 @@ public class PaperWebPage extends WebPage {
             "article > header > dl > dd.page";
 
 
-    // 有些抽取后的信息可能需要经过subString方法剪切,这些是所需偏移值。
+    // 有些抽取后的信息需要经过subString方法剪切,这些是所需偏移值。
     private static final int ISSN_TEXT_OFFSET = 6;
     private static final int EISSN_TEXT_OFFSET = 7;
     private static final int DOI_TEXT_OFFSET = 4;

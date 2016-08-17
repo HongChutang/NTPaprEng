@@ -3,6 +3,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public class AdvSearchedWebPageTest {
     @Test
+    @Ignore
     public void extractAll() throws Exception {
         final String url = "http://www.nature.com/search?date_range=2016&journal=nature&article_type=research";
         final String html = Helper.fetchWebPage(url);
