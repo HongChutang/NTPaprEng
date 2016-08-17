@@ -37,7 +37,7 @@ public class Paper implements Storable {
     private final int pageEnd;
 
     private final  String affiliation;
-    private final String publiceTime;
+    private final String publishTime;
     private final String crawlTime;
 
     public Paper(final String url,
@@ -52,7 +52,7 @@ public class Paper implements Storable {
                  final int pageBegin,
                  final int pageEnd,
                  final String affiliation,
-                 final String publiceTime,
+                 final String publishTime,
                  final String crawlTime) {
         this.url = url;
         this.authors = authors;
@@ -66,7 +66,7 @@ public class Paper implements Storable {
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
         this.affiliation=affiliation;
-        this.publiceTime=publiceTime;
+        this.publishTime=publishTime;
         this.crawlTime=crawlTime;
     }
 
@@ -119,7 +119,7 @@ public class Paper implements Storable {
     }
 
     public String getPubliceTime() {
-        return publiceTime;
+        return publishTime;
     }
 
     public String getCrawlTime() {
@@ -136,7 +136,7 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL,AFFILIATION,CRAWL_TIME,PUBLICE_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL,AFFILIATION,CRAWL_TIME,PUBLISH_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
 
                 // 填坑
                 preparedStatement.setString(1, getTitle());

@@ -37,7 +37,7 @@ public class PaperWebPage extends WebPage {
             "article > header > dl > dd.page";
     private static final String AFFILIATION_CSS_SELECTOR =
             "#a1 > h3";
-    private static final String PUBLICETIME_CSS_SELECTOR =
+    private static final String PUBLISHTIME_CSS_SELECTOR =
             "#content > article > header > dl.citation.dates > dd:nth-child(6) > time";
 
 
@@ -176,7 +176,7 @@ public class PaperWebPage extends WebPage {
     private String parsePubliceTime(final Document dom) {
 
         try {
-            final String publicTime = dom.select(PUBLICETIME_CSS_SELECTOR).text();
+            final String publicTime = dom.select(PUBLISHTIME_CSS_SELECTOR).text();
             return publicTime;
         } catch (Exception e) {
             return null;
