@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import static com.weapes.ntpaprseng.crawler.util.Helper.loadPaperLinks;
+import static com.weapes.ntpaprseng.crawler.util.Helper.loadMetricsLinks;
 import static java.util.concurrent.TimeUnit.DAYS;
 
 /**
@@ -28,7 +28,7 @@ public class DetailCrawler implements Crawler {
 
     @Override
     public void crawl() {
-        loadPaperLinks().forEach(paper ->
+        loadMetricsLinks().forEach(paper ->
             CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
 
         try {

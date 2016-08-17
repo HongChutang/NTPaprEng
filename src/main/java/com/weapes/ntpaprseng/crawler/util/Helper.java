@@ -33,9 +33,6 @@ import static java.nio.charset.Charset.forName;
  * Created by lawrence on 16/8/7.
  */
 public final class Helper {
-    static {
-        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
-    }
 
     private static final OkHttpClient OK_HTTP_CLIENT =
             new OkHttpClient.Builder()
@@ -48,6 +45,10 @@ public final class Helper {
 
     private static final String JSON_CFG_FILE_PATH =
             "conf" + File.separator + "filecfg.json";
+
+    static {
+        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
+    }
 
     private static final Logger LOGGER =
             getLogger(Helper.class);
@@ -180,7 +181,7 @@ public final class Helper {
                 + "&order=" + order.toLowerCase();
     }
 
-    public static List<PaperMetricsLink> loadPaperLinks() {
+    public static List<PaperMetricsLink> loadMetricsLinks() {
         List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
 
         try (final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource()) {
