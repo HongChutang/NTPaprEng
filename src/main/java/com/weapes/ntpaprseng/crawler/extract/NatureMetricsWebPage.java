@@ -13,6 +13,7 @@ public class NatureMetricsWebPage extends WebPage {
     @Override
     // TODO 抽取Metrics信息
     public ExtractedObject extract() {
+
         return null;
     }
 

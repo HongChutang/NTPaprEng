@@ -2,6 +2,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 
 import com.weapes.ntpaprseng.crawler.store.Paper;
 import com.weapes.ntpaprseng.crawler.store.Storable;
+import com.weapes.ntpaprseng.crawler.util.TimeUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,6 +35,10 @@ public class PaperWebPage extends WebPage {
             "#sub-navigation > li.parent.parent-3 > a";
     private static final String PAGE_CSS_SELECTOR =
             "article > header > dl > dd.page";
+    private static final String AFFILIATION_CSS_SELECTOR =
+            "#a1 > h3";
+    private static final String PUBLICETIME_CSS_SELECTOR =
+            "#content > article > header > dl.citation.dates > dd:nth-child(6) > time";
 
 
     // 有些抽取后的信息需要经过subString方法剪切,这些是所需偏移值。
@@ -65,7 +70,10 @@ public class PaperWebPage extends WebPage {
                 parseVolum(dom),
                 parseIssue(dom),
                 parsePageBegin(dom),
-                parsePageEnd(dom)
+                parsePageEnd(dom),
+                parseAffiliation(dom),
+                parsePubliceTime(dom),
+                TimeUtil.getCrawlTime()
         );
     }
 
@@ -154,6 +162,24 @@ public class PaperWebPage extends WebPage {
             return Integer.parseInt(pageRange.substring(pageRange.indexOf("–") + 1));
         } catch (Exception e) {
             return 0;
+        }
+    }
+    private String parseAffiliation(final Document dom) {
+
+        try {
+            final String affiliation = dom.select(AFFILIATION_CSS_SELECTOR).text();
+            return affiliation;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    private String parsePubliceTime(final Document dom) {
+
+        try {
+            final String publicTime = dom.select(PUBLICETIME_CSS_SELECTOR).text();
+            return publicTime;
+        } catch (Exception e) {
+            return null;
         }
     }
 }
