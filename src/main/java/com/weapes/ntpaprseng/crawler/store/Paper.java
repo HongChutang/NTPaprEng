@@ -36,6 +36,10 @@ public class Paper implements Storable {
     private final int pageBegin;
     private final int pageEnd;
 
+    private final  String affiliation;
+    private final String publishTime;
+    private final String crawlTime;
+
     public Paper(final String url,
                  final List<String> authors,
                  final String title,
@@ -46,7 +50,10 @@ public class Paper implements Storable {
                  final int volum,
                  final int issue,
                  final int pageBegin,
-                 final int pageEnd) {
+                 final int pageEnd,
+                 final String affiliation,
+                 final String publishTime,
+                 final String crawlTime) {
         this.url = url;
         this.authors = authors;
         this.title = title;
@@ -58,6 +65,9 @@ public class Paper implements Storable {
         this.issue = issue;
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
+        this.affiliation=affiliation;
+        this.publishTime=publishTime;
+        this.crawlTime=crawlTime;
     }
 
     public String getUrl() {
@@ -104,6 +114,18 @@ public class Paper implements Storable {
         return pageEnd;
     }
 
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public String getPubliceTime() {
+        return publishTime;
+    }
+
+    public String getCrawlTime() {
+        return crawlTime;
+    }
+
     @Override
     public boolean store() {
 
@@ -114,7 +136,7 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL,AFFILIATION,CRAWL_TIME,PUBLISH_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
 
                 // 填坑
                 preparedStatement.setString(1, getTitle());
@@ -128,7 +150,9 @@ public class Paper implements Storable {
                 preparedStatement.setInt(9, getPageBegin());
                 preparedStatement.setInt(10, getPageEnd());
                 preparedStatement.setString(11, getUrl());
-
+                preparedStatement.setString(12, getAffiliation());
+                preparedStatement.setString(13, getPubliceTime());
+                preparedStatement.setString(14, getCrawlTime());
                 System.out.println("sql exeing");
 
                 // 判断执行是否成功
