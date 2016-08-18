@@ -18,8 +18,26 @@ import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
 public class Paper implements Storable {
 
     private static final Logger LOGGER =
-        getLogger(Paper.class);
+            getLogger(Paper.class);
 
+    private static final String INSERT_SQL =
+            "INSERT INTO " +
+                    "NT_PAPERS(" +
+                    "Title ," +
+                    "Authors, " +
+                    "SourceTitle, " +
+                    "ISSN, " +
+                    "EISSN, " +
+                    "DOI, " +
+                    "Volum, " +
+                    "Issue, " +
+                    "PageBegin, " +
+                    "PageEnd, " +
+                    "URL, " +
+                    "AFFILIATION, " +
+                    "CRAWL_TIME, " +
+                    "PUBLISH_TIME) " +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private final List<String> authors;
 
@@ -36,7 +54,7 @@ public class Paper implements Storable {
     private final int pageBegin;
     private final int pageEnd;
 
-    private final  String affiliation;
+    private final String affiliation;
     private final String publishTime;
     private final String crawlTime;
 
@@ -65,12 +83,12 @@ public class Paper implements Storable {
         this.issue = issue;
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
-        this.affiliation=affiliation;
-        this.publishTime=publishTime;
-        this.crawlTime=crawlTime;
+        this.affiliation = affiliation;
+        this.publishTime = publishTime;
+        this.crawlTime = crawlTime;
     }
 
-    public String getUrl() {
+    private String getUrl() {
         return url;
     }
 
@@ -114,15 +132,15 @@ public class Paper implements Storable {
         return pageEnd;
     }
 
-    public String getAffiliation() {
+    private String getAffiliation() {
         return affiliation;
     }
 
-    public String getPubliceTime() {
+    private String getPublishTime() {
         return publishTime;
     }
 
-    public String getCrawlTime() {
+    private String getCrawlTime() {
         return crawlTime;
     }
 
@@ -136,23 +154,10 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL,AFFILIATION,CRAWL_TIME,PUBLISH_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
+            try (final PreparedStatement preparedStatement =
+                         connection.prepareStatement(INSERT_SQL)) {
 
-                // 填坑
-                preparedStatement.setString(1, getTitle());
-                preparedStatement.setString(2, String.join(",", getAuthors()));
-                preparedStatement.setString(3, getSourceTitle());
-                preparedStatement.setString(4, getISSN());
-                preparedStatement.setString(5, geteISSN());
-                preparedStatement.setString(6, getDOI());
-                preparedStatement.setInt(7, getVolum());
-                preparedStatement.setInt(8, getIssue());
-                preparedStatement.setInt(9, getPageBegin());
-                preparedStatement.setInt(10, getPageEnd());
-                preparedStatement.setString(11, getUrl());
-                preparedStatement.setString(12, getAffiliation());
-                preparedStatement.setString(13, getPubliceTime());
-                preparedStatement.setString(14, getCrawlTime());
+                bindSQL(preparedStatement);
                 System.out.println("sql exeing");
 
                 // 判断执行是否成功
@@ -177,5 +182,24 @@ public class Paper implements Storable {
         }
 
         return false;
+    }
+
+    private void bindSQL(final PreparedStatement preparedStatement)
+            throws SQLException {
+        // 填坑
+        preparedStatement.setString(1, getTitle());
+        preparedStatement.setString(2, String.join(",", getAuthors()));
+        preparedStatement.setString(3, getSourceTitle());
+        preparedStatement.setString(4, getISSN());
+        preparedStatement.setString(5, geteISSN());
+        preparedStatement.setString(6, getDOI());
+        preparedStatement.setInt(7, getVolum());
+        preparedStatement.setInt(8, getIssue());
+        preparedStatement.setInt(9, getPageBegin());
+        preparedStatement.setInt(10, getPageEnd());
+        preparedStatement.setString(11, getUrl());
+        preparedStatement.setString(12, getAffiliation());
+        preparedStatement.setString(13, getPublishTime());
+        preparedStatement.setString(14, getCrawlTime());
     }
 }

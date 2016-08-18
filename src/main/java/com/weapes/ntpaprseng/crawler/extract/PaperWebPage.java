@@ -2,7 +2,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 
 import com.weapes.ntpaprseng.crawler.store.Paper;
 import com.weapes.ntpaprseng.crawler.store.Storable;
-import com.weapes.ntpaprseng.crawler.util.TimeUtil;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -72,8 +72,8 @@ public class PaperWebPage extends WebPage {
                 parsePageBegin(dom),
                 parsePageEnd(dom),
                 parseAffiliation(dom),
-                parsePubliceTime(dom),
-                TimeUtil.getCrawlTime()
+                parsePublishTime(dom),
+                Helper.getCrawlTime()
         );
     }
 
@@ -164,20 +164,24 @@ public class PaperWebPage extends WebPage {
             return 0;
         }
     }
+
     private String parseAffiliation(final Document dom) {
 
         try {
-            final String affiliation = dom.select(AFFILIATION_CSS_SELECTOR).text();
-            return affiliation;
+            return dom
+                    .select(AFFILIATION_CSS_SELECTOR)
+                    .text();
         } catch (Exception e) {
             return null;
         }
     }
-    private String parsePubliceTime(final Document dom) {
+
+    private String parsePublishTime(final Document dom) {
 
         try {
-            final String publicTime = dom.select(PUBLISHTIME_CSS_SELECTOR).text();
-            return publicTime;
+            return dom
+                    .select(PUBLISHTIME_CSS_SELECTOR)
+                    .text();
         } catch (Exception e) {
             return null;
         }

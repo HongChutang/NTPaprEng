@@ -21,7 +21,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -45,14 +47,19 @@ public final class Helper {
 
     private static final String JSON_CFG_FILE_PATH =
             "conf" + File.separator + "filecfg.json";
-
-    static {
-        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
-    }
-
     private static final Logger LOGGER =
             getLogger(Helper.class);
 
+    private static final String DATE_FORMAT =
+            "yyyy年MM月dd日 HH:mm";
+
+    static {
+        PropertyConfigurator.configure(
+                Helper
+                        .getCfg()
+                        .getString("log4j")
+        );
+    }
 
 
     private Helper() {
@@ -154,16 +161,22 @@ public final class Helper {
                 .collect(Collectors.toList());
     }
 
-    private static String concatUrl(final JSONObject range, final Object journal) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal) {
         return concatUrl(range, journal, "research", "date_desc");
     }
 
-    private static String concatUrl(final JSONObject range, final Object journal, final String article_type) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal,
+                                    final String article_type) {
         return concatUrl(range, journal, article_type, "date_desc");
     }
 
     // 生成种子链接URL
-    private static String concatUrl(final JSONObject range, final Object journal, final String article_type, final String order) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal,
+                                    final String article_type,
+                                    final String order) {
         final int begin = range.getInteger("begin");
         final int end = range.getInteger("end");
 
@@ -194,11 +207,17 @@ public final class Helper {
                         }
                     }
                 }
-            } catch (SQLException e) {
+            } catch (SQLException se) {
                 System.out.println("Connection Failed");
             }
         }
 
         return paperMetricsLinks;
+    }
+
+    public static String getCrawlTime() {
+        final Date now = new Date();
+        return new SimpleDateFormat(DATE_FORMAT)
+                .format(now);
     }
 }
