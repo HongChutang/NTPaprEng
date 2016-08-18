@@ -8,10 +8,11 @@ import java.util.Date;
  */
 public class TimeUtil {
     public static String getCrawlTime() {
-        long seconds = System.currentTimeMillis();
-        Date date = new Date(seconds);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
-        String crawlTime = format.format(date);
-        return crawlTime;
+
+        final long seconds = System.currentTimeMillis();
+        final Date date = new Date(seconds);
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        return format.format(date);
+
     }
 }

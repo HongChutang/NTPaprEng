@@ -72,7 +72,7 @@ public class PaperWebPage extends WebPage {
                 parsePageBegin(dom),
                 parsePageEnd(dom),
                 parseAffiliation(dom),
-                parsePubliceTime(dom),
+                parsePublishTime(dom),
                 TimeUtil.getCrawlTime()
         );
     }
@@ -168,18 +168,20 @@ public class PaperWebPage extends WebPage {
     private String parseAffiliation(final Document dom) {
 
         try {
-            final String affiliation = dom.select(AFFILIATION_CSS_SELECTOR).text();
-            return affiliation;
+            return dom
+                    .select(AFFILIATION_CSS_SELECTOR)
+                    .text();
         } catch (Exception e) {
             return null;
         }
     }
 
-    private String parsePubliceTime(final Document dom) {
+    private String parsePublishTime(final Document dom) {
 
         try {
-            final String publicTime = dom.select(PUBLISHTIME_CSS_SELECTOR).text();
-            return publicTime;
+            return dom
+                    .select(PUBLISHTIME_CSS_SELECTOR)
+                    .text();
         } catch (Exception e) {
             return null;
         }
