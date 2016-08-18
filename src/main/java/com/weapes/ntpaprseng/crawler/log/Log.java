@@ -7,11 +7,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Log {
     //单次爬取论文总量
-    private static AtomicInteger URL_NUMBERS = new AtomicInteger();
+    private static final AtomicInteger URL_NUMBERS = new AtomicInteger();
     //目前正在爬取的第几篇论文
-    private static AtomicInteger CRAWLING_NUMBERS = new AtomicInteger();
+    private static final AtomicInteger CRAWLING_NUMBERS = new AtomicInteger();
     //单次爬取成功数量
-    private static AtomicInteger CRAWLING_SUCCEED_NUMBERS = new AtomicInteger();
+    private static final AtomicInteger CRAWLING_SUCCEED_NUMBERS = new AtomicInteger();
 
     private static String LAST_LINK;
 

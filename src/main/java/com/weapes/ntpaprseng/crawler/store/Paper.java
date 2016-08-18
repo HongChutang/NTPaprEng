@@ -70,7 +70,7 @@ public class Paper implements Storable {
         this.crawlTime = crawlTime;
     }
 
-    public String getUrl() {
+    private String getUrl() {
         return url;
     }
 
@@ -136,7 +136,7 @@ public class Paper implements Storable {
         // 从DB连接池得到连接
         try (final Connection connection = mysqlDataSource.getConnection()) {
 
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL,AFFILIATION,CRAWL_TIME,PUBLISH_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO NT_PAPERS(Title ,Authors, SourceTitle, ISSN, EISSN, DOI, Volum, Issue, PageBegin, PageEnd, URL, AFFILIATION, CRAWL_TIME, PUBLISH_TIME) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)")) {
 
                 // 填坑
                 preparedStatement.setString(1, getTitle());

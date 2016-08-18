@@ -50,8 +50,15 @@ public final class Helper {
     private static final Logger LOGGER =
             getLogger(Helper.class);
 
+    private static final String DATE_FORMAT =
+            "yyyy年MM月dd日 HH:mm";
+
     static {
-        PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
+        PropertyConfigurator.configure(
+                Helper
+                        .getCfg()
+                        .getString("log4j")
+        );
     }
 
 
@@ -154,16 +161,22 @@ public final class Helper {
                 .collect(Collectors.toList());
     }
 
-    private static String concatUrl(final JSONObject range, final Object journal) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal) {
         return concatUrl(range, journal, "research", "date_desc");
     }
 
-    private static String concatUrl(final JSONObject range, final Object journal, final String article_type) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal,
+                                    final String article_type) {
         return concatUrl(range, journal, article_type, "date_desc");
     }
 
     // 生成种子链接URL
-    private static String concatUrl(final JSONObject range, final Object journal, final String article_type, final String order) {
+    private static String concatUrl(final JSONObject range,
+                                    final Object journal,
+                                    final String article_type,
+                                    final String order) {
         final int begin = range.getInteger("begin");
         final int end = range.getInteger("end");
 
@@ -194,7 +207,7 @@ public final class Helper {
                         }
                     }
                 }
-            } catch (SQLException e) {
+            } catch (SQLException se) {
                 System.out.println("Connection Failed");
             }
         }
@@ -203,9 +216,8 @@ public final class Helper {
     }
 
     public static String getCrawlTime() {
-        final Date date = new Date();
-        final SimpleDateFormat format =
-                new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
-        return format.format(date);
+        final Date now = new Date();
+        return new SimpleDateFormat(DATE_FORMAT)
+                .format(now);
     }
 }
