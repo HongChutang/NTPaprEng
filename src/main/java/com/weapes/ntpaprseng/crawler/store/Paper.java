@@ -199,7 +199,7 @@ public class Paper implements Storable {
         preparedStatement.setInt(10, getPageEnd());
         preparedStatement.setString(11, getUrl());
         preparedStatement.setString(12, getAffiliation());
-        preparedStatement.setString(13, getPublishTime());
-        preparedStatement.setString(14, getCrawlTime());
+        preparedStatement.setString(13, getCrawlTime());
+        preparedStatement.setString(14, getPublishTime());
     }
 }
