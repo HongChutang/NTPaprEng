@@ -2,7 +2,7 @@ package com.weapes.ntpaprseng.crawler.extract;
 
 import com.weapes.ntpaprseng.crawler.store.Paper;
 import com.weapes.ntpaprseng.crawler.store.Storable;
-import com.weapes.ntpaprseng.crawler.util.TimeUtil;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -73,7 +73,7 @@ public class PaperWebPage extends WebPage {
                 parsePageEnd(dom),
                 parseAffiliation(dom),
                 parsePublishTime(dom),
-                TimeUtil.getCrawlTime()
+                Helper.getCrawlTime()
         );
     }
 

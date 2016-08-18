@@ -21,7 +21,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -198,5 +200,12 @@ public final class Helper {
         }
 
         return paperMetricsLinks;
+    }
+
+    public static String getCrawlTime() {
+        final Date date = new Date();
+        final SimpleDateFormat format =
+                new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        return format.format(date);
     }
 }
