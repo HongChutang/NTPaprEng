@@ -45,14 +45,12 @@ public final class Helper {
 
     private static final String JSON_CFG_FILE_PATH =
             "conf" + File.separator + "filecfg.json";
+    private static final Logger LOGGER =
+            getLogger(Helper.class);
 
     static {
         PropertyConfigurator.configure(Helper.getCfg().getString("log4j"));
     }
-
-    private static final Logger LOGGER =
-            getLogger(Helper.class);
-
 
 
     private Helper() {

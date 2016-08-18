@@ -164,6 +164,7 @@ public class PaperWebPage extends WebPage {
             return 0;
         }
     }
+
     private String parseAffiliation(final Document dom) {
 
         try {
@@ -173,6 +174,7 @@ public class PaperWebPage extends WebPage {
             return null;
         }
     }
+
     private String parsePubliceTime(final Document dom) {
 
         try {

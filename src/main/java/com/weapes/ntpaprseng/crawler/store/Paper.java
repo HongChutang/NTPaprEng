@@ -18,7 +18,7 @@ import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
 public class Paper implements Storable {
 
     private static final Logger LOGGER =
-        getLogger(Paper.class);
+            getLogger(Paper.class);
 
 
     private final List<String> authors;
@@ -36,7 +36,7 @@ public class Paper implements Storable {
     private final int pageBegin;
     private final int pageEnd;
 
-    private final  String affiliation;
+    private final String affiliation;
     private final String publishTime;
     private final String crawlTime;
 
@@ -65,9 +65,9 @@ public class Paper implements Storable {
         this.issue = issue;
         this.pageBegin = pageBegin;
         this.pageEnd = pageEnd;
-        this.affiliation=affiliation;
-        this.publishTime=publishTime;
-        this.crawlTime=crawlTime;
+        this.affiliation = affiliation;
+        this.publishTime = publishTime;
+        this.crawlTime = crawlTime;
     }
 
     public String getUrl() {
@@ -114,15 +114,15 @@ public class Paper implements Storable {
         return pageEnd;
     }
 
-    public String getAffiliation() {
+    private String getAffiliation() {
         return affiliation;
     }
 
-    public String getPubliceTime() {
+    private String getPublishTime() {
         return publishTime;
     }
 
-    public String getCrawlTime() {
+    private String getCrawlTime() {
         return crawlTime;
     }
 
@@ -151,7 +151,7 @@ public class Paper implements Storable {
                 preparedStatement.setInt(10, getPageEnd());
                 preparedStatement.setString(11, getUrl());
                 preparedStatement.setString(12, getAffiliation());
-                preparedStatement.setString(13, getPubliceTime());
+                preparedStatement.setString(13, getPublishTime());
                 preparedStatement.setString(14, getCrawlTime());
                 System.out.println("sql exeing");
 

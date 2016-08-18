@@ -29,7 +29,7 @@ public class DetailCrawler implements Crawler {
     @Override
     public void crawl() {
         loadMetricsLinks().forEach(paper ->
-            CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
+                CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
 
         try {
             CREATOR.awaitTermination(1, DAYS);

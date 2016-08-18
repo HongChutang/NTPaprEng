@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by lawrence on 16/8/9.
  */
-public class BaseCrawlerImpTest {
+public class PaperCrawlerTest {
     @Test
     @Ignore
     public void crawl() throws Exception {
