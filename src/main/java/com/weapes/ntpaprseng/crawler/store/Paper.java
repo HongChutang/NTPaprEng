@@ -146,8 +146,8 @@ public class Paper implements Storable {
 
     @Override
     public boolean store() {
-
         System.out.println("Store begin: type=Paper");
+
         final HikariDataSource mysqlDataSource =
                 DataSource.getMysqlDataSource();
 
@@ -156,7 +156,6 @@ public class Paper implements Storable {
 
             try (final PreparedStatement preparedStatement =
                          connection.prepareStatement(INSERT_SQL)) {
-
                 bindSQL(preparedStatement);
                 System.out.println("sql exeing");
 
