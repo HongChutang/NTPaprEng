@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="923fc686-16f6-4f31-8419-051cb4992a13" name="Default" comment="add .gitignore">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/NatureMetricsWebPage.java" afterPath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/NatureMetricsWebPage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/PaperWebPage.java" afterPath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/PaperWebPage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/MetricsPaper.java" afterPath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/MetricsPaper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/Paper.java" afterPath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/Paper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/util/Match.java" afterPath="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/util/Match.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/weapes/ntpaprseng/dependencies/SelectTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/weapes/ntpaprseng/dependencies/SelectTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="NTPaprSEng.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,16 +34,6 @@
     <option name="SHOW_TABLE_DETAILS" value="true" />
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="MySQL - dafeng@5790c80251a3e.gz.cdb.myqcloud.com" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -88,7 +73,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MetricsPaper.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MetricsPaper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/MetricsPaper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="292">
@@ -96,6 +81,16 @@
               <folding>
                 <marker date="1471798376000" expanded="true" signature="4151:4441" ph="INSERT INTO REF_DATA... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -194,11 +189,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/crawler/Crawler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/PaperWebPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/Paper.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/MetricsPaper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/extract/NatureMetricsWebPage.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/weapes/ntpaprseng/dependencies/SelectTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/util/Match.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1467,7 +1462,7 @@
       <workItem from="1471489534747" duration="687000" />
       <workItem from="1471495876037" duration="1948000" />
       <workItem from="1471667643277" duration="804000" />
-      <workItem from="1471798145771" duration="556000" />
+      <workItem from="1471798145771" duration="605000" />
     </task>
     <task id="LOCAL-00001" summary="add .gitignore">
       <created>1470507245616</created>
@@ -1512,7 +1507,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138408000" />
+    <option name="totallyTimeSpent" value="138457000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1948,14 +1943,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/weapes/ntpaprseng/crawler/store/Paper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-587">
@@ -1999,6 +1986,14 @@
           <folding>
             <marker date="1471798376000" expanded="true" signature="4151:4441" ph="INSERT INTO REF_DATA... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
