@@ -1,0 +1,5 @@
+{
+  "allPapersFetch": "conf\\allPapersFetch.json",
+  "hikari": "conf\\hikari.properties",
+  "log4j": "conf\\log4j.properties"
+}

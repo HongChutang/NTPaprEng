@@ -21,7 +21,11 @@ public class PaperMetricsLink extends Link {
     }
 
     private String getMetricsUrl() {
-        return getUrl().substring(0, getUrl().length() - 1 - 5)
-                + "/metrics";
+        int index1 = getUrl().indexOf("/full");
+        String subString = getUrl().substring(0,index1);
+        String subString1 = getUrl().substring(index1);
+        int index2 = subString1.indexOf(".html");
+        String subString2 = subString1.substring(5,index2);
+        return subString + subString2 + "/metrics";
     }
 }

@@ -55,9 +55,7 @@ public final class Helper {
 
     static {
         PropertyConfigurator.configure(
-                Helper
-                        .getCfg()
-                        .getString("log4j")
+                getCfg().getString("log4j")
         );
     }
 
@@ -77,13 +75,10 @@ public final class Helper {
             throws IOException {
 
         LOGGER.info("开始加载种子...");
-
-        final JSONObject cfg =
-                getCfg();
-
-        assert cfg != null;
+//        final JSONObject cfg = getCfg();
+//        assert cfg != null;
         final JSONObject jsonObject =
-                fileMapToJSONObject(cfg.getString("allPapersFetch"));
+                fileMapToJSONObject(getCfg().getString("allPapersFetch"));
 
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
@@ -97,6 +92,8 @@ public final class Helper {
 
     public static JSONObject getCfg() {
         try {
+            final JSONObject cfg = fileMapToJSONObject(JSON_CFG_FILE_PATH);
+            assert cfg != null;
             return fileMapToJSONObject(JSON_CFG_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,14 +178,14 @@ public final class Helper {
         final int end = range.getInteger("end");
 
         // 如果只搜索特点年份,则URL的data_range参数应只有一个年份。
-        if (begin == end) {
-            return BASE_URL
-                    + "?date_range=" + begin
-                    + "&journal=" + journal.toString().toLowerCase()
-                    + "&article_type=" + article_type.toLowerCase();
-        }
+        String dateRange;
+        if (begin == end)
+            dateRange = "?date_range=" + begin;
+        else
+            dateRange = "?date_range=" + begin + "-" + end;
+
         return BASE_URL
-                + "?date_range=" + begin + "-" + end
+                + dateRange
                 + "&journal=" + journal.toString().toLowerCase()
                 + "&article_type=" + article_type.toLowerCase()
                 + "&order=" + order.toLowerCase();
@@ -196,22 +193,19 @@ public final class Helper {
 
     public static List<PaperMetricsLink> loadMetricsLinks() {
         List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
-
-        try (final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource()) {
-            try (final Connection connection = mysqlDataSource.getConnection()) {
-                try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS")) {
-                    try (ResultSet results = preparedStatement.executeQuery()) {
-                        while (results.next()) {
-                            final String url = results.getString("URL");
-                            paperMetricsLinks.add(new PaperMetricsLink(url));
-                        }
+        final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
+        try (final Connection connection = mysqlDataSource.getConnection()) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS")) {
+                try (ResultSet results = preparedStatement.executeQuery()) {
+                    while (results.next()) {
+                        final String url = results.getString("URL");
+                        paperMetricsLinks.add(new PaperMetricsLink(url));
                     }
                 }
-            } catch (SQLException se) {
-                System.out.println("Connection Failed");
             }
+        } catch (SQLException se) {
+            System.out.println("Connected DB Failed");
         }
-
         return paperMetricsLinks;
     }
 
