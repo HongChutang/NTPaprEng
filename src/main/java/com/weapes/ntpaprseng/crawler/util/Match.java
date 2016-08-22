@@ -5,10 +5,10 @@ import java.text.DecimalFormat;
 /**
  * Created by 不一样的天空 on 2016/8/18.
  */
-public class Match {
-    private  static final double DEFAULT_SIMILARITY=0.65;
-    private  static int compute(char[] str1, char[] str2)
-    {
+class Match {
+    private static final double DEFAULT_SIMILARITY = 0.65;
+
+    private static int compute(char[] str1, char[] str2) {
         int size1 = str1.length;
         int size2 = str2.length;
         if (size1 == 0 || size2 == 0) return 0;
@@ -23,13 +23,11 @@ public class Match {
         // it can be used to know which algorithm is better
         int comparisons = 0;
 
-        for (int i = 0; i < size1; ++i)
-        {
+        for (int i = 0; i < size1; ++i) {
             int m = i;
             int n = 0;
             int length = 0;
-            while ((n < size2) && (m < size1))
-            {
+            while ((n < size2) && (m < size1)) {
                 ++comparisons;
                 if (str1[m] != str2[n]) {
                     length = 0;
@@ -45,20 +43,16 @@ public class Match {
                 ++n;
             }
         }
-       // System.out.printf("from %d of str1 and %d of str2, compared for %d times\n", start1, start2, comparisons);
+        // System.out.printf("from %d of str1 and %d of str2, compared for %d times\n", start1, start2, comparisons);
         return longest;
     }
-    private static boolean isMatching(String str1, String sub)
-    {
-        int seq=compute(str1.toLowerCase().toCharArray(), sub.toLowerCase().toCharArray());
-        double similarity=seq/(double)sub.length();
-        DecimalFormat decimalFormat=new DecimalFormat("###.00");
-        similarity= Double.parseDouble(decimalFormat.format(similarity));
+
+    private static boolean isMatching(String str1, String sub) {
+        int seq = compute(str1.toLowerCase().toCharArray(), sub.toLowerCase().toCharArray());
+        double similarity = seq / (double) sub.length();
+        DecimalFormat decimalFormat = new DecimalFormat("###.00");
+        similarity = Double.parseDouble(decimalFormat.format(similarity));
         System.out.println(similarity);
-        if (similarity>DEFAULT_SIMILARITY) {
-            return true;
-        }else {
-            return false;
-        }
+        return similarity > DEFAULT_SIMILARITY;
     }
 }
