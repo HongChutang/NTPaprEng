@@ -12,7 +12,8 @@
   ],
 
   "interval": {
-    "month": 1
+    "paper_crawler_interval_day": 60,
+    "detail_crawler_interval_day": 20
   },
 
   "order": "date_desc"

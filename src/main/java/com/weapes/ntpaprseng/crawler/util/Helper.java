@@ -73,10 +73,8 @@ public final class Helper {
 
     public static List<AdvSearchLink> loadSeeds()
             throws IOException {
-
+        System.out.print("爬虫开始工作,系统时间： " + Helper.getCrawlTime() + "\n");
         LOGGER.info("开始加载种子...");
-//        final JSONObject cfg = getCfg();
-//        assert cfg != null;
         final JSONObject jsonObject =
                 fileMapToJSONObject(getCfg().getString("allPapersFetch"));
 
@@ -191,11 +189,14 @@ public final class Helper {
                 + "&order=" + order.toLowerCase();
     }
 
+
     public static List<PaperMetricsLink> loadMetricsLinks() {
+        System.out.print("开始更新指标,系统时间： " + Helper.getCrawlTime() + "\n");
         List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
+        //从第二张数据表中取出已有所有论文相关指标页面链接
         try (final Connection connection = mysqlDataSource.getConnection()) {
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS")) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM REF_DATA")) {
                 try (ResultSet results = preparedStatement.executeQuery()) {
                     while (results.next()) {
                         final String url = results.getString("URL");
@@ -213,5 +214,27 @@ public final class Helper {
         final Date now = new Date();
         return new SimpleDateFormat(DATE_FORMAT)
                 .format(now);
+    }
+    //获取第一部分爬虫间隔
+    public static int getPaperCrawlerInterval() {
+        String filePath = getCfg().getString("allPapersFetch");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = fileMapToJSONObject(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.getJSONObject("interval").getInteger("paper_crawler_interval_day");
+    }
+    //获取第二部分爬虫间隔
+    public static int getDetailCrawlerInterval() {
+        String filePath = getCfg().getString("allPapersFetch");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = fileMapToJSONObject(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.getJSONObject("interval").getInteger("detail_crawler_interval_day");
     }
 }
