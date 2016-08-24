@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 /**
  * Created by 不一样的天空 on 2016/8/18.
  */
-class Match {
-    private static final double DEFAULT_SIMILARITY = 0.65;
+public final class Match {
+    private static final double DEFAULT_SIMILARITY = 0.40;
 
     private static int compute(char[] str1, char[] str2) {
         int size1 = str1.length;
@@ -47,12 +47,12 @@ class Match {
         return longest;
     }
 
-    private static boolean isMatching(String str1, String sub) {
+    public static boolean isMatching(String str1, String sub) {
         int seq = compute(str1.toLowerCase().toCharArray(), sub.toLowerCase().toCharArray());
         double similarity = seq / (double) sub.length();
         DecimalFormat decimalFormat = new DecimalFormat("###.00");
         similarity = Double.parseDouble(decimalFormat.format(similarity));
-        System.out.println(similarity);
+//        System.out.println(similarity);
         return similarity > DEFAULT_SIMILARITY;
     }
 }

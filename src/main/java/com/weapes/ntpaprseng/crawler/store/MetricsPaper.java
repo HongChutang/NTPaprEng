@@ -186,7 +186,7 @@ public class MetricsPaper implements Storable{
 
     @Override
     public boolean store() {
-        System.out.println("Store begin: type=MetricsPaper.");
+        System.out.println("Store begin: type = MetricsPaper.");
 
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
         // 加上选择条件 URL
@@ -194,7 +194,6 @@ public class MetricsPaper implements Storable{
         try (final Connection connection = mysqlDataSource.getConnection()){
             try (final PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
                 bindUpdateSql(preparedStatement);
-                System.out.print(UPDATE_SQL);
                 // 判断执行是否成功
                 boolean succeed = preparedStatement.executeUpdate() != 0;
                 if (succeed) {
