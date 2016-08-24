@@ -1,10 +1,12 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
+import com.weapes.ntpaprseng.crawler.util.Helper;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import static com.weapes.ntpaprseng.crawler.util.Helper.loadMetricsLinks;
 import static java.util.concurrent.TimeUnit.DAYS;
 
 /**
@@ -28,8 +30,12 @@ public class DetailCrawler implements Crawler {
 
     @Override
     public void crawl() {
-        loadMetricsLinks().forEach(paper ->
-                CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
+        //更新指标时间间隔
+        final int interval_day = Helper.getDetailCrawlerInterval();
+        //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
+        Helper.loadMetricsLinks().forEach(paper ->
+                CREATOR.scheduleAtFixedRate(new StorableFetcher<>(CREATOR, CONSUMER, paper),
+                        0, interval_day, TimeUnit.MINUTES));
 
         try {
             CREATOR.awaitTermination(1, DAYS);

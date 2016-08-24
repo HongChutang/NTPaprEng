@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.weapes.ntpaprseng.crawler.util.Helper.loadSeeds;
 
 /**
  * Created by lawrence on 16/8/7.
@@ -38,8 +37,12 @@ class PaperCrawler implements Crawler {
         try {
             // 种子解析为followable
             // 对每个种子,交给生产者处理为Storable.
-            loadSeeds().forEach(seed ->
-                    CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, seed))); //调整参数可调整线程策略
+
+            //定时爬取间隔
+            final int interval_day = Helper.getPaperCrawlerInterval();
+            //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
+            Helper.loadSeeds().forEach(seed ->
+                    CREATOR.scheduleAtFixedRate(new StorableFetcher<>(CREATOR, CONSUMER, seed), 0, interval_day, TimeUnit.MINUTES ));
 
             LOGGER.info("种子分发完成...");
 
@@ -52,5 +55,4 @@ class PaperCrawler implements Crawler {
             e.printStackTrace();
         }
     }
-
 }

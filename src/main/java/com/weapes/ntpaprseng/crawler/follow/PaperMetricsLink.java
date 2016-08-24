@@ -16,12 +16,7 @@ public class PaperMetricsLink extends Link {
 
     @Override
     public Extractable follow() throws IOException {
-        final String html = Helper.fetchWebPage(getMetricsUrl());
-        return new NatureMetricsWebPage(html, getMetricsUrl());
-    }
-
-    private String getMetricsUrl() {
-        return getUrl().substring(0, getUrl().length() - 1 - 5)
-                + "/metrics";
+        final String html = Helper.fetchWebPage(getUrl());
+        return new NatureMetricsWebPage(html, getUrl());
     }
 }
