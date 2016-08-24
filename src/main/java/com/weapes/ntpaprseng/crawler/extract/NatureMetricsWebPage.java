@@ -1,5 +1,6 @@
 package com.weapes.ntpaprseng.crawler.extract;
 
+import com.weapes.ntpaprseng.crawler.util.Match;
 import com.weapes.ntpaprseng.crawler.store.MetricsPaper;
 import com.weapes.ntpaprseng.crawler.store.Storable;
 import org.jsoup.Jsoup;
@@ -42,7 +43,6 @@ public class NatureMetricsWebPage extends WebPage {
                 number = element.select("a > div").text();
                 referenceUnit = element.select("span > a").text();
                 hashMap.put(referenceUnit, Integer.parseInt(number));
-//                System.out.print(referenceUnit+": " + number + "!!!!!!!\n");
             }
         }
 
@@ -54,7 +54,6 @@ public class NatureMetricsWebPage extends WebPage {
             number = element.select("div > b").text();
             if (referenceUnit != null) {
                 hashMap.put(referenceUnit, Integer.parseInt(number));
-//                System.out.print(referenceUnit+": " + number + "!!!!!!!\n");
             }
         }
 
@@ -90,7 +89,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("web of science")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -99,7 +100,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("crossref")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -108,7 +111,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("scopus")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -117,7 +122,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("news outlets")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -126,7 +133,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("reddit")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -135,7 +144,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("blogged")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -144,7 +155,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("tweeted")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -153,7 +166,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("facebook")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -162,7 +177,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("google")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -170,9 +187,14 @@ public class NatureMetricsWebPage extends WebPage {
     private int parsePinterest(final Set<Map.Entry<String,Integer>> entries){
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
-            if (key.toLowerCase().contains("pinterest")) {
-                return entry.getValue();
+            if (Match.isMatching(key, "printerest")) {
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
+//            if (key.toLowerCase().contains("pinterest")) {
+//                return entry.getValue();
+//            }
         }
         return 0;
     }
@@ -180,7 +202,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("wikipedia")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -189,7 +213,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("mendeley")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -198,7 +224,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("citeulink")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -207,7 +235,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("zetero")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -216,7 +246,9 @@ public class NatureMetricsWebPage extends WebPage {
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
             if (key.toLowerCase().contains("f1000")) {
-                return entry.getValue();
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -224,8 +256,13 @@ public class NatureMetricsWebPage extends WebPage {
     private int parseVideo(final Set<Map.Entry<String,Integer>> entries){
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
-            if (key.toLowerCase().contains("video")) {
-                return entry.getValue();
+//            if (key.toLowerCase().contains("video")) {
+//                return entry.getValue();
+//            }
+            if (Match.isMatching(key, "video")) {
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -233,8 +270,13 @@ public class NatureMetricsWebPage extends WebPage {
     private int parseLinkedin(final Set<Map.Entry<String,Integer>> entries){
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
-            if (key.toLowerCase().contains("linkedin")) {
-                return entry.getValue();
+//            if (key.toLowerCase().contains("linkedin")) {
+//                return entry.getValue();
+//            }
+            if (Match.isMatching(key, "linkedin")) {
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
@@ -242,8 +284,13 @@ public class NatureMetricsWebPage extends WebPage {
     private int parseQ_A(final Set<Map.Entry<String,Integer>> entries){
         for (Map.Entry<String, Integer> entry : entries) {
             String key = entry.getKey();
-            if (key.toLowerCase().contains("q&a")) {
-                return entry.getValue();
+//            if (key.toLowerCase().contains("q&a")) {
+//                return entry.getValue();
+//            }
+            if (Match.isMatching(key, "q&a")) {
+                int value = entry.getValue();
+                hashMap.remove(key);
+                return value;
             }
         }
         return 0;
