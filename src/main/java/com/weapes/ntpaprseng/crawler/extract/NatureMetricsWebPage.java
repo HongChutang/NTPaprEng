@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sun.management.snmp.jvmmib.EnumJvmRTBootClassPathSupport;
 
 import java.util.*;
 
@@ -58,196 +59,195 @@ public class NatureMetricsWebPage extends WebPage {
             }
         }
 
-        final Set<Map.Entry<String,Integer>> entries= hashMap.entrySet();
-        final Iterator<Map.Entry<String,Integer>> iterator=entries.iterator();
+        final Set<Map.Entry<String,Integer>> entries = hashMap.entrySet();
         return new MetricsPaper(
                 getUrl(),
                 parsePageViews(doc),
-                parseWebOfScience(iterator),
-                parseCrossRef(iterator),
-                parseScopus(iterator),
-                parseNewsOutlets(iterator),
-                parseReddit(iterator),
-                parseBlog(iterator),
-                parseTweet(iterator),
-                parseFacebook(iterator),
-                parseGoogle(iterator),
-                parsePinterest(iterator),
-                parseWikipedia(iterator),
-                parseMendeley(iterator),
-                parseCiteUlink(iterator),
-                parseZotero(iterator),
-                parseF1000(iterator),
-                parseVideo(iterator),
-                parseLinkedin(iterator),
-                parseQ_A(iterator)
+                parseWebOfScience(entries),
+                parseCrossRef(entries),
+                parseScopus(entries),
+                parseNewsOutlets(entries),
+                parseReddit(entries),
+                parseBlog(entries),
+                parseTweet(entries),
+                parseFacebook(entries),
+                parseGoogle(entries),
+                parsePinterest(entries),
+                parseWikipedia(entries),
+                parseMendeley(entries),
+                parseCiteUlink(entries),
+                parseZotero(entries),
+                parseF1000(entries),
+                parseVideo(entries),
+                parseLinkedin(entries),
+                parseQ_A(entries)
         );
     }
 
     private int parsePageViews(final Document doc){
         return Integer.parseInt(doc.select(PageViews).text().replace(",",""));
     }
-    private int parseWebOfScience(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("web of science")){
-                return hashMap.get(key);
+    private int parseWebOfScience(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("web of science")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseCrossRef(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("crossref")){
-                return hashMap.get(key);
+    private int parseCrossRef(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("crossref")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseScopus(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("scopus")){
-                return hashMap.get(key);
+    private int parseScopus(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("scopus")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseNewsOutlets(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("news outlets")){
-                return hashMap.get(key);
+    private int parseNewsOutlets(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("news outlets")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseReddit(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("reddit")){
-                return hashMap.get(key);
+    private int parseReddit(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("reddit")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseBlog(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("blogged")){
-                return hashMap.get(key);
+    private int parseBlog(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("blogged")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseTweet(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("tweeted")){
-                return hashMap.get(key);
+    private int parseTweet(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("tweeted")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseFacebook(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("facebook")){
-                return hashMap.get(key);
+    private int parseFacebook(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("facebook")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseGoogle(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("google")){
-                return hashMap.get(key);
+    private int parseGoogle(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("google")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parsePinterest(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("pinterest")){
-                return hashMap.get(key);
+    private int parsePinterest(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("pinterest")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseWikipedia(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("wikipedia")){
-                return hashMap.get(key);
+    private int parseWikipedia(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("wikipedia")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseMendeley(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("mendeley")){
-                return hashMap.get(key);
+    private int parseMendeley(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("mendeley")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseCiteUlink(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("citeulink")){
-                return hashMap.get(key);
+    private int parseCiteUlink(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("citeulink")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseZotero(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("zetero")){
-                return hashMap.get(key);
+    private int parseZotero(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("zetero")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseF1000(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("f1000")){
-                return hashMap.get(key);
+    private int parseF1000(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("f1000")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseVideo(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("video")){
-                return hashMap.get(key);
+    private int parseVideo(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("video")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseLinkedin(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("linkedin")){
-                return hashMap.get(key);
+    private int parseLinkedin(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("linkedin")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
-    private int parseQ_A(final Iterator<Map.Entry<String,Integer>> iterator){
-        while(iterator.hasNext()){
-            String key=iterator.next().getKey();
-            if (key.toLowerCase().contains("q&a")){
-                return hashMap.get(key);
+    private int parseQ_A(final Set<Map.Entry<String,Integer>> entries){
+        for (Map.Entry<String, Integer> entry : entries) {
+            String key = entry.getKey();
+            if (key.toLowerCase().contains("q&a")) {
+                return entry.getValue();
             }
         }
-        return  0;
+        return 0;
     }
     @Override
     public List<? extends ExtractedObject> extractAll() {
