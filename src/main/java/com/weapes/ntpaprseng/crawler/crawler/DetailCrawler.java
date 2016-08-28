@@ -1,7 +1,5 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
-import com.sun.rmi.rmid.ExecPermission;
-import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 
@@ -10,7 +8,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.concurrent.TimeUnit.DAYS;
 
 
 /**
