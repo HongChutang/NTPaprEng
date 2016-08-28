@@ -3,6 +3,7 @@ package com.weapes.ntpaprseng.crawler.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.CalendarCodec;
 import com.weapes.ntpaprseng.crawler.follow.AdvSearchLink;
 import com.weapes.ntpaprseng.crawler.follow.PaperMetricsLink;
 import com.weapes.ntpaprseng.crawler.store.DataSource;
@@ -23,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +37,10 @@ import static java.nio.charset.Charset.forName;
  * Created by lawrence on 16/8/7.
  */
 public final class Helper {
-
+    public static boolean isFirstCrawl = true;
+    public static boolean isDesided = false;
+    public static boolean isFirstPaperLink = true;
+    public static String lastUrlForLastTime = null;
     private static final OkHttpClient OK_HTTP_CLIENT =
             new OkHttpClient.Builder()
                     .readTimeout(1, TimeUnit.MINUTES)
@@ -73,8 +78,8 @@ public final class Helper {
 
     public static List<AdvSearchLink> loadSeeds()
             throws IOException {
-        System.out.print("爬虫开始工作,系统时间： " + Helper.getCrawlTime() + "\n");
         LOGGER.info("开始加载种子...");
+
         final JSONObject jsonObject =
                 fileMapToJSONObject(getCfg().getString("allPapersFetch"));
 
@@ -146,7 +151,7 @@ public final class Helper {
     // 将JSON对象映射为种子
     private static List<String> parseURLSWithJSONObject(final JSONObject object) {
 
-        final JSONObject range = object.getJSONObject("range");
+        final JSONObject range = object.getJSONObject("first_range");
         final JSONArray journals = object.getJSONArray("journals");
         final String article_type = object.getString("article_type");
         final String order = object.getString("order");
@@ -172,9 +177,23 @@ public final class Helper {
                                     final Object journal,
                                     final String article_type,
                                     final String order) {
-        final int begin = range.getInteger("begin");
-        final int end = range.getInteger("end");
-
+        // 根据是否是第一次爬取决定爬取的论文年份范围
+        int begin, end;
+        begin = range.getInteger("begin");
+        end = range.getInteger("end");
+        if (!Helper.isFirstCrawl) {
+            Calendar nowDate = Calendar.getInstance();
+            int year = nowDate.YEAR;
+            int month = nowDate.MONTH;
+            if (month >= 2) {
+                begin = year;
+                end = year;
+            }
+            else {
+                begin = year - 1;
+                end = year;
+            }
+        }
         // 如果只搜索特点年份,则URL的data_range参数应只有一个年份。
         String dateRange;
         if (begin == end)
@@ -191,7 +210,6 @@ public final class Helper {
 
 
     public static List<PaperMetricsLink> loadMetricsLinks() {
-        System.out.print("开始更新指标,系统时间： " + Helper.getCrawlTime() + "\n");
         List<PaperMetricsLink> paperMetricsLinks = new ArrayList<>();
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
         //从第二张数据表中取出已有所有论文相关指标页面链接
@@ -204,10 +222,46 @@ public final class Helper {
                     }
                 }
             }
-        } catch (SQLException se) {
+        } catch (SQLException e) {
             System.out.println("Connected DB Failed");
         }
         return paperMetricsLinks;
+    }
+
+    //获取本次待更新相关指标论文数量方法
+    public static int getRefDataNum() {
+        int num = 0;
+        final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
+        try (final Connection connection = mysqlDataSource.getConnection()) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM NT_PAPERS")) {
+                try (ResultSet results = preparedStatement.executeQuery()) {
+                    while (results.next())
+                        num++;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Connected DB Failed");
+        }
+        return num;
+    }
+
+    //在意外终止爬虫后重启时获取上次爬取的最后一篇论文链接的备用方法
+    public static String getLastUrlForLastTime() {
+        String urlForLastTime = null;
+        final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
+        //从第二张数据表中取出已有所有论文相关指标页面链接
+        try (final Connection connection = mysqlDataSource.getConnection()) {
+            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT URL FROM NT_PAPERS LIMIT 1")) {
+                try (ResultSet results = preparedStatement.executeQuery()) {
+                    while (results.next()) {
+                        urlForLastTime = results.getString("URL");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return urlForLastTime;
     }
 
     public static String getCrawlTime() {
@@ -237,4 +291,6 @@ public final class Helper {
         }
         return jsonObject.getJSONObject("interval").getInteger("detail_crawler_interval_day");
     }
+
+
 }
