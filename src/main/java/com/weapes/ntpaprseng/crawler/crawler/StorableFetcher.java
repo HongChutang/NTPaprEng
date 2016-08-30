@@ -5,6 +5,7 @@ import com.weapes.ntpaprseng.crawler.extract.ExtractedObject;
 import com.weapes.ntpaprseng.crawler.follow.Followable;
 import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.store.Storable;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;

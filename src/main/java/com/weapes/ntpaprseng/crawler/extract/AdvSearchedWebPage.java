@@ -4,6 +4,7 @@ import com.weapes.ntpaprseng.crawler.follow.AdvSearchedLink;
 import com.weapes.ntpaprseng.crawler.follow.Link;
 import com.weapes.ntpaprseng.crawler.follow.PaperLink;
 import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.weapes.ntpaprseng.crawler.util.Helper.isDesided;
 import static com.weapes.ntpaprseng.crawler.util.Helper.isURL;
 
 /**
@@ -48,23 +50,37 @@ public class AdvSearchedWebPage extends WebPage {
         // 所有链接集合
         final List<Link> allLinks = new ArrayList<>();
 
+        if (isFirstPage()) {
+            allLinks.addAll(getSiblingLinks(dom));
+        }
 
         // 得到目前页面论文链接
         final List<? extends Link> paperLinks =
                 getPaperLinks(parsePaperLinks(dom));
 
-        // 加入所有链接集合,如果与下面的if语句互换位置则为广度优先遍历。
         allLinks.addAll(paperLinks);
 
-        if (isFirstPage()) {
-            allLinks.addAll(getSiblingLinks(dom));
-        }
-
-        System.out.println("Links parsed: url=" + getUrl()
-                + " linksSize=" + allLinks.size()
-                + " type=" + "AdvSearched");
-
         return allLinks;
+    }
+    private final boolean isPaperLinksToBeCrawled(final String url) {
+        // 利用Helper中的静态变量或数据库中上一次爬取的最后一条论文详细页面url（备用）
+        // 来确定更新的数量，检查范围是本次爬取的所论文，当匹配到上次爬取的末位置就检查完毕
+        String lastUrlForLastTime = Helper.lastUrlForLastTime;
+        if (lastUrlForLastTime == null) {//使用备用方法
+            lastUrlForLastTime = Helper.getLastUrlForLastTime();
+        }
+        if (url.equals(lastUrlForLastTime)) {// 匹配到
+            isDesided = true; //检查完毕，flag置位
+            return false;
+        } else if (!isDesided) { // 未匹配到且没有检查完毕
+            if (Helper.isFirstPaperLink) {
+                Helper.lastUrlForLastTime = url;
+                Helper.isFirstPaperLink = false;
+            }
+            Log.getUrlNumbers().addAndGet(1);
+            return true;
+        }
+        return false;
     }
 
     // 得到其他AdvSearched链接
@@ -80,7 +96,7 @@ public class AdvSearchedWebPage extends WebPage {
     private List<? extends Link> getPaperLinks(final Elements paperLinks) {
         return paperLinks.stream()
                 .map(link -> new PaperLink(link.attr("href")))
-                .filter(paper -> isURL(paper.getUrl()))
+                .filter(paper -> isURL(paper.getUrl())).filter(paper -> isPaperLinksToBeCrawled(paper.getUrl()))
                 .collect(Collectors.toList());
 
     }
@@ -95,13 +111,9 @@ public class AdvSearchedWebPage extends WebPage {
         final int totalNum =
                 Integer.parseInt(parseTotalNumSpan(dom).text().trim());
 
-        //单次爬取论文总数量
-        Log.getUrlNumbers().set(totalNum);
-
         return (totalNum % NUM_OF_PAPERS_PER_PAGE) == 0
                 ? totalNum / NUM_OF_PAPERS_PER_PAGE
                 : (totalNum / NUM_OF_PAPERS_PER_PAGE) + 1;
-
     }
 
     // 构建其他AdvSearched链接。

@@ -56,7 +56,7 @@ public class PaperWebPage extends WebPage {
     @Override
     public Storable extract() {
 
-        System.out.println("StoreObj parsing: type=PaperWebPage");
+        System.out.println("Webpage extracting: page_url=" + getUrl() + " type = PaperWebPage");
 
         final Document dom = Jsoup.parse(getText());
 
