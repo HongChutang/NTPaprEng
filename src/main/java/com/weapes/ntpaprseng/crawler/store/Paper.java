@@ -1,6 +1,7 @@
 package com.weapes.ntpaprseng.crawler.store;
 
 import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.util.CreateSQL;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
@@ -23,29 +24,11 @@ public class Paper implements Storable {
     private static final Logger LOGGER =
             getLogger(Paper.class);
 
-    private static final String NT_PAPERS_INSERT_SQL =
-            "INSERT INTO " +
-                    "NT_PAPERS(" +
-                    "Title ," +
-                    "Authors, " +
-                    "SourceTitle, " +
-                    "ISSN, " +
-                    "EISSN, " +
-                    "DOI, " +
-                    "Volum, " +
-                    "Issue, " +
-                    "PageBegin, " +
-                    "PageEnd, " +
-                    "URL, " +
-                    "AFFILIATION, " +
-                    "CRAWL_TIME, " +
-                    "PUBLISH_TIME) " +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String NT_PAPERS_INSERT_SQL = CreateSQL.getNtPapersInsertSQL();
 
-    final  String REF_INSERT_SQL =
-            "INSERT INTO REF_DATA(URL, Page_views, Web_of_Science, CrossRef, Scopus, News_outlets, " +
-                    "reddit, Blog, Tweets, Facebook, Google, Pinterest, wikipedia, Mendeley, CiteUlink, Zotero, F1000, Video, " +
-                    "linkedin, Q_A)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    final  String REF_INSERT_SQL =CreateSQL.getRefInsertSQL();
+
 
     private final List<String> authors;
 

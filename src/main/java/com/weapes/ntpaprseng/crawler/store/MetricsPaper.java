@@ -189,6 +189,7 @@ public class MetricsPaper implements Storable{
         }catch (SQLException e){
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -213,5 +214,4 @@ public class MetricsPaper implements Storable{
         preparedStatement.setInt(18,getLinkedin());
         preparedStatement.setInt(19,getQ_a());
     }
-
 }
