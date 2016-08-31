@@ -1,6 +1,7 @@
 package com.weapes.ntpaprseng.crawler.store;
 
-import com.weapes.ntpaprseng.crawler.util.CreateSQL;
+import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.util.Helper;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.*;
-import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
+import static com.weapes.ntpaprseng.crawler.util.Helper.*;
 
 /**
  * 论文Model
@@ -22,9 +23,29 @@ public class Paper implements Storable {
     private static final Logger LOGGER =
             getLogger(Paper.class);
 
-    private static final String NT_PAPERS_INSERT_SQL = CreateSQL.getNtPapersInsertSQL();
+    private static final String NT_PAPERS_INSERT_SQL =
+            "INSERT INTO " +
+                    "NT_PAPERS(" +
+                    "Title ," +
+                    "Authors, " +
+                    "SourceTitle, " +
+                    "ISSN, " +
+                    "EISSN, " +
+                    "DOI, " +
+                    "Volum, " +
+                    "Issue, " +
+                    "PageBegin, " +
+                    "PageEnd, " +
+                    "URL, " +
+                    "AFFILIATION, " +
+                    "CRAWL_TIME, " +
+                    "PUBLISH_TIME) " +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    final  String REF_INSERT_SQL =CreateSQL.getRefInsertSQL();
+    final  String REF_INSERT_SQL =
+            "INSERT INTO REF_DATA(URL, Page_views, Web_of_Science, CrossRef, Scopus, News_outlets, " +
+                    "reddit, Blog, Tweets, Facebook, Google, Pinterest, wikipedia, Mendeley, CiteUlink, Zotero, F1000, Video, " +
+                    "linkedin, Q_A)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private final List<String> authors;
 
@@ -131,7 +152,6 @@ public class Paper implements Storable {
     @Override
     public boolean store() {
         System.out.println("Store begin: type=Paper");
-
         final HikariDataSource mysqlDataSource =
                 DataSource.getMysqlDataSource();
 
@@ -144,9 +164,10 @@ public class Paper implements Storable {
                         connection.prepareStatement(NT_PAPERS_INSERT_SQL);
                 bindPaperSQL(paperPreparedStatement);
                 System.out.println("sql exeing");
-                // 判断执行是否成功
+                // 判断爬取论文信息操作是否成功
                 isSucceed = paperPreparedStatement.executeUpdate() != 0;
             } catch (SQLException e) {
+                isSucceed = false;
             }
 
             try {
@@ -154,7 +175,7 @@ public class Paper implements Storable {
                         connection.prepareStatement(REF_INSERT_SQL);
                 bindRefSQL(refPreparedStatement);
                 System.out.println("store metrix url to  REF_DATA");
-                isSucceed = refPreparedStatement.executeUpdate() != 0;
+                refPreparedStatement.executeUpdate();
             } catch (SQLException e) {
             }
 
@@ -168,6 +189,10 @@ public class Paper implements Storable {
                         + " 失败数：" + (getUrlNumbers().get() - getCrawlingSucceedNumbers().get()));
             }
 
+            //更新爬取检查状态参数
+            Helper.isFirstCrawl = false;
+            isDesided = false;
+            isFirstPaperLink = true;
             return isSucceed;
         } catch (SQLException e) {
         }

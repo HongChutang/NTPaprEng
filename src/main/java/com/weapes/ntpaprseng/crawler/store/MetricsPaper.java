@@ -8,9 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.weapes.ntpaprseng.crawler.log.Log.getCrawlingSucceedNumbers;
-import static com.weapes.ntpaprseng.crawler.log.Log.getLastLink;
-import static com.weapes.ntpaprseng.crawler.log.Log.getUrlNumbers;
+import static com.weapes.ntpaprseng.crawler.log.Log.*;
 import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
 
 /**
@@ -178,13 +176,13 @@ public class MetricsPaper implements Storable{
                 // 判断执行是否成功
                 boolean succeed = preparedStatement.executeUpdate() != 0;
                 if (succeed) {
-                    LOGGER.info("第" + getCrawlingSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
+                    LOGGER.info("第" + getRefreshingingSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
                             + "链接为；" + getUrl());
                 }
-                if (getLastLink().equals(getUrl())) {
-                    LOGGER.info("更新完成，本次更新相关指标论文总量：" + getUrlNumbers().get()
-                            + " 成功数：" + getCrawlingSucceedNumbers().get()
-                            + " 失败数：" + (getUrlNumbers().get() - getCrawlingSucceedNumbers().get()));
+                if (getRefreshingingSucceedNumbers().get() == getRefNumbers().get()) {
+                    LOGGER.info("更新完成，本次更新相关指标论文总量：" + getRefNumbers().get()
+                            + " 成功数：" + getRefreshingingSucceedNumbers().get()
+                            + " 失败数：" + (getRefNumbers().get() - getRefreshingingSucceedNumbers().get()));
                 }
                 return succeed;
             }

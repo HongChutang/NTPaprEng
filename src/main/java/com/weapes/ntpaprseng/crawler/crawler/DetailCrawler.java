@@ -1,5 +1,6 @@
 package com.weapes.ntpaprseng.crawler.crawler;
 
+import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 
 import java.util.concurrent.ExecutorService;
@@ -7,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.concurrent.TimeUnit.DAYS;
+
 
 /**
  * Created by lawrence on 16/8/16.
@@ -30,17 +31,24 @@ public class DetailCrawler implements Crawler {
 
     @Override
     public void crawl() {
-        //更新指标时间间隔
-        final int interval_day = Helper.getDetailCrawlerInterval();
-        //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
-        Helper.loadMetricsLinks().forEach(paper ->
-                CREATOR.scheduleAtFixedRate(new StorableFetcher<>(CREATOR, CONSUMER, paper),
-                        0, interval_day, TimeUnit.MINUTES));
-
         try {
-            CREATOR.awaitTermination(1, DAYS);
+            System.out.print("开始更新指标。系统时间： " + Helper.getCrawlTime() + "\n");
+            System.out.print("本次待更新指标的论文总量为： " + Helper.getRefDataNum() + "\n");
+            Log.getRefNumbers().set(Helper.getRefDataNum());
+            //更新指标时间间隔
+            final int interval_day = Helper.getDetailCrawlerInterval();
+            //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
+            Helper.loadMetricsLinks().forEach(paper ->
+                    CREATOR.scheduleAtFixedRate(new StorableFetcher<>(CREATOR, CONSUMER, paper),
+                            0, interval_day, TimeUnit.MINUTES));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            CREATOR.awaitTermination(3, TimeUnit.DAYS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 }

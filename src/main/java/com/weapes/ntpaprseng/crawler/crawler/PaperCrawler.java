@@ -38,6 +38,7 @@ class PaperCrawler implements Crawler {
             // 种子解析为followable
             // 对每个种子,交给生产者处理为Storable.
 
+            System.out.print("爬虫运行。系统时间：" + Helper.getCrawlTime() + "\n");
             //定时爬取间隔
             final int interval_day = Helper.getPaperCrawlerInterval();
             //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
@@ -46,11 +47,11 @@ class PaperCrawler implements Crawler {
 
             LOGGER.info("种子分发完成...");
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            CREATOR.awaitTermination(1, TimeUnit.DAYS);
+            CREATOR.awaitTermination(3, TimeUnit.DAYS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
