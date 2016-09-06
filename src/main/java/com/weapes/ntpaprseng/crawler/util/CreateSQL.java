@@ -44,10 +44,10 @@ public class CreateSQL {
 
     private static String DEFAULT_ATTRIBUTE=" INT(11) NULL DEFAULT 0,";//向REF_DATA表添加字段的默认属性
 
-    private static String UPDATE_TIME_SQL="SELECT　* FROM TIME";
+    private static String UPDATE_TIME_SQL="SELECT time FROM TIME";
     private static String CHANGE_UPDATE_TIME_SQL="UPDATE TIME SET time=";
     private static String TIME=getUpdateTime();//从数据库中获取的第几次爬取的值
-    public static String getAddColumnsSQL(){
+    private static String getAddColumnsSQL(){
         for (String s:columns) {
             ADD_COLUMNS_SQL+=s+TIME+DEFAULT_ATTRIBUTE;
         }
@@ -59,8 +59,10 @@ public class CreateSQL {
             for (String s:columns) {
                 REF_UPDATE_SQL+=s+TIME+" = ?, ";
             }
+            executeAllSQL();
             return REF_UPDATE_SQL+"WHERE URL = ";
         }else {
+            executeAllSQL();
             return FIRST_REF_UPDATE_SQL;
         }
     }
@@ -75,25 +77,21 @@ public class CreateSQL {
     public static String getUpdateTimeSQL(){
         return UPDATE_TIME_SQL;
     }
-    public static String getChangeUpdateTimeSQL(){
+    private static String getChangeUpdateTimeSQL(){
         CHANGE_UPDATE_TIME_SQL+=String.valueOf(Integer.valueOf(TIME)+1);
         return CHANGE_UPDATE_TIME_SQL;
     }
     private static String getUpdateTime(){
-
         try {
-            String time;
+            String time="";
             final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
             final Connection connection = mysqlDataSource.getConnection();
             final PreparedStatement preparedStatement = connection.prepareStatement(getUpdateTimeSQL());
             ResultSet resultSet=preparedStatement.executeQuery();
-            time = resultSet.getString("time");
-            if (Integer.valueOf(time)>=2){
-                executeAddColumnsSQL();//如果是第二次爬取更新就开始增加REF_DATA表的字段
-                executeChangeUpdateTimeSQL();//修改TIME表中爬取更新的次数
-            }else {//如果是第一次爬取
-                executeChangeUpdateTimeSQL();//修改TIME表中爬取更新的次数
-            }
+             while (resultSet.next()){
+                 time=resultSet.getString(1);
+             }
+            System.out.println("当前是第"+time+"次爬取");
             return time;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,10 +103,12 @@ public class CreateSQL {
             final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
             final Connection connection = mysqlDataSource.getConnection();
             final PreparedStatement preparedStatement = connection.prepareStatement(getAddColumnsSQL());
-            boolean isSuccessful=preparedStatement.execute();
+            boolean isSuccessful=preparedStatement.executeUpdate()!=0;
+            System.out.println("添加数据库字段成功");
             return isSuccessful;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("添加数据库字段失败");
             return false;
         }
     }
@@ -117,12 +117,21 @@ public class CreateSQL {
             final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
             final Connection connection = mysqlDataSource.getConnection();
             final PreparedStatement preparedStatement = connection.prepareStatement(getChangeUpdateTimeSQL());
-            boolean isSuccessful=preparedStatement.execute();
+            boolean isSuccessful=preparedStatement.executeUpdate()!=0;
+           if (isSuccessful){
+                System.out.println("成功更新爬取次数");
+           }
             return isSuccessful;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("更新爬取次数失败");
             return false;
         }
 
+    }
+    public static void executeAllSQL(){
+        executeChangeUpdateTimeSQL();//更新数据库的爬取次数
+        TIME=String.valueOf(Integer.valueOf(TIME)+1);
+        executeAddColumnsSQL();//添加数据库的字段
     }
 }
