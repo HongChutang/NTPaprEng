@@ -34,7 +34,7 @@ public class DetailCrawler implements Crawler {
         try {
             System.out.print("开始更新指标。系统时间： " + Helper.getCrawlTime() + "\n");
             System.out.print("本次待更新指标的论文总量为： " + Helper.getRefDataNum() + "\n");
-            Log.getRefNumbers().set(Helper.getRefDataNum());
+            Log.getTotalUpdateNumbers().set(Helper.getRefDataNum());
             //更新指标时间间隔
             final int interval_day = Helper.getDetailCrawlerInterval();
             //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略

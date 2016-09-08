@@ -1,6 +1,8 @@
 package com.weapes.ntpaprseng.crawler.store;
 
+import com.weapes.ntpaprseng.crawler.follow.PaperLink;
 import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.log.SaveLog;
 import com.weapes.ntpaprseng.crawler.util.CreateSQL;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import com.zaxxer.hikari.HikariDataSource;
@@ -45,7 +47,6 @@ public class Paper implements Storable {
     private final String affiliation;
     private final String publishTime;
     private final String crawlTime;
-
     public Paper(final String url,
                  final List<String> authors,
                  final String title,
@@ -75,7 +76,6 @@ public class Paper implements Storable {
         this.publishTime = publishTime;
         this.crawlTime = crawlTime;
     }
-
     private String getUrl() {
         return url;
     }
@@ -163,13 +163,23 @@ public class Paper implements Storable {
             }
 
             if (isSucceed) {
-                LOGGER.info("第" + getCrawlingSucceedNumbers().incrementAndGet() + "篇爬取成功...\n"
+                LOGGER.info("当前共有" + getCrawlingSucceedNumbers().incrementAndGet() + "篇爬取成功...\n"
                         + "链接为；" + getUrl());
+                SaveLog.executeUpdateLogSQL(1,getCrawlingSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
+            }else {
+                LOGGER.info("当前共有" + getCrawlingFailedNumber().incrementAndGet() + "篇爬取失败...\n"
+                        + "链接为；" + getUrl());
+                SaveLog.executeUpdateLogSQL(0,getCrawlingSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
             }
             if (getLastLink().equals(getUrl())) {
                 LOGGER.info("爬取完成，本次爬取论文总量：" + getUrlNumbers().get()
                         + " 成功数：" + getCrawlingSucceedNumbers().get()
-                        + " 失败数：" + (getUrlNumbers().get() - getCrawlingSucceedNumbers().get()));
+                        + " 失败数：" + getCrawlingFailedNumber().get());
+                long startTime=PaperLink.getStartTime();//开始爬取的时间
+                long endTime=System.currentTimeMillis();//结束爬取的时间
+                long total=endTime-startTime;
+                String averageTime=Helper.getSeconds(total/getUrlNumbers().get());
+                SaveLog.executeUpdateAverageTimeSQL(averageTime,getUrlNumbers().get());
             }
 
             //更新爬取检查状态参数
@@ -201,7 +211,7 @@ public class Paper implements Storable {
         preparedStatement.setString(14, getPublishTime());
     }
 
-    private void bindRefSQL(final PreparedStatement preparedStatement)
+    public  void bindRefSQL(final PreparedStatement preparedStatement)
             throws SQLException {
         preparedStatement.setString(1,getMetricsUrl());
         preparedStatement.setInt(2, 0);

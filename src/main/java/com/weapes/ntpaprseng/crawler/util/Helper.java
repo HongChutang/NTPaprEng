@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -266,8 +267,25 @@ public final class Helper {
 
     public static String getCrawlTime() {
         final Date now = new Date();
-        return new SimpleDateFormat(DATE_FORMAT)
-                .format(now);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(DATE_FORMAT);
+        String time=simpleDateFormat.format(now);
+        return time;
+    }
+    public static String getSeconds(long millis){
+        float second= (float) (millis/1000.0);
+        System.out.print(second+"秒");
+        return second+"秒";
+    }
+    public static long getMillis(String time){
+        SimpleDateFormat format=new SimpleDateFormat(DATE_FORMAT);
+        try {
+            Date date=format.parse(time);
+            System.out.println(date.getTime());
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return System.currentTimeMillis();
+        }
     }
     //获取第一部分爬虫间隔
     public static int getPaperCrawlerInterval() {

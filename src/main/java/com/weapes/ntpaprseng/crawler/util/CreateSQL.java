@@ -45,7 +45,7 @@ public class CreateSQL {
     private static String DEFAULT_ATTRIBUTE=" INT(11) NULL DEFAULT 0,";//向REF_DATA表添加字段的默认属性
 
     private static String UPDATE_TIME_SQL="SELECT time FROM TIME";
-    private static String CHANGE_UPDATE_TIME_SQL="UPDATE TIME SET time=";
+    private static String CHANGE_UPDATE_TIME_SQL="INSERT INTO TIME(time,date)"+"VALUES(?, ?)";
     private static String TIME=getUpdateTime();//从数据库中获取的第几次爬取的值
     private static String getAddColumnsSQL(){
         for (String s:columns) {
@@ -55,14 +55,17 @@ public class CreateSQL {
     }
 
     public static  String getRefUpdateSQL(){
+        String string=REF_UPDATE_SQL;
         if (Integer.valueOf(TIME)>=2){
             for (String s:columns) {
-                REF_UPDATE_SQL+=s+TIME+" = ?, ";
+                string+=s+TIME+" = ?, ";
             }
-            executeAllSQL();
-            return REF_UPDATE_SQL+"WHERE URL = ";
+            string=string.substring(0,string.length()-2);
+            System.out.println(string+"WHERE URL = ");
+            return string+"WHERE URL = ";
         }else {
-            executeAllSQL();
+           // executeAllSQL();
+            System.out.println(FIRST_REF_UPDATE_SQL);
             return FIRST_REF_UPDATE_SQL;
         }
     }
@@ -77,9 +80,8 @@ public class CreateSQL {
     public static String getUpdateTimeSQL(){
         return UPDATE_TIME_SQL;
     }
-    private static String getChangeUpdateTimeSQL(){
-        CHANGE_UPDATE_TIME_SQL+=String.valueOf(Integer.valueOf(TIME)+1);
-        return CHANGE_UPDATE_TIME_SQL;
+    private static String getChangeUpdateTime(){
+        return  String.valueOf(Integer.valueOf(TIME)+1);
     }
     private static String getUpdateTime(){
         try {
@@ -104,7 +106,9 @@ public class CreateSQL {
             final Connection connection = mysqlDataSource.getConnection();
             final PreparedStatement preparedStatement = connection.prepareStatement(getAddColumnsSQL());
             boolean isSuccessful=preparedStatement.executeUpdate()!=0;
-            System.out.println("添加数据库字段成功");
+            if(isSuccessful){
+                System.out.println("添加数据库字段成功");
+            }
             return isSuccessful;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,11 +116,13 @@ public class CreateSQL {
             return false;
         }
     }
-    private static boolean executeChangeUpdateTimeSQL(){
+    public static boolean executeChangeUpdateTimeSQL(){
         try {
             final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
             final Connection connection = mysqlDataSource.getConnection();
-            final PreparedStatement preparedStatement = connection.prepareStatement(getChangeUpdateTimeSQL());
+            final PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_UPDATE_TIME_SQL);
+            preparedStatement.setString(1,getChangeUpdateTime());
+            preparedStatement.setString(2,Helper.getCrawlTime());
             boolean isSuccessful=preparedStatement.executeUpdate()!=0;
            if (isSuccessful){
                 System.out.println("成功更新爬取次数");
@@ -133,5 +139,6 @@ public class CreateSQL {
         executeChangeUpdateTimeSQL();//更新数据库的爬取次数
         TIME=String.valueOf(Integer.valueOf(TIME)+1);
         executeAddColumnsSQL();//添加数据库的字段
+        System.out.println("executeAllSQL成功");
     }
 }

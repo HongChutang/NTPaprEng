@@ -10,6 +10,6 @@ public class CreateSQLTest {
     @Test
     @Ignore
     public void addColumns(){
-        CreateSQL.getRefUpdateSQL();
+       CreateSQL.executeChangeUpdateTimeSQL();
     }
 }

@@ -10,25 +10,21 @@ public class Log {
     private static AtomicInteger URL_NUMBERS = new AtomicInteger();
     //目前正在爬取的第几篇论文
     private static final AtomicInteger CRAWLING_NUMBERS = new AtomicInteger();
-    //单次爬取成功数量
+    //单次当前爬取成功数量
     private static final AtomicInteger CRAWLING_SUCCEED_NUMBERS = new AtomicInteger();
+    //单次当前爬取失败数量
+    private static final AtomicInteger CRAWLING_FAILED_NUMBER = new AtomicInteger();
 
     //单次更新指标论文总量
-    private static AtomicInteger REF_NUMBERS = new AtomicInteger();
+    private static AtomicInteger TOTAL_UPDATE_NUMBERS = new AtomicInteger();
     //目前正在更新的第几篇论文
-    private static final AtomicInteger REFRESHING_NUMBERS = new AtomicInteger();
-    //单次更新成功数量
-    private static final AtomicInteger REFRESHINGING_SUCCEED_NUMBERS = new AtomicInteger();
+    private static final AtomicInteger  CURRENT_UPDATE_NUMBERS= new AtomicInteger();
+    //单次当前更新成功数量
+    private static final AtomicInteger UPDATE_SUCCEED_NUMBERS = new AtomicInteger();
+    //单次当前更新失败数量
+    private static final AtomicInteger UPDATE_FAILED_NUMBERS = new AtomicInteger();
 
     private static String LAST_LINK;
-
-    public static AtomicInteger getUrlNumbers() {
-        return URL_NUMBERS;
-    }
-
-    public static AtomicInteger getCrawlingNumbers() {
-        return CRAWLING_NUMBERS;
-    }
 
     public static String getLastLink() {
         return LAST_LINK;
@@ -38,17 +34,35 @@ public class Log {
         LAST_LINK = lastLink;
     }
 
+    public static AtomicInteger getUrlNumbers() {
+        return URL_NUMBERS;
+    }
+
+    public static AtomicInteger getCrawlingNumbers() {
+        return CRAWLING_NUMBERS;
+    }
+
     public static AtomicInteger getCrawlingSucceedNumbers() {
         return CRAWLING_SUCCEED_NUMBERS;
     }
 
-    public static AtomicInteger getRefNumbers() { return REF_NUMBERS;
+    public static AtomicInteger getCrawlingFailedNumber() {
+        return CRAWLING_FAILED_NUMBER;
     }
-    public static AtomicInteger getRefreshingNumbers() {
-        return REFRESHING_NUMBERS;
+
+    public static AtomicInteger getTotalUpdateNumbers() {
+        return TOTAL_UPDATE_NUMBERS;
     }
-    public static AtomicInteger getRefreshingingSucceedNumbers() {
-        return REFRESHINGING_SUCCEED_NUMBERS;
+
+    public static AtomicInteger getCurrentUpdateNumbers() {
+        return CURRENT_UPDATE_NUMBERS;
+    }
+
+    public static AtomicInteger getUpdateSucceedNumbers() {
+        return UPDATE_SUCCEED_NUMBERS;
+    }
+    public static AtomicInteger getUpdateFailedNumbers() {
+        return UPDATE_FAILED_NUMBERS;
     }
 
 }

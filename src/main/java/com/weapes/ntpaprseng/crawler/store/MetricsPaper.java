@@ -176,13 +176,16 @@ public class MetricsPaper implements Storable{
                 // 判断执行是否成功
                 boolean succeed = preparedStatement.executeUpdate() != 0;
                 if (succeed) {
-                    LOGGER.info("第" + getRefreshingingSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
+                    LOGGER.info("当前共有" + getUpdateSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
+                            + "链接为；" + getUrl());
+                }else {
+                    LOGGER.info("当前共有" + getUpdateFailedNumbers().incrementAndGet() + "篇论文相关指标更新失败...\n"
                             + "链接为；" + getUrl());
                 }
-                if (getRefreshingingSucceedNumbers().get() == getRefNumbers().get()) {
-                    LOGGER.info("更新完成，本次更新相关指标论文总量：" + getRefNumbers().get()
-                            + " 成功数：" + getRefreshingingSucceedNumbers().get()
-                            + " 失败数：" + (getRefNumbers().get() - getRefreshingingSucceedNumbers().get()));
+                if (getUpdateSucceedNumbers().get() == getTotalUpdateNumbers().get()) {
+                    LOGGER.info("更新完成，本次更新相关指标论文总量：" +getTotalUpdateNumbers().get()
+                            + " 成功数：" + getUpdateSucceedNumbers().get()
+                            + " 失败数：" + getUpdateFailedNumbers());
                 }
                 return succeed;
             }
