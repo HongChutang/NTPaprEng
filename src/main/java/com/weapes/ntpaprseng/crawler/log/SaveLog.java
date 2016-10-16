@@ -14,13 +14,13 @@ import java.sql.SQLException;
 public class SaveLog {
 
     private static final String INSERTLOG =
-            "INSERT INTO LOG(" +
+            "INSERT INTO CrawlLog(" +
                     "URL," + "ArticlePosition," + "TotalNumber," + "CrawTime)" +
                     "VALUES(?, ?, ?, ?)";
     private static final String UPDATELOG =
-            "UPDATE LOG SET " + "IsSuccessful = ?," + "SuccessfulNumber = ?," +
+            "UPDATE CrawlLog SET " + "IsSuccessful = ?," + "SuccessfulNumber = ?," +
                     "FailedNumber = ?" + " WHERE URL = ";
-    private static final String UPDATELOGTIME="UPDATE LOG SET " + "AverageTime = ?"+
+    private static final String UPDATELOGTIME="UPDATE CrawlLog SET " + "AverageTime = ?"+
             " WHERE TotalNumber = ";
     public static void executeInsertLogSQL(String url, int currentPosition, int totalNumber, String crawTime) {
         final HikariDataSource mysqlDataSource =

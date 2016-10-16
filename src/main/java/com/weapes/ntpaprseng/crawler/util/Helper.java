@@ -58,7 +58,8 @@ public final class Helper {
 
     private static final String DATE_FORMAT =
             "yyyy年MM月dd日 HH:mm";
-
+    private static final String UPDATE_TIME_FORMAT =
+            "yyyy年MM月dd日";
     static {
         PropertyConfigurator.configure(
                 getCfg().getString("log4j")
@@ -268,6 +269,12 @@ public final class Helper {
     public static String getCrawlTime() {
         final Date now = new Date();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat(DATE_FORMAT);
+        String time=simpleDateFormat.format(now);
+        return time;
+    }
+    public static String getUpdateTime() {
+        final Date now = new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(UPDATE_TIME_FORMAT);
         String time=simpleDateFormat.format(now);
         return time;
     }

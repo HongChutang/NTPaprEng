@@ -150,6 +150,7 @@ public class Paper implements Storable {
                 // 判断爬取论文信息操作是否成功
                 isSucceed = paperPreparedStatement.executeUpdate() != 0;
             } catch (SQLException e) {
+                System.out.print(e.getSQLState()+"  "+e.getMessage());
                 isSucceed = false;
             }
 
@@ -210,11 +211,10 @@ public class Paper implements Storable {
         preparedStatement.setString(13, getCrawlTime());
         preparedStatement.setString(14, getPublishTime());
     }
-
     public  void bindRefSQL(final PreparedStatement preparedStatement)
             throws SQLException {
         preparedStatement.setString(1,getMetricsUrl());
-        preparedStatement.setInt(2, 0);
+        preparedStatement.setString(2, Helper.getUpdateTime());
         preparedStatement.setInt(3, 0);
         preparedStatement.setInt(4, 0);
         preparedStatement.setInt(5, 0);
@@ -233,6 +233,7 @@ public class Paper implements Storable {
         preparedStatement.setInt(18, 0);
         preparedStatement.setInt(19, 0);
         preparedStatement.setInt(20, 0);
+        preparedStatement.setInt(21, 0);
     }
 
     // 将原来的论文详细页面url进行字符串处理，转化为metric相关指标页面url
