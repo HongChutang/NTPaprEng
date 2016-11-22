@@ -2,15 +2,14 @@ package com.weapes.ntpaprseng.crawler.follow;
 
 import com.weapes.ntpaprseng.crawler.extract.Extractable;
 import com.weapes.ntpaprseng.crawler.extract.PaperWebPage;
-import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.log.CrawlLog;
+import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.slf4j.Logger;
 
 import java.io.IOException;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.getCrawlingNumbers;
-import static com.weapes.ntpaprseng.crawler.log.Log.getUrlNumbers;
 
 /**
  * 论文链接
