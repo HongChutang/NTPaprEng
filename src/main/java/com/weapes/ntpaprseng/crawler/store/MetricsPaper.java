@@ -1,8 +1,19 @@
 package com.weapes.ntpaprseng.crawler.store;
 
+import com.weapes.ntpaprseng.crawler.crawler.DetailCrawler;
+import com.weapes.ntpaprseng.crawler.follow.PaperLink;
+import com.weapes.ntpaprseng.crawler.log.CrawlLog;
+import com.weapes.ntpaprseng.crawler.log.Log;
+import com.weapes.ntpaprseng.crawler.log.UpdateLog;
+import com.weapes.ntpaprseng.crawler.search.ESClient;
 import com.weapes.ntpaprseng.crawler.util.CreateSQL;
+import com.weapes.ntpaprseng.crawler.util.Helper;
+import com.weapes.ntpaprseng.crawler.util.UpdateTimeFormat;
 import com.zaxxer.hikari.HikariDataSource;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.slf4j.Logger;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +21,7 @@ import java.sql.SQLException;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.*;
 import static com.weapes.ntpaprseng.crawler.util.Helper.getLogger;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * Created by 不一样的天空 on 2016/8/18.
@@ -83,7 +95,6 @@ public class MetricsPaper implements Storable{
         this.linkedin=linkedin;
         this.q_a=q_a;
     }
-
     private String getUrl() {
         return url;
     }
@@ -162,11 +173,17 @@ public class MetricsPaper implements Storable{
     private int getQ_a() {
         return q_a;
     }
+    private int getFinalIndex() {
+        return 0;
+    }
 
     @Override
     public boolean store() {
         System.out.println("Store begin: type = MetricsPaper.");
-
+        LOGGER.info("本次更新论文" + Log.getTotalUpdateNumbers().get() + "篇，"
+                + "正在更新第" + Log.getCurrentUpdateNumbers().incrementAndGet() + "篇\n"
+                + "链接为：" + getUrl());
+        UpdateLog.executeInsertLogSQL(getUrl(),getTotalUpdateNumbers().get(),getCurrentUpdateNumbers().get(),Helper.getUpdateTime());
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
         // 加上选择条件 URL
         REF_UPDATE_SQL = REF_UPDATE_SQL + "'" + getUrl() + "'";
@@ -178,14 +195,27 @@ public class MetricsPaper implements Storable{
                 if (succeed) {
                     LOGGER.info("当前共有" + getUpdateSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
                             + "链接为；" + getUrl());
+                    UpdateLog.executeUpdateLogSQL(1,getUpdateSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
                 }else {
                     LOGGER.info("当前共有" + getUpdateFailedNumbers().incrementAndGet() + "篇论文相关指标更新失败...\n"
                             + "链接为；" + getUrl());
+                    UpdateLog.executeUpdateLogSQL(0,getUpdateSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
                 }
-                if (getUpdateSucceedNumbers().get() == getTotalUpdateNumbers().get()) {
+
+               boolean isSuccess= updateRefDataIntoES();//更新论文指标到ElasticSearch中的REF_DATA
+                if (!isSuccess){
+                    System.out.println("更新论文指标到ElasticSearch中的REF_DATA失败");
+                }
+
+                if (getCurrentUpdateNumbers().get() == getTotalUpdateNumbers().get()) {
                     LOGGER.info("更新完成，本次更新相关指标论文总量：" +getTotalUpdateNumbers().get()
                             + " 成功数：" + getUpdateSucceedNumbers().get()
                             + " 失败数：" + getUpdateFailedNumbers());
+                    long startTime= PaperLink.getStartTime();//开始爬取的时间
+                    long endTime=System.currentTimeMillis();//结束爬取的时间
+                    long total=endTime-startTime;
+                    String averageTime=Helper.getSeconds(total/getUrlNumbers().get());
+                    UpdateLog.executeUpdateAverageTimeSQL(averageTime,getUrlNumbers().get());
                 }
                 return succeed;
             }
@@ -197,24 +227,63 @@ public class MetricsPaper implements Storable{
     }
 
     private void bindUpdateSql(final PreparedStatement preparedStatement) throws SQLException{
-        preparedStatement.setInt(1,getPageViews());
-        preparedStatement.setInt(2,getWebOfScience());
-        preparedStatement.setInt(3,getCrossRef());
-        preparedStatement.setInt(4,getScopus());
-        preparedStatement.setInt(5,getNewsOutlets());
-        preparedStatement.setInt(6,getReddit());
-        preparedStatement.setInt(7,getBlog());
-        preparedStatement.setInt(8,getTweets());
-        preparedStatement.setInt(9,getFacebook());
-        preparedStatement.setInt(10,getGoogle());
-        preparedStatement.setInt(11,getPinterest());
-        preparedStatement.setInt(12,getWikipedia());
-        preparedStatement.setInt(13,getMendeley());
-        preparedStatement.setInt(14,getCiteUlink());
-        preparedStatement.setInt(15,getZotero());
-        preparedStatement.setInt(16,getF1000());
-        preparedStatement.setInt(17,getVideo());
-        preparedStatement.setInt(18,getLinkedin());
-        preparedStatement.setInt(19,getQ_a());
+        preparedStatement.setString(1, Helper.getUpdateTime());
+        preparedStatement.setInt(2, getPageViews());
+        preparedStatement.setInt(3,getWebOfScience());
+        preparedStatement.setInt(4,getCrossRef());
+        preparedStatement.setInt(5,getScopus());
+        preparedStatement.setInt(6,getNewsOutlets());
+        preparedStatement.setInt(7,getReddit());
+        preparedStatement.setInt(8,getBlog());
+        preparedStatement.setInt(9,getTweets());
+        preparedStatement.setInt(10,getFacebook());
+        preparedStatement.setInt(11,getGoogle());
+        preparedStatement.setInt(12,getPinterest());
+        preparedStatement.setInt(13,getWikipedia());
+        preparedStatement.setInt(14,getMendeley());
+        preparedStatement.setInt(15,getCiteUlink());
+        preparedStatement.setInt(16,getZotero());
+        preparedStatement.setInt(17,getF1000());
+        preparedStatement.setInt(18,getVideo());
+        preparedStatement.setInt(19,getLinkedin());
+        preparedStatement.setInt(20,getQ_a());
+        preparedStatement.setInt(21,getFinalIndex());
+    }
+
+
+    public boolean updateRefDataIntoES(){
+        XContentBuilder json=null;
+        UpdateTimeFormat format = new UpdateTimeFormat( DetailCrawler.getUpdateTime());
+        try {
+            json=jsonBuilder().startObject()
+                    .field("URL",getUrl())
+                    .field("UpdateTime", DetailCrawler.getUpdateTime())
+                    .field("Year", format.getYear())
+                    .field("Month", format.getMonth())
+                    .field("Day", format.getDay())
+                    .field("Page_views",getPageViews())
+                    .field("Web_Of_Science",getWebOfScience())
+                    .field("CrossRef",getCrossRef())
+                    .field("Scopus",getScopus())
+                    .field("News_outlets",getNewsOutlets())
+                    .field("Reddit",getReddit())
+                    .field("Blog",getBlog())
+                    .field("Tweets",getTweets())
+                    .field("FaceBook",getFacebook())
+                    .field("Google",getGoogle())
+                    .field("Pinterest",getPinterest())
+                    .field("Wikipedia",getWikipedia())
+                    .field("Mendeley",getMendeley())
+                    .field("CiteUlink",getCiteUlink())
+                    .field("Zotero",getZotero())
+                    .field("F10000",getF1000())
+                    .field("Video",getVideo())
+                    .field("Linkedin",getLinkedin())
+                    .field("Q_A",getQ_a())
+                    .field("FinalIndex",0).endObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return   ESClient.getInstance().putMetricsPaperIntoES(json);
     }
 }

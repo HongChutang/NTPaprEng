@@ -18,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,10 +232,10 @@ public final class Helper {
         int num = 0;
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
         try (final Connection connection = mysqlDataSource.getConnection()) {
-            try (final PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM NT_PAPERS")) {
-                try (ResultSet results = preparedStatement.executeQuery()) {
-                    while (results.next())
-                        num++;
+            try (final Statement statement = connection.createStatement()) {
+                try (ResultSet results =statement.executeQuery("select count(*) as rowCount from REF_DATA")) {
+                    results.next();
+                    num = results.getInt("rowCount");
                 }
             }
         } catch (SQLException e) {

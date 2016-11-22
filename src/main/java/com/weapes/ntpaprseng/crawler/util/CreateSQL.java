@@ -12,14 +12,14 @@ import java.sql.SQLException;
  * Created by  不一样的天空  on 2016/8/30.
  */
 public class CreateSQL {
-    // 第一次更新REF_DATA表的sql语句
-    private static final String FIRST_REF_UPDATE_SQL =
-            "UPDATE REF_DATA SET "+"UpdateTime = ?, "+"Page_views = ?, " + "Web_of_Science = ?, " +
+    // 通过URL来更新REF_DATA表
+    private static final String REF_UPDATE_SQL =
+            "UPDATE REF_DATA SET "+" UpdateTime = ?, "+"Page_views = ?, " + "Web_of_Science = ?, " +
                     "CrossRef = ?, " + "Scopus = ?, " + "News_outlets = ?, " +
                     "reddit = ?, " + "Blog = ?, " + "Tweets = ?, " + "Facebook = ?, " +
                     "Google = ?, " + "Pinterest = ?, " + "wikipedia = ?, " + "Mendeley = ?, " +
-                    "CiteUlink = ?, " + "Zotero = ?, " + "F1000 = ?, " +
-                    "Video = ?, " + "linkedin = ?, " + "Q_A = ? " + "WHERE URL = ";
+                    "CiteUlink = ?, " + "Zotero = ?, " + "F1000 = ?, " + "Video = ?, " +
+                    "linkedin = ?, " + "Q_A = ?," + "FinalIndex = ? "+ "WHERE URL = ";
 
     private static final String NT_PAPERS_INSERT_SQL =
             "INSERT INTO " + "NT_PAPERS(" +
@@ -27,18 +27,18 @@ public class CreateSQL {
                     "EISSN, " + "DOI, " + "Volum, " + "Issue, " + "PageBegin, " +
                     "PageEnd, " + "URL, " + "Affiliation, " + "CrawlTime, " +
                     "PublishTime) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    // 第一次向REF_DATA表插入数据的sql语句
+    // 更新NT_PAPERS的同时向REF_DATA添加URL和UpdateTime这两个字段
     private static final  String REF_INSERT_SQL =
             "INSERT INTO REF_DATA(URL, UpdateTime,Page_views, Web_of_Science, CrossRef, Scopus, News_outlets, " +
                     "reddit, Blog, Tweets, Facebook, Google, Pinterest, wikipedia, Mendeley, CiteUlink, Zotero, F1000, Video, " +
-                    "linkedin, Q_A)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "linkedin, Q_A, FinalIndex)" + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static String UPDATE_TIME_SQL="SELECT time FROM TIME";
 
     private static String CHANGE_UPDATE_TIME_SQL="INSERT INTO TIME(time,date)"+"VALUES(?, ?)";
     private static String TIME=getUpdateTime();//从数据库中获取的第几次爬取的值
     public static  String getRefUpdateSQL(){
-            return FIRST_REF_UPDATE_SQL;
+            return REF_UPDATE_SQL;
     }
 
     public static String getNtPapersInsertSQL(){

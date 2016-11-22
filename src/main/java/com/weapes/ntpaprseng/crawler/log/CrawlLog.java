@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by 不一样的天空 on 2016/9/8.
  */
-public class SaveLog {
+public class CrawlLog {
 
     private static final String INSERTLOG =
             "INSERT INTO CrawlLog(" +

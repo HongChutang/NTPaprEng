@@ -18,6 +18,7 @@ public class DetailCrawler implements Crawler {
     //生产者消费者线程数,可以根据环境进行调整
     private static final int CREATOR_THREAD_NUM = 1;
     private static final int CONSUMER_THREAD_NUM = 1;
+    private static String startTime;
 
     /*
      * 生产者负责把Followable解析为Storable,
@@ -32,7 +33,8 @@ public class DetailCrawler implements Crawler {
     @Override
     public void crawl() {
         try {
-            System.out.print("开始更新指标。系统时间： " + Helper.getCrawlTime() + "\n");
+            startTime=Helper.getCrawlTime();
+            System.out.print("开始更新指标。系统时间： " + startTime + "\n");
             System.out.print("本次待更新指标的论文总量为： " + Helper.getRefDataNum() + "\n");
             Log.getTotalUpdateNumbers().set(Helper.getRefDataNum());
             //更新指标时间间隔
@@ -50,5 +52,7 @@ public class DetailCrawler implements Crawler {
             e.printStackTrace();
         }
     }
-
+    public static String getUpdateTime(){
+        return startTime;
+    }
 }
