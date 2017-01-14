@@ -3,7 +3,6 @@ package com.weapes.ntpaprseng.crawler.crawler;
 import com.weapes.ntpaprseng.crawler.util.Helper;
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
