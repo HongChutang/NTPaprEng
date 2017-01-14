@@ -75,12 +75,15 @@ public final class Helper {
      * @throws IOException dummyInfo
      */
 
-    public static List<AdvSearchLink> loadSeeds()
-            throws IOException {
+    public static List<AdvSearchLink> loadSeeds() {
         LOGGER.info("开始加载种子...");
 
-        final JSONObject jsonObject =
-                fileMapToJSONObject(getCfg().getString("allPapersFetch"));
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = fileMapToJSONObject(getCfg().getString("allPapersFetch"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         final List<String> urls =
                 parseURLSWithJSONObject(jsonObject);
@@ -291,8 +294,8 @@ public final class Helper {
             return System.currentTimeMillis();
         }
     }
-    //获取第一部分爬虫间隔
-    public static int getPaperCrawlerInterval() {
+    //获取任务周期
+    public static int getTaskPeriod() {
         String filePath = getCfg().getString("allPapersFetch");
         JSONObject jsonObject = null;
         try {
@@ -300,19 +303,6 @@ public final class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return jsonObject.getJSONObject("interval").getInteger("paper_crawler_interval_day");
+        return jsonObject.getJSONObject("interval").getInteger("task_period");
     }
-    //获取第二部分爬虫间隔
-    public static int getDetailCrawlerInterval() {
-        String filePath = getCfg().getString("allPapersFetch");
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = fileMapToJSONObject(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.getJSONObject("interval").getInteger("detail_crawler_interval_day");
-    }
-
-
 }

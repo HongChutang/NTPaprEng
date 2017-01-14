@@ -57,7 +57,7 @@ class StorableFetcher<F extends Followable> implements Runnable {
      */
     private void dispatch(final ExtractedObject extractedObject) {
         if (extractedObject instanceof Followable) {
-            creator.submit(new StorableFetcher<>(creator, consumer, (Link) extractedObject));
+             creator.submit(new StorableFetcher<>(creator, consumer, (Link) extractedObject));
         } else {
             consumer.submit(new StorableHandler<>((Storable) extractedObject));
         }
