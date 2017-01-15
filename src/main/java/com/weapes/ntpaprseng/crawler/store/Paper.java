@@ -190,10 +190,9 @@ public class Paper implements Storable {
                 long endTime = System.currentTimeMillis();//结束爬取的时间
                 long total = endTime - startTime;
                 String averageTime = Helper.getSeconds(total / getUrlNumbers().get());
-                DBLog.saveCrawlAverageTimeLog(averageTime, getUrlNumbers().get());//保存爬取的平均时间到数据库中
                 //保存爬取完成的总体情况数据到数据库中
                 DBLog.saveFinalCrawlLog(PaperLink.getStartTime(),getCrawlingSucceedNumbers().get(),
-                        getCrawlingFailedNumber().get(),getUrlNumbers().get());
+                        getCrawlingFailedNumber().get(),getUrlNumbers().get(),averageTime);
             }
             //更新爬取检查状态参数
             Helper.isFirstCrawl = false;

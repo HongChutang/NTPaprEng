@@ -24,37 +24,26 @@ public class DetailCrawler implements Crawler {
      * 生产者负责把Followable解析为Storable,
      * 消费者负责把Storable存储。
      */
-    private static final ScheduledExecutorService CREATOR =
-            Executors.newScheduledThreadPool(CREATOR_THREAD_NUM);
+    private static final ExecutorService CREATOR =
+            Executors.newFixedThreadPool(CREATOR_THREAD_NUM);
     private static final ExecutorService CONSUMER =
-            Executors.newScheduledThreadPool(CONSUMER_THREAD_NUM);
-
+            Executors.newFixedThreadPool(CONSUMER_THREAD_NUM);
 
     @Override
     public void crawl() {
-        try {
-            startTime=Helper.getCrawlTime();
-            startMillisecond=System.currentTimeMillis();
-            System.out.print("开始更新指标。系统时间： " + startTime + "\n");
-            System.out.print("本次待更新指标的论文总量为： " + Helper.getRefDataNum() + "\n");
-            Log.getUpdateTotalNumbers().set(Helper.getRefDataNum());
-            //更新指标时间间隔
-            final int interval_day = Helper.getDetailCrawlerInterval();
-            //启动后延迟时间为0，间隔为interval_day，时间单位为minute，调整参数可以改变线程执行策略
-            Helper.loadMetricsLinks().forEach(paper ->
-                    CREATOR.scheduleAtFixedRate(new StorableFetcher<>(CREATOR, CONSUMER, paper),
-                            0, interval_day, TimeUnit.MINUTES));
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            CREATOR.awaitTermination(3, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        startTime=Helper.getCrawlTime();
+        startMillisecond=System.currentTimeMillis();
+        System.out.print("开始更新指标。系统时间： " + startTime + "\n");
+        System.out.print("本次待更新指标的论文总量为： " + Helper.getRefDataNum() + "\n");
+        Log.getUpdateTotalNumbers().set(Helper.getRefDataNum());
+
+        Helper.loadMetricsLinks().forEach(paper ->
+                CREATOR.submit(new StorableFetcher<>(CREATOR, CONSUMER, paper)));
     }
+
     public static String getUpdateTime(){
         return startTime;
     }
     public static long getUpdateMillisecond(){return startMillisecond;}
 }
+

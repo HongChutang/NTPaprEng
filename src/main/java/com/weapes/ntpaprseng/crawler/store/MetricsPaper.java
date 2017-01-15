@@ -214,7 +214,6 @@ public class MetricsPaper implements Storable{
                     long endTime=System.currentTimeMillis();//结束更新的时间
                     long total=endTime-startTime;
                     String averageTime=Helper.getSeconds(total/getUrlNumbers().get());
-                    DBLog.saveUpdateAverageTimeLog(averageTime,getUrlNumbers().get());//保存更新的平均时间
                     //保存更新完成后的总体情况数据到数据库中
                     DBLog.saveFinalUpdateLog(DetailCrawler.getUpdateTime(),getUpdateSucceedNumbers().get(),
                             getUpdateFailedNumbers().get(),getUpdateTotalNumbers().get());

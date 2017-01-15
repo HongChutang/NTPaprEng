@@ -1,477 +1,246 @@
-2017-01-14 21:12:24,882 [com.weapes.ntpaprseng.crawler.util.Helper]:
+2017-01-15 11:07:24,964 [com.weapes.ntpaprseng.crawler.util.Helper]:
 INFO 开始加载种子...
-2017-01-14 21:12:25,110 [com.weapes.ntpaprseng.crawler.util.Helper]:
+2017-01-15 11:07:25,168 [com.weapes.ntpaprseng.crawler.util.Helper]:
 INFO 种子加载完成...
-2017-01-14 21:12:25,119 [com.weapes.ntpaprseng.crawler.crawler.PaperCrawler]:
+2017-01-15 11:07:25,178 [com.weapes.ntpaprseng.crawler.crawler.PaperCrawler]:
 INFO 种子分发完成...
-2017-01-14 21:12:27,570 [com.zaxxer.hikari.HikariDataSource]:
+2017-01-15 11:07:25,253 [com.zaxxer.hikari.HikariDataSource]:
 INFO HikariPool-1 - Started.
-2017-01-14 21:13:14,185 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第1篇
-链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20786.html
-2017-01-14 21:13:17,344 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第2篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20802.html
-2017-01-14 21:13:18,529 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第3篇
-链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature21034.html
-2017-01-14 21:13:19,864 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第4篇
-链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20781.html
-2017-01-14 21:13:20,930 [org.elasticsearch.plugins]:
-INFO [Jack Frost] modules [], plugins [], sites []
-2017-01-14 21:13:21,142 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第5篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21028.html
-2017-01-14 21:13:22,454 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第6篇
-链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21059.html
-2017-01-14 21:13:23,316 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第7篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20611.html
-2017-01-14 21:13:23,931 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:28,164 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第1篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20795.html
+2017-01-15 11:07:29,860 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第2篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20604.html
+2017-01-15 11:07:31,264 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第3篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21031.html
+2017-01-15 11:07:32,497 [org.elasticsearch.plugins]:
+INFO [Mr. M] modules [], plugins [], sites []
+2017-01-15 11:07:33,049 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第4篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20804.html
+2017-01-15 11:07:34,083 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第5篇
+链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21079.html
+2017-01-15 11:07:34,801 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第6篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20820.html
+2017-01-15 11:07:35,716 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第7篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21053.html
+2017-01-15 11:07:36,940 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第8篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20794.html
+2017-01-15 11:07:37,741 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有1篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20786.html
-2017-01-14 21:13:23,955 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20795.html
+2017-01-15 11:07:37,770 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:24,228 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:37,917 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第9篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20828.html
+2017-01-15 11:07:38,031 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有2篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20802.html
-2017-01-14 21:13:24,241 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20604.html
+2017-01-15 11:07:38,043 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:24,553 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:38,236 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有3篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature21034.html
-2017-01-14 21:13:24,565 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21031.html
+2017-01-15 11:07:38,250 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:24,702 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:38,526 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有4篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20781.html
-2017-01-14 21:13:24,713 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20804.html
+2017-01-15 11:07:38,539 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:24,844 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第8篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20772.html
-2017-01-14 21:13:24,878 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:38,889 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有5篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21028.html
-2017-01-14 21:13:24,889 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21079.html
+2017-01-15 11:07:38,902 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:25,024 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:39,062 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第10篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21032.html
+2017-01-15 11:07:39,071 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有6篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21059.html
-2017-01-14 21:13:25,035 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20820.html
+2017-01-15 11:07:39,084 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:25,209 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:39,290 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有7篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20611.html
-2017-01-14 21:13:25,220 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21053.html
+2017-01-15 11:07:39,305 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:26,430 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第9篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20812.html
-2017-01-14 21:13:26,669 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:39,480 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有8篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20772.html
-2017-01-14 21:13:26,691 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20794.html
+2017-01-15 11:07:39,519 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:27,811 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第10篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20771.html
-2017-01-14 21:13:27,999 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:39,734 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有9篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20812.html
-2017-01-14 21:13:28,022 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20828.html
+2017-01-15 11:07:39,752 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:29,229 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第11篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20784.html
-2017-01-14 21:13:29,820 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:40,162 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第11篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20787.html
+2017-01-15 11:07:40,980 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有10篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20771.html
-2017-01-14 21:13:29,865 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21032.html
+2017-01-15 11:07:41,003 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:30,503 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第12篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20790.html
-2017-01-14 21:13:30,862 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:41,101 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第12篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21036.html
+2017-01-15 11:07:41,378 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有11篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20784.html
-2017-01-14 21:13:30,956 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20787.html
+2017-01-15 11:07:41,391 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:31,659 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第13篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21022.html
-2017-01-14 21:13:31,973 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:42,318 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第13篇
+链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21078.html
+2017-01-15 11:07:42,623 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有12篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20790.html
-2017-01-14 21:13:31,995 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21036.html
+2017-01-15 11:07:42,647 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:33,082 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第14篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20610.html
-2017-01-14 21:13:33,290 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:42,977 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第14篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20799.html
+2017-01-15 11:07:43,150 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有13篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21022.html
-2017-01-14 21:13:33,311 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21078.html
+2017-01-15 11:07:43,173 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:34,780 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第15篇
-链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20793.html
-2017-01-14 21:13:35,057 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:43,798 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第15篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20815.html
+2017-01-15 11:07:44,374 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有14篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20610.html
-2017-01-14 21:13:35,079 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20799.html
+2017-01-15 11:07:44,397 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:36,843 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第16篇
-链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20811.html
-2017-01-14 21:13:37,393 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:44,991 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第16篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21048.html
+2017-01-15 11:07:45,214 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有15篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20793.html
-2017-01-14 21:13:37,416 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20815.html
+2017-01-15 11:07:45,241 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:38,649 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第17篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20594.html
-2017-01-14 21:13:39,861 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第18篇
-链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21040.html
-2017-01-14 21:13:39,866 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:45,958 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第17篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20829.html
+2017-01-15 11:07:46,480 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有16篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20811.html
-2017-01-14 21:13:39,891 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature21048.html
+2017-01-15 11:07:46,503 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:40,120 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:46,984 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第18篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20800.html
+2017-01-15 11:07:47,395 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有17篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20594.html
-2017-01-14 21:13:40,133 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20829.html
+2017-01-15 11:07:47,419 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:40,565 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第19篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20589.html
-2017-01-14 21:13:40,945 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:48,542 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第19篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20788.html
+2017-01-15 11:07:48,766 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有18篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature21040.html
-2017-01-14 21:13:40,966 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20800.html
+2017-01-15 11:07:48,789 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:41,817 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第20篇
-链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20798.html
-2017-01-14 21:13:42,000 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:51,222 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第20篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20813.html
+2017-01-15 11:07:51,506 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有19篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20589.html
-2017-01-14 21:13:42,021 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20788.html
+2017-01-15 11:07:51,529 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:42,822 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第21篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20576.html
-2017-01-14 21:13:43,059 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:52,626 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第21篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20814.html
+2017-01-15 11:07:52,815 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有20篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20798.html
-2017-01-14 21:13:43,081 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20813.html
+2017-01-15 11:07:52,838 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:44,448 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第22篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20595.html
-2017-01-14 21:13:44,627 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:53,664 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第22篇
+链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20797.html
+2017-01-15 11:07:53,961 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有21篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20576.html
-2017-01-14 21:13:44,649 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20814.html
+2017-01-15 11:07:53,984 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:46,294 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第23篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20600.html
-2017-01-14 21:13:46,542 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:54,855 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第23篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20792.html
+2017-01-15 11:07:55,080 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有22篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20595.html
-2017-01-14 21:13:46,569 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20797.html
+2017-01-15 11:07:55,114 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:47,571 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第24篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20608.html
-2017-01-14 21:13:47,829 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:56,837 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第24篇
+链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20782.html
+2017-01-15 11:07:57,075 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有23篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20600.html
-2017-01-14 21:13:47,850 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20792.html
+2017-01-15 11:07:57,099 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:48,795 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第25篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20785.html
-2017-01-14 21:13:49,001 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:58,384 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第25篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20805.html
+2017-01-15 11:07:58,639 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有24篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20608.html
-2017-01-14 21:13:49,022 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20782.html
+2017-01-15 11:07:58,661 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:50,327 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第26篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20609.html
-2017-01-14 21:13:50,879 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:07:59,719 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第26篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20779.html
+2017-01-15 11:07:59,896 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有25篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20785.html
-2017-01-14 21:13:50,900 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20805.html
+2017-01-15 11:07:59,920 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:52,115 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第27篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20775.html
-2017-01-14 21:13:52,343 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:08:00,676 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第27篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature21021.html
+2017-01-15 11:08:00,937 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有26篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20609.html
-2017-01-14 21:13:52,366 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20779.html
+2017-01-15 11:08:00,960 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:53,259 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第28篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20591.html
-2017-01-14 21:13:53,600 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:08:01,903 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第28篇
+链接为：http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20783.html
+2017-01-15 11:08:02,158 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有27篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20775.html
-2017-01-14 21:13:53,627 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature21021.html
+2017-01-15 11:08:02,187 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:54,945 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第29篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20601.html
-2017-01-14 21:13:55,123 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:08:02,921 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
+INFO 本次爬取论文29篇，正在爬取第29篇
+链接为：http://www.nature.com/nature/journal/v541/n7636/full/nature20806.html
+2017-01-15 11:08:03,246 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有28篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20591.html
-2017-01-14 21:13:55,154 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/vaop/ncurrent/full/nature20783.html
+2017-01-15 11:08:03,270 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:55,955 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第30篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20569.html
-2017-01-14 21:13:56,329 [com.weapes.ntpaprseng.crawler.store.Paper]:
+2017-01-15 11:08:04,154 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 当前共有29篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20601.html
-2017-01-14 21:13:56,351 [com.weapes.ntpaprseng.crawler.store.Paper]:
+链接为；http://www.nature.com/nature/journal/v541/n7636/full/nature20806.html
+2017-01-15 11:08:04,177 [com.weapes.ntpaprseng.crawler.store.Paper]:
 INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:57,073 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第31篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20572.html
-2017-01-14 21:13:57,666 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有30篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20569.html
-2017-01-14 21:13:57,694 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:13:58,994 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第32篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20582.html
-2017-01-14 21:14:00,011 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第33篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20597.html
-2017-01-14 21:14:00,081 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有31篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20572.html
-2017-01-14 21:14:00,318 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:00,639 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有32篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20582.html
-2017-01-14 21:14:00,656 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:01,573 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第34篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20791.html
-2017-01-14 21:14:01,786 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有33篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20597.html
-2017-01-14 21:14:01,825 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:04,378 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第35篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20602.html
-2017-01-14 21:14:04,660 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有34篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20791.html
-2017-01-14 21:14:04,688 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:05,797 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第36篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20147.html
-2017-01-14 21:14:06,017 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有35篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20602.html
-2017-01-14 21:14:06,039 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:07,682 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第37篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20606.html
-2017-01-14 21:14:07,962 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有36篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20147.html
-2017-01-14 21:14:07,983 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:11,172 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第38篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20587.html
-2017-01-14 21:14:11,405 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有37篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20606.html
-2017-01-14 21:14:11,427 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:12,556 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第39篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20593.html
-2017-01-14 21:14:12,788 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有38篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20587.html
-2017-01-14 21:14:12,815 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:14,709 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第40篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20584.html
-2017-01-14 21:14:14,885 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有39篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20593.html
-2017-01-14 21:14:14,907 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:16,220 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第41篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20570.html
-2017-01-14 21:14:16,427 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有40篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20584.html
-2017-01-14 21:14:16,449 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:17,866 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第42篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20598.html
-2017-01-14 21:14:18,047 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有41篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20570.html
-2017-01-14 21:14:18,071 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:19,644 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第43篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20146.html
-2017-01-14 21:14:19,946 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有42篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20598.html
-2017-01-14 21:14:19,969 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:21,059 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第44篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20567.html
-2017-01-14 21:14:21,236 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有43篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20146.html
-2017-01-14 21:14:21,259 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:23,466 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第45篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20571.html
-2017-01-14 21:14:23,778 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有44篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20567.html
-2017-01-14 21:14:23,799 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:25,346 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第46篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20605.html
-2017-01-14 21:14:25,708 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有45篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20571.html
-2017-01-14 21:14:25,728 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:27,676 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第47篇
-链接为：http://www.nature.com/nature/journal/v541/n7635/full/nature20789.html
-2017-01-14 21:14:27,911 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有46篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20605.html
-2017-01-14 21:14:27,933 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:28,911 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第48篇
-链接为：http://www.nature.com/nature/journal/v540/n7634/full/nature20614.html
-2017-01-14 21:14:29,463 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有47篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v541/n7635/full/nature20789.html
-2017-01-14 21:14:29,485 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:30,172 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第49篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20612.html
-2017-01-14 21:14:30,365 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有48篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7634/full/nature20614.html
-2017-01-14 21:14:30,390 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:31,528 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第50篇
-链接为：http://www.nature.com/nature/journal/v540/n7633/full/nature20590.html
-2017-01-14 21:14:31,745 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有49篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20612.html
-2017-01-14 21:14:31,766 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:33,527 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第51篇
-链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature20821.html
-2017-01-14 21:14:33,712 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有50篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7633/full/nature20590.html
-2017-01-14 21:14:33,734 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:34,683 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第52篇
-链接为：http://www.nature.com/nature/journal/vaap/ncurrent/full/nature20822.html
-2017-01-14 21:14:34,930 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有51篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature20821.html
-2017-01-14 21:14:34,952 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:36,117 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第53篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20592.html
-2017-01-14 21:14:36,618 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有52篇爬取成功...
-链接为；http://www.nature.com/nature/journal/vaap/ncurrent/full/nature20822.html
-2017-01-14 21:14:36,648 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:37,321 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第54篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20158.html
-2017-01-14 21:14:38,129 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有53篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20592.html
-2017-01-14 21:14:38,150 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:39,701 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第55篇
-链接为：http://www.nature.com/nature/journal/v540/n7631/full/nature20169.html
-2017-01-14 21:14:39,901 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有54篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20158.html
-2017-01-14 21:14:39,923 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:41,295 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第56篇
-链接为：http://www.nature.com/nature/journal/v540/n7631/full/nature20150.html
-2017-01-14 21:14:41,461 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有55篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7631/full/nature20169.html
-2017-01-14 21:14:41,483 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:42,688 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第57篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20607.html
-2017-01-14 21:14:42,898 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有56篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7631/full/nature20150.html
-2017-01-14 21:14:42,919 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:44,196 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第58篇
-链接为：http://www.nature.com/nature/journal/v540/n7631/full/nature20154.html
-2017-01-14 21:14:44,504 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有57篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7632/full/nature20607.html
-2017-01-14 21:14:44,526 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
-2017-01-14 21:14:45,772 [com.weapes.ntpaprseng.crawler.follow.PaperLink]:
-INFO 本次爬取论文857篇，正在爬取第59篇
-链接为：http://www.nature.com/nature/journal/v540/n7632/full/nature20575.html
-2017-01-14 21:14:46,002 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 当前共有58篇爬取成功...
-链接为；http://www.nature.com/nature/journal/v540/n7631/full/nature20154.html
-2017-01-14 21:14:46,031 [com.weapes.ntpaprseng.crawler.store.Paper]:
-INFO 爬取过程的具体日志保存成功
+2017-01-15 11:08:04,178 [com.weapes.ntpaprseng.crawler.store.Paper]:
+INFO 爬取完成，本次爬取论文总量：29 成功数：29 失败数：0
+2017-01-15 11:08:04,190 [com.weapes.ntpaprseng.crawler.store.Paper]:
+INFO 爬取过程的总体情况日志保存成功

@@ -23,8 +23,8 @@ public class DBLog {
                     "VALUES(?, ?, ?, ?, ?)";
     private static final String CRAWL_LOG =
             "INSERT INTO CrawlLog(" +
-                    "CrawlTime,"+"SuccessfulNumber,"+"FailedNumber"+ "TotalNumber)"+
-                  "VALUES(?, ?, ?, ?)";
+                    "CrawlTime,"+"SuccessfulNumber,"+"FailedNumber,"+ "TotalNumber,"+ "AverageTime)"+
+                  "VALUES(?, ?, ?, ?,?)";
     private static final String UPDATE_DETAIL_LOG =
             "INSERT INTO UpdateDetailLog(" + "URL," + "ArticlePosition," + "TotalNumber," +"IsSuccessful,"+
                     "UpdateTime)" + "VALUES(?, ?, ?, ?, ?)";
@@ -62,7 +62,7 @@ public class DBLog {
             e.printStackTrace();
         }
     }
-    public static void saveFinalCrawlLog(String crawlTime,int successfulNumber,int failedNumber, int totalNumber) {
+    public static void saveFinalCrawlLog(String crawlTime,int successfulNumber,int failedNumber, int totalNumber,String average) {
         final HikariDataSource mysqlDataSource =
                 DataSource.getMysqlDataSource();
         // 从DB连接池得到连接
@@ -74,14 +74,17 @@ public class DBLog {
                 preparedStatement.setInt(2, successfulNumber);
                 preparedStatement.setInt(3, failedNumber);
                 preparedStatement.setInt(4, totalNumber);
+                preparedStatement.setString(5, average);
                 if (preparedStatement.executeUpdate() != 0) {
                     LOGGER.info("爬取过程的总体情况日志保存成功");
                 } else {
                     LOGGER.info("爬取过程的总体情况日志保存失败");
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     public static void saveUpdateDetailLog(String url, int currentPosition, int totalNumber, boolean isSuccessful,String updateTime) {
@@ -126,44 +129,6 @@ public class DBLog {
                     LOGGER.info("更新过程的总体情况日志保存成功");
                 } else {
                     LOGGER.info("更新过程的总体情况日志保存失败");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void saveCrawlAverageTimeLog(String averageTime,int totalNumber){
-        final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
-        try(final Connection connection = mysqlDataSource.getConnection()){
-            try {
-                final PreparedStatement preparedStatement = connection.prepareStatement(CRAWL_AVERAGE_TIME_LOG + totalNumber);
-                preparedStatement.setString(1, averageTime);
-                boolean Successful = preparedStatement.executeUpdate() != 0;
-                if (Successful) {
-                    LOGGER.info("更新数据库的平均爬取时间成功");
-                } else {
-                    LOGGER.info("更新数据库的平均爬取时间失败");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void saveUpdateAverageTimeLog(String averageTime,int totalNumber){
-        final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
-        try(final Connection connection = mysqlDataSource.getConnection()){
-            try {
-                final PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_AVERAGE_TIME_LOG + totalNumber);
-                preparedStatement.setString(1, averageTime);
-                boolean Successful = preparedStatement.executeUpdate() != 0;
-                if (Successful) {
-                    LOGGER.info("更新数据库平均爬取时间成功");
-                } else {
-                    LOGGER.info("更新数据库平均爬取时间失败");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
