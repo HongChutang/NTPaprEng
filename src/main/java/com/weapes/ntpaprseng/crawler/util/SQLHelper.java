@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * Created by  不一样的天空  on 2016/8/30.
  */
-public class CreateSQL {
+public class SQLHelper {
     // 通过URL来更新REF_DATA表
     private static final String REF_UPDATE_SQL =
             "UPDATE REF_DATA SET "+" UpdateTime = ?, "+"PageViews = ?, " + "WebOfScience = ?, " +
@@ -38,14 +38,14 @@ public class CreateSQL {
     private static String CHANGE_UPDATE_TIME_SQL="INSERT INTO Time(times,date)"+"VALUES(?, ?)";
     private static String TIME=getUpdateTime();//从数据库中获取的第几次爬取的值
     public static  String getRefUpdateSQL(){
-        return REF_UPDATE_SQL;
+            return REF_UPDATE_SQL;
     }
     public static String getNtPapersInsertSQL(){
         return NT_PAPERS_INSERT_SQL;
     }
 
     public static String getRefInsertSQL(){
-        return REF_INSERT_SQL;
+            return REF_INSERT_SQL;
     }
 
     private static String getChangeUpdateTime(){
@@ -58,9 +58,9 @@ public class CreateSQL {
             final Connection connection = mysqlDataSource.getConnection();
             final PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TIME_SQL);
             ResultSet resultSet=preparedStatement.executeQuery();
-            while (resultSet.next()){
-                time=resultSet.getString(1);
-            }
+             while (resultSet.next()){
+                 time=resultSet.getString(1);
+             }
             System.out.println("当前是第"+time+"次爬取");
             return time;
         } catch (SQLException e) {
@@ -77,9 +77,9 @@ public class CreateSQL {
             preparedStatement.setString(1,getChangeUpdateTime());
             preparedStatement.setString(2,Helper.getCrawlTime());
             boolean isSuccessful=preparedStatement.executeUpdate()!=0;
-            if (isSuccessful){
+           if (isSuccessful){
                 System.out.println("成功更新爬取次数");
-            }
+           }
             return isSuccessful;
         } catch (SQLException e) {
             e.printStackTrace();

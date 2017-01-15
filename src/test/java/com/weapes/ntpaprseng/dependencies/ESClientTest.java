@@ -1,10 +1,6 @@
 package com.weapes.ntpaprseng.dependencies;
 
-import com.weapes.ntpaprseng.crawler.search.ESClient;
-import com.weapes.ntpaprseng.crawler.util.UpdateTimeFormat;
 import org.junit.Test;
-
-import java.util.Random;
 
 /**
  * Created by 不一样的天空 on 2016/11/2.

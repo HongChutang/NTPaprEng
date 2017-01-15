@@ -1,14 +1,13 @@
 package com.weapes.ntpaprseng.crawler.store;
 
 import com.weapes.ntpaprseng.crawler.crawler.DetailCrawler;
-import com.weapes.ntpaprseng.crawler.follow.PaperLink;
-import com.weapes.ntpaprseng.crawler.log.CrawlLog;
+import com.weapes.ntpaprseng.crawler.log.DBLog;
 import com.weapes.ntpaprseng.crawler.log.Log;
-import com.weapes.ntpaprseng.crawler.log.UpdateLog;
 import com.weapes.ntpaprseng.crawler.search.ESClient;
-import com.weapes.ntpaprseng.crawler.util.CreateSQL;
+import com.weapes.ntpaprseng.crawler.util.SQLHelper;
+import com.weapes.ntpaprseng.crawler.util.FormatHelper;
 import com.weapes.ntpaprseng.crawler.util.Helper;
-import com.weapes.ntpaprseng.crawler.util.UpdateTimeFormat;
+import com.weapes.ntpaprseng.crawler.util.TimeFormatter;
 import com.zaxxer.hikari.HikariDataSource;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.*;
@@ -32,7 +30,7 @@ public class MetricsPaper implements Storable{
     private static final Logger LOGGER =
             getLogger(Paper.class);
     //更新REF_DATA表的sql语句
-    private String REF_UPDATE_SQL = CreateSQL.getRefUpdateSQL();
+    private String REF_UPDATE_SQL = SQLHelper.getRefUpdateSQL();
 
     private final String url;
     private final int pageViews;
@@ -180,10 +178,9 @@ public class MetricsPaper implements Storable{
     @Override
     public boolean store() {
         System.out.println("Store begin: type = MetricsPaper.");
-        LOGGER.info("本次更新论文" + Log.getTotalUpdateNumbers().get() + "篇，"
+        LOGGER.info("本次更新论文" + Log.getUpdateTotalNumbers().get() + "篇，"
                 + "正在更新第" + Log.getCurrentUpdateNumbers().incrementAndGet() + "篇\n"
                 + "链接为：" + getUrl());
-        UpdateLog.executeInsertLogSQL(getUrl(),getTotalUpdateNumbers().get(),getCurrentUpdateNumbers().get(),Helper.getUpdateTime());
         final HikariDataSource mysqlDataSource = DataSource.getMysqlDataSource();
         // 加上选择条件 URL
         REF_UPDATE_SQL = REF_UPDATE_SQL + "'" + getUrl() + "'";
@@ -195,34 +192,38 @@ public class MetricsPaper implements Storable{
                 if (succeed) {
                     LOGGER.info("当前共有" + getUpdateSucceedNumbers().incrementAndGet() + "篇论文相关指标更新成功...\n"
                             + "链接为；" + getUrl());
-                    UpdateLog.executeUpdateLogSQL(1,getUpdateSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
                 }else {
                     LOGGER.info("当前共有" + getUpdateFailedNumbers().incrementAndGet() + "篇论文相关指标更新失败...\n"
                             + "链接为；" + getUrl());
-                    UpdateLog.executeUpdateLogSQL(0,getUpdateSucceedNumbers().get(),getCrawlingFailedNumber().get(),getUrl());
                 }
-
-               boolean isSuccess= updateRefDataIntoES();//更新论文指标到ElasticSearch中的REF_DATA
+                boolean isSuccess= updateRefDataIntoES();//更新论文指标到ElasticSearch中的REF_DATA
                 if (!isSuccess){
-                    System.out.println("更新论文指标到ElasticSearch中的REF_DATA失败");
+                    LOGGER.info("更新论文指标到ElasticSearch中的REF_DATA失败");
+                }else {
+                    LOGGER.info("更新论文指标到ElasticSearch中的REF_DATA成功");
                 }
+                //保存更新的具体数据到数据库中
+                DBLog.saveUpdateDetailLog(getUrl(),getCurrentUpdateNumbers().get(),getUpdateTotalNumbers().get(),succeed,
+                        DetailCrawler.getUpdateTime());
 
-                if (getCurrentUpdateNumbers().get() == getTotalUpdateNumbers().get()) {
-                    LOGGER.info("更新完成，本次更新相关指标论文总量：" +getTotalUpdateNumbers().get()
+                if (getCurrentUpdateNumbers().get() == getUpdateTotalNumbers().get()) {
+                    LOGGER.info("更新完成，本次更新相关指标论文总量：" +getUpdateTotalNumbers().get()
                             + " 成功数：" + getUpdateSucceedNumbers().get()
                             + " 失败数：" + getUpdateFailedNumbers());
-                    long startTime= PaperLink.getStartTime();//开始爬取的时间
-                    long endTime=System.currentTimeMillis();//结束爬取的时间
+                    long startTime= DetailCrawler.getUpdateMillisecond();//开始更新的时间
+                    long endTime=System.currentTimeMillis();//结束更新的时间
                     long total=endTime-startTime;
                     String averageTime=Helper.getSeconds(total/getUrlNumbers().get());
-                    UpdateLog.executeUpdateAverageTimeSQL(averageTime,getUrlNumbers().get());
+                    DBLog.saveUpdateAverageTimeLog(averageTime,getUrlNumbers().get());//保存更新的平均时间
+                    //保存更新完成后的总体情况数据到数据库中
+                    DBLog.saveFinalUpdateLog(DetailCrawler.getUpdateTime(),getUpdateSucceedNumbers().get(),
+                            getUpdateFailedNumbers().get(),getUpdateTotalNumbers().get());
                 }
                 return succeed;
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -253,14 +254,15 @@ public class MetricsPaper implements Storable{
 
     public boolean updateRefDataIntoES(){
         XContentBuilder json=null;
-        UpdateTimeFormat format = new UpdateTimeFormat( DetailCrawler.getUpdateTime());
+        FormatHelper formatHelper=new FormatHelper();
+        TimeFormatter formatter=formatHelper.formatUpdateTime(DetailCrawler.getUpdateTime());
         try {
             json=jsonBuilder().startObject()
                     .field("URL",getUrl())
                     .field("UpdateTime", DetailCrawler.getUpdateTime())
-                    .field("Year", format.getYear())
-                    .field("Month", format.getMonth())
-                    .field("Day", format.getDay())
+                    .field("Year", formatter.getYear())
+                    .field("Month", formatter.getMonth())
+                    .field("Day", formatter.getDay())
                     .field("Page_views",getPageViews())
                     .field("Web_Of_Science",getWebOfScience())
                     .field("CrossRef",getCrossRef())

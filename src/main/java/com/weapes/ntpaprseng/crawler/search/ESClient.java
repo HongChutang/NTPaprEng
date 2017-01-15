@@ -8,22 +8,14 @@ package com.weapes.ntpaprseng.crawler.search;
 //import java.net.InetAddress;
 //import java.net.UnknownHostException;
 
-import com.weapes.ntpaprseng.crawler.util.Helper;
-import com.weapes.ntpaprseng.crawler.util.PublishTimeFormat;
-import com.weapes.ntpaprseng.crawler.util.UpdateTimeFormat;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
