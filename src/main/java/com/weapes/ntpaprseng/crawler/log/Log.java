@@ -16,7 +16,7 @@ public class Log {
     private static final AtomicInteger CRAWLING_FAILED_NUMBER = new AtomicInteger();
 
     //单次更新指标论文总量
-    private static AtomicInteger TOTAL_UPDATE_NUMBERS = new AtomicInteger();
+    private static AtomicInteger UPDATE_TOTAL_NUMBERS = new AtomicInteger();
     //目前正在更新的第几篇论文
     private static final AtomicInteger  CURRENT_UPDATE_NUMBERS= new AtomicInteger();
     //单次当前更新成功数量
@@ -50,8 +50,8 @@ public class Log {
         return CRAWLING_FAILED_NUMBER;
     }
 
-    public static AtomicInteger getTotalUpdateNumbers() {
-        return TOTAL_UPDATE_NUMBERS;
+    public static AtomicInteger getUpdateTotalNumbers() {
+        return UPDATE_TOTAL_NUMBERS;
     }
 
     public static AtomicInteger getCurrentUpdateNumbers() {

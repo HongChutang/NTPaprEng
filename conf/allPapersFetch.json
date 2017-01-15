@@ -1,8 +1,8 @@
 {
 
   "first_range": {
-    "begin": 2015,
-    "end": 2015
+    "begin": 2017,
+    "end": 2017
   },
 
   "article_type": "research",
@@ -12,8 +12,7 @@
   ],
 
   "interval": {
-    "paper_crawler_interval_day": 20,
-    "detail_crawler_interval_day": 10
+    "task_period": 20
   },
 
   "order": "date_desc"

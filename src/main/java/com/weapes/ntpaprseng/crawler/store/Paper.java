@@ -1,13 +1,13 @@
 package com.weapes.ntpaprseng.crawler.store;
 
-import com.weapes.ntpaprseng.crawler.crawler.DetailCrawler;
 import com.weapes.ntpaprseng.crawler.follow.PaperLink;
-import com.weapes.ntpaprseng.crawler.log.CrawlLog;
+import com.weapes.ntpaprseng.crawler.log.DBLog;
+import com.weapes.ntpaprseng.crawler.log.Log;
 import com.weapes.ntpaprseng.crawler.search.ESClient;
-import com.weapes.ntpaprseng.crawler.util.CreateSQL;
+import com.weapes.ntpaprseng.crawler.util.SQLHelper;
+import com.weapes.ntpaprseng.crawler.util.FormatHelper;
 import com.weapes.ntpaprseng.crawler.util.Helper;
-import com.weapes.ntpaprseng.crawler.util.PublishTimeFormat;
-import com.weapes.ntpaprseng.crawler.util.UpdateTimeFormat;
+import com.weapes.ntpaprseng.crawler.util.TimeFormatter;
 import com.zaxxer.hikari.HikariDataSource;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.slf4j.Logger;
@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.weapes.ntpaprseng.crawler.log.Log.*;
 import static com.weapes.ntpaprseng.crawler.util.Helper.*;
@@ -34,10 +32,10 @@ public class Paper implements Storable {
     private static final Logger LOGGER =
             getLogger(Paper.class);
 
-    private static final String NT_PAPERS_INSERT_SQL = CreateSQL.getNtPapersInsertSQL();
+    private static final String NT_PAPERS_INSERT_SQL = SQLHelper.getNtPapersInsertSQL();
 
 
-    final String REF_INSERT_SQL = CreateSQL.getRefInsertSQL();
+    final String REF_INSERT_SQL = SQLHelper.getRefInsertSQL();
 
 
     private final List<String> authors;
@@ -165,7 +163,7 @@ public class Paper implements Storable {
             }
             boolean isSuccess = putNTPaperIntoES();//保存论文信息到ES中
             if (!isSuccess) {
-                System.out.print("保存论文信息到ElasticSearch中的NT_PAPER失败");
+                System.out.println("保存论文信息到ElasticSearch中的NT_PAPER失败");
             }
             try {
                 final PreparedStatement refPreparedStatement =
@@ -174,37 +172,35 @@ public class Paper implements Storable {
                 System.out.println("store metrix url to  REF_DATA");
                 refPreparedStatement.executeUpdate();
             } catch (SQLException e) {
+                e.printStackTrace();
             }
-            isSuccess = putRefDataIntoES();//保存论文信息到ES中
-            if (!isSuccess) {
-                System.out.print("保存论文信息到ElasticSearch中的REF_DATA失败");
-            }
-            if (isSucceed) {
+          if (isSucceed) {
                 LOGGER.info("当前共有" + getCrawlingSucceedNumbers().incrementAndGet() + "篇爬取成功...\n"
                         + "链接为；" + getUrl());
-                CrawlLog.executeUpdateLogSQL(1, getCrawlingSucceedNumbers().get(), getCrawlingFailedNumber().get(), getUrl());
             } else {
                 LOGGER.info("当前共有" + getCrawlingFailedNumber().incrementAndGet() + "篇爬取失败...\n"
                         + "链接为；" + getUrl());
-                CrawlLog.executeUpdateLogSQL(0, getCrawlingSucceedNumbers().get(), getCrawlingFailedNumber().get(), getUrl());
             }
+            DBLog.saveCrawlDetailLog(getUrl(), Log.getCrawlingNumbers().get(),Log.getUrlNumbers().get(),isSucceed,Helper.getCrawlTime());
             if (getLastLink().equals(getUrl())) {
                 LOGGER.info("爬取完成，本次爬取论文总量：" + getUrlNumbers().get()
                         + " 成功数：" + getCrawlingSucceedNumbers().get()
                         + " 失败数：" + getCrawlingFailedNumber().get());
-                long startTime = PaperLink.getStartTime();//开始爬取的时间
+                long startTime = PaperLink.getStartMillisecond();//开始爬取的时间
                 long endTime = System.currentTimeMillis();//结束爬取的时间
                 long total = endTime - startTime;
                 String averageTime = Helper.getSeconds(total / getUrlNumbers().get());
-                CrawlLog.executeUpdateAverageTimeSQL(averageTime, getUrlNumbers().get());
+                //保存爬取完成的总体情况数据到数据库中
+                DBLog.saveFinalCrawlLog(PaperLink.getStartTime(),getCrawlingSucceedNumbers().get(),
+                        getCrawlingFailedNumber().get(),getUrlNumbers().get(),averageTime);
             }
-
             //更新爬取检查状态参数
             Helper.isFirstCrawl = false;
             isDesided = false;
             isFirstPaperLink = true;
             return isSucceed;
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -230,7 +226,8 @@ public class Paper implements Storable {
 
     private boolean putNTPaperIntoES() {
         XContentBuilder json = null;
-        PublishTimeFormat publishTimeFormat = new PublishTimeFormat(getPublishTime());
+        FormatHelper formatHelper=new FormatHelper();
+        TimeFormatter formatter=formatHelper.formatPublishTime(getPublishTime());
         try {
             json = jsonBuilder().startObject()
                     .field("URL", getUrl())
@@ -246,9 +243,9 @@ public class Paper implements Storable {
                     .field("PageEnd", getPageEnd())
                     .field("Affiliation", getAffiliation())
                     .field("CrawlTime", getCrawlTime())
-                    .field("Year", publishTimeFormat.getYear())
-                    .field("Month", publishTimeFormat.getMonth())
-                    .field("Day", publishTimeFormat.getDay())
+                    .field("Year", formatter.getYear())
+                    .field("Month", formatter.getMonth())
+                    .field("Day", formatter.getDay())
                     .field("PublishTime", getPublishTime()).endObject();
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,14 +281,15 @@ public class Paper implements Storable {
 
     private boolean putRefDataIntoES() {
         XContentBuilder json = null;
-        UpdateTimeFormat format = new UpdateTimeFormat(Helper.getUpdateTime());
+        FormatHelper formatHelper=new FormatHelper();
+        TimeFormatter formatter=formatHelper.formatUpdateTime(Helper.getUpdateTime());
         try {
             json = jsonBuilder().startObject()
                     .field("URL", getMetricsUrl())
                     .field("UpdateTime", Helper.getUpdateTime())
-                    .field("Year", format.getYear())
-                    .field("Month", format.getMonth())
-                    .field("Day", format.getDay())
+                    .field("Year", formatter.getYear())
+                    .field("Month", formatter.getMonth())
+                    .field("Day", formatter.getDay())
                     .field("Page_views", 0)
                     .field("Web_Of_Science", 0)
                     .field("CrossRef", 0)
